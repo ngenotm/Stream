@@ -1,10 +1,14 @@
-import { LeftArrowSvg, PlaySvg, RightArrowSvg } from "@/assets/Svgs";
+import { GameConsoleSvg, LabtopSvg, LaptopSvg, LeftArrowSvg, MinusSvg, PlaySvg, RightArrowSvg, SmartPhoneSvg, SmartTvSvg, TabletSvg, VrHeadsetSvg } from "@/assets/Svgs";
 
 export default function Home() {
   return (
     <>
 
       <div className="w-full h-screen relative">
+        <div
+          className="absolute w-full h-[5px] top-0 right-0
+          3xl:bg-slate-500 2xl:bg-amber-400 xl:bg-stone-600 lg:bg-c-red-50 md:bg-orange-500 sm:bg-violet-500 bg-teal-400
+        "></div>
         <img src="/images/header-banner-white.jpg" alt="streamVibe" className="w-full h-full object-cover" />
         <div className="w-full h-[10vh] bg-gradient-to-t from-c-black to-c-black/0 absolute bottom-0"></div>
       </div>
@@ -28,7 +32,7 @@ export default function Home() {
         <div className="flex items-end mb-12">
 
           <div className="flex-1">
-            <h3 className="text-white font-semibold text-2.5xl mb-3">We Provide you streaming experience across various devices.</h3>
+            <h3 className="text-white font-semibold text-2.5xl mb-3">Explore our wide variety of categories</h3>
             <p className="text-c-grey-60 text-sm">
               Whether you're looking for a comedy to make you laugh, a drama to make you think, or a documentary to learn something new
             </p>
@@ -92,6 +96,131 @@ export default function Home() {
         </div>
 
       </section>
+
+      <section className="container mt-20">
+
+        <h3 className="text-white font-medium text-2.5xl mb-3">We Provide you streaming experience across various devices.</h3>
+        <p className="text-c-grey-60 text-sm">
+          With StreamVibe, you can enjoy your favorite movies and TV shows anytime, anywhere. Our platform is designed to be compatible with a wide range of devices, ensuring that you never miss a moment of entertainment.
+        </p>
+
+        <div className="grid xl:grid-cols-3 md:grid-cols-2 xl:gap-8 md:gap-6 gap-4 mt-8">
+
+          {/*//! Single Item */}
+          <div className="rounded-lg border border-c-black-15 bg-c-black-06 relative -z-10 px-5 py-5">
+            <div className="absolute rounded-lg w-full h-full top-0 right-0 bg-gradient-to-bl from-c-red-45/10 to-c-black-08 to-60% -z-10" />
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-c-black-08 border border-c-black-12 flex justify-center items-center"><SmartPhoneSvg /></div>
+              <h5 className="text-white font-semibold">Smartphones</h5>
+            </div>
+            <p className="text-c-grey-60 xl:text-super-sm md:text-sm text-super-xs mt-3">
+              StreamVibe is optimized for both Android and iOS smartphones. Download our app from the Google Play Store or the Apple App Store
+            </p>
+          </div>
+
+          {/*//! Single Item */}
+          <div className="rounded-lg border border-c-black-15 bg-c-black-06 relative -z-10 px-5 py-5">
+            <div className="absolute rounded-lg w-full h-full top-0 right-0 bg-gradient-to-bl from-c-red-45/10 to-c-black-08 to-60% -z-10" />
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-c-black-08 border border-c-black-12 flex justify-center items-center"><SmartTvSvg /></div>
+              <h5 className="text-white font-semibold">Smart TV</h5>
+            </div>
+            <p className="text-c-grey-60 xl:text-super-sm md:text-sm text-super-xs mt-3">
+              StreamVibe is optimized for both Android and iOS smartphones. Download our app from the Google Play Store or the Apple App Store            </p>
+          </div>
+
+          {/*//! Single Item */}
+          <div className="rounded-lg border border-c-black-15 bg-c-black-06 relative -z-10 px-5 py-5">
+            <div className="absolute rounded-lg w-full h-full top-0 right-0 bg-gradient-to-bl from-c-red-45/10 to-c-black-08 to-60% -z-10" />
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-c-black-08 border border-c-black-12 flex justify-center items-center"><TabletSvg /></div>
+              <h5 className="text-white font-semibold">Tablet</h5>
+            </div>
+            <p className="text-c-grey-60 xl:text-super-sm md:text-sm text-super-xs mt-3">
+              StreamVibe is optimized for both Android and iOS smartphones. Download our app from the Google Play Store or the Apple App Store
+            </p>
+          </div>
+
+          {/*//! Single Item */}
+          <div className="rounded-lg border border-c-black-15 bg-c-black-06 relative -z-10 px-5 py-5">
+            <div className="absolute rounded-lg w-full h-full top-0 right-0 bg-gradient-to-bl from-c-red-45/10 to-c-black-08 to-60% -z-10" />
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-c-black-08 border border-c-black-12 flex justify-center items-center"><LaptopSvg /></div>
+              <h5 className="text-white font-semibold">Laptops</h5>
+            </div>
+            <p className="text-c-grey-60 xl:text-super-sm md:text-sm text-super-xs mt-3">
+              StreamVibe is optimized for both Android and iOS smartphones. Download our app from the Google Play Store or the Apple App Store
+            </p>
+          </div>
+          {/*//! Single Item */}
+          <div className="rounded-lg border border-c-black-15 bg-c-black-06 relative -z-10 px-5 py-5">
+            <div className="absolute rounded-lg w-full h-full top-0 right-0 bg-gradient-to-bl from-c-red-45/10 to-c-black-08 to-60% -z-10" />
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-c-black-08 border border-c-black-12 flex justify-center items-center"><GameConsoleSvg /></div>
+              <h5 className="text-white font-semibold">Gaming Consoles</h5>
+            </div>
+            <p className="text-c-grey-60 xl:text-super-sm md:text-sm text-super-xs mt-3">
+              StreamVibe is optimized for both Android and iOS smartphones. Download our app from the Google Play Store or the Apple App Store
+            </p>
+          </div>
+          {/*//! Single Item */}
+          <div className="rounded-lg border border-c-black-15 bg-c-black-06 relative -z-10 px-5 py-5">
+            <div className="absolute rounded-lg w-full h-full top-0 right-0 bg-gradient-to-bl from-c-red-45/10 to-c-black-08 to-60% -z-10" />
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-c-black-08 border border-c-black-12 flex justify-center items-center"><VrHeadsetSvg /></div>
+              <h5 className="text-white font-semibold">VR Headsets</h5>
+            </div>
+            <p className="text-c-grey-60 xl:text-super-sm md:text-sm text-super-xs mt-3">
+              StreamVibe is optimized for both Android and iOS smartphones. Download our app from the Google Play Store or the Apple App Store
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section className="container mt-16 mb-40">
+        {/* //? Content Header */}
+        <div className="flex items-end gap-6">
+          <div className="flex-1">
+            <h3 className="text-white font-medium text-2.5xl mb-3">Frequently Asked Questions</h3>
+            <p className="text-c-grey-60 text-sm">
+              Got questions? We've got answers! Check out our FAQ section to find answers to the most common questions about StreamVibe.
+            </p>
+          </div>
+          <button className="bg-c-red-45 text-white text-super-sm py-2 px-5 rounded-md">Ask a Question</button>
+        </div>
+
+
+        {/* //! Main Content  */}
+        <div className="grid md:grid-cols-2 gap-x-10 mt-8">
+
+          {/*//TODO Single Item */}
+          <div>
+            <div className="flex items-center justify-between gap-3.5 mb-5">
+
+              <div className="w-10 h-10 rounded-lg bg-c-black-12 border border-c-black-15 flex items-center justify-center text-white font-semibold"> 01</div>
+
+              <div className="flex flex-1 flex-col justify-center items-start">
+                <h6 className="text-white/85 lg:text-super-sm text-sm">What is StreamVibe?</h6>
+              </div>
+              <div><MinusSvg /></div>
+
+            </div>
+            <div className="w-full h-[1px] bg-gradient-to-r from-c-red-45/0 via-c-red-45/60 to-c-red-45/0"></div>
+          </div>
+
+        </div>
+
+      </section >
+
 
     </>
   );
