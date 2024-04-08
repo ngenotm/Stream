@@ -1,8 +1,20 @@
-import { GameConsoleSvg, LabtopSvg, LaptopSvg, LeftArrowSvg, MinusSvg, PlaySvg, RightArrowSvg, SmartPhoneSvg, SmartTvSvg, TabletSvg, VrHeadsetSvg } from "@/assets/Svgs";
+import { BellSvg, FacebookSvg, GameConsoleSvg, LabtopSvg, LaptopSvg, LeftArrowSvg, LinkdinSvg, LinkedinSvg, MinusSvg, PlaySvg, RightArrowSvg, SearchSvg, SmartPhoneSvg, SmartTvSvg, TabletSvg, TwitterSvg, VrHeadsetSvg } from "@/assets/Svgs";
 
 export default function Home() {
   return (
     <>
+
+      <header className="container flex items-center justify-between">
+
+        <img src="/images/logo-white.png" alt="StreamVibe" />
+
+        <div></div>
+        <div>
+          <button className="focus:outline-none focus:border-none mx-2.5"><SearchSvg /></button>
+          <button className="focus:outline-none focus:border-none mx-2.5"><BellSvg /></button>
+        </div>
+
+      </header>
 
       <div className="w-full h-screen relative">
         <div
@@ -186,7 +198,7 @@ export default function Home() {
       </section>
 
 
-      <section className="container mt-16 mb-40">
+      <section className="container mt-16">
         {/* //? Content Header */}
         <div className="flex items-end gap-6">
           <div className="flex-1">
@@ -219,7 +231,192 @@ export default function Home() {
 
         </div>
 
-      </section >
+      </section>
+
+
+      <section className="container py-16">
+        {/* //? Content Header */}
+        <div className="flex items-end gap-6">
+          <div className="flex-1">
+            <h3 className="text-white font-medium text-2.5xl mb-3">Choose the plan that's right for you</h3>
+            <p className="text-c-grey-60 text-sm">
+              Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!
+            </p>
+          </div>
+          <div className="flex bg-c-black-06 bordre border-c-black-15 p-1.5 rounded-xl text-super-sm">
+            <button className="bg-c-black-12 text-white px-4 py-1.5 rounded-md">Monthly</button>
+            <button className="text-c-grey-60 px-4 py-1.5 rounded-md">Yearly</button>
+          </div>
+        </div>
+
+
+        {/*//! Main Content */}
+        <div className="grid grid-cols-3 gap-4 mt-8">
+
+          {/*//TODO Single Item */}
+          <div className="bg-c-black-10 border border-c-black-15 px-6 py-4 rounded-lg">
+            <h6 className="text-white font-bold text-super-base mb-2">Basic Plan</h6>
+            <p className="text-c-grey-60 text-sm mb-5">
+              Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.
+            </p>
+
+            <p className="">
+              <span className="text-white font-semibold text-xl">$9.99</span> <span className="text-c-grey-60 text-sm">/month</span>
+            </p>
+
+            <div className="flex items-center gap-4 mt-6 text-white text-super-xs">
+              <button className="bg-c-black-08 flex-1 border border-c-black-15 py-2 px-3.5 rounded">Start Free Trial</button>
+              <button className="bg-c-red-45 flex-1 py-2 px-3.5 rounded">Choose Plan</button>
+            </div>
+          </div>
+
+          {/*//TODO Single Item */}
+          <div className="bg-c-black-10 border border-c-black-15 px-6 py-4 rounded-lg">
+            <h6 className="text-white font-bold text-super-base mb-2">Standard Plan</h6>
+            <p className="text-c-grey-60 text-sm mb-5">
+              Access to a wider selection of movies and shows, including most new releases and exclusive content
+            </p>
+
+            <p className="">
+              <span className="text-white font-semibold text-xl">$12.99</span> <span className="text-c-grey-60 text-sm">/month</span>
+            </p>
+
+            <div className="flex items-center gap-4 mt-6 text-white text-super-xs">
+              <button className="bg-c-black-08 flex-1 border border-c-black-15 py-2 px-3.5 rounded">Start Free Trial</button>
+              <button className="bg-c-red-45 flex-1 py-2 px-3.5 rounded">Choose Plan</button>
+            </div>
+          </div>
+
+          {/*//TODO Single Item */}
+          <div className="bg-c-black-10 border border-c-black-15 px-6 py-4 rounded-lg">
+            <h6 className="text-white font-bold text-super-base mb-2">Premium Plan</h6>
+            <p className="text-c-grey-60 text-sm mb-5">
+              Access to a widest selection of movies and shows, including all new releases and Offline Viewing
+            </p>
+
+            <p className="">
+              <span className="text-white font-semibold text-xl">$14.99</span> <span className="text-c-grey-60 text-sm">/month</span>
+            </p>
+
+            <div className="flex items-center gap-4 mt-6 text-white text-super-xs">
+              <button className="bg-c-black-08 flex-1 border border-c-black-15 py-2 px-3.5 rounded">Start Free Trial</button>
+              <button className="bg-c-red-45 flex-1 py-2 px-3.5 rounded">Choose Plan</button>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section className="container py-20">
+        <div className="w-full rounded-xl border border-gray-500/20 py-20 px-10 flex items-center gap-4 bg-red-400"
+          style={{ backgroundImage: "url(/images/subscription-box-image.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}
+        >
+          <div className="flex-1">
+            <h5 className="text-white font-semibold text-3xl mb-5">Start your free trial today!</h5>
+            <p className="text-c-grey-60 text-sm">
+              This is a clear and concise call to action that encourages users to sign up for a free trial of StreamVibe.
+            </p>
+          </div>
+          <button className="bg-c-red-45 text-white rounded-md py-2.5 px-4">Start a Free Trial</button>
+        </div>
+      </section>
+
+
+
+
+
+      <footer className="bg-c-black-06">
+        <div className="container py-8">
+
+          <div className="flex items-start justify-between mt-6 mb-16">
+
+            {/*//! Single Item */}
+            <div>
+              <p className="text-white font-semibold mb-3.5">Home</p>
+
+              <ul className="text-sm text-c-grey-60 space-y-2">
+                <li>Categories</li>
+                <li>Devices</li>
+                <li>Pricing</li>
+                <li>FAQ</li>
+              </ul>
+            </div>
+
+            {/*//! Single Item */}
+            <div>
+              <p className="text-white font-semibold mb-3.5">Movies</p>
+
+              <ul className="text-sm text-c-grey-60 space-y-2">
+                <li>Genres</li>
+                <li>Trending</li>
+                <li>New Release</li>
+                <li>Popular</li>
+              </ul>
+            </div>
+
+            {/*//! Single Item */}
+            <div>
+              <p className="text-white font-semibold mb-3.5">Shows</p>
+
+              <ul className="text-sm text-c-grey-60 space-y-2">
+                <li>Genres</li>
+                <li>Trending</li>
+                <li>New Release</li>
+                <li>Popular</li>
+              </ul>
+            </div>
+
+            {/*//! Single Item */}
+            <div>
+              <p className="text-white font-semibold mb-3.5">Support</p>
+
+              <ul className="text-sm text-c-grey-60 space-y-2">
+                <li>Contact Us</li>
+              </ul>
+            </div>
+
+            {/*//! Single Item */}
+            <div>
+              <p className="text-white font-semibold mb-3.5">Subscription</p>
+
+              <ul className="text-sm text-c-grey-60 space-y-2">
+                <li>Plans</li>
+                <li>Features</li>
+              </ul>
+            </div>
+
+            {/*//! Single Item */}
+            <div>
+              <p className="text-white font-semibold mb-3.5">Connect With Us</p>
+
+              <div className="flex items-center justify-between">
+                <button className="w-9 h-9 flex items-center justify-center bg-c-black-10 border border-c-black-15 rounded">
+                  <FacebookSvg />
+                </button>
+                <button className="w-9 h-9 flex items-center justify-center bg-c-black-10 border border-c-black-15 rounded">
+                  <TwitterSvg />
+                </button>
+                <button className="w-9 h-9 flex items-center justify-center bg-c-black-10 border border-c-black-15 rounded">
+                  <LinkedinSvg />
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="flex items-center justify-between text-c-grey-60 text-super-xs pt-4 border-t border-t-c-black-15">
+            <p>@2023 streamvib, All Rights Reserved</p>
+            <ul className="flex items-center divide-x divide-c-black-15 space-x-3">
+              <li className="pl-3">Terms of Use</li>
+              <li className="pl-3">Privacy Policy</li>
+              <li className="pl-3">Cookie Policy</li>
+            </ul>
+          </div>
+
+        </div>
+      </footer>
 
 
     </>
