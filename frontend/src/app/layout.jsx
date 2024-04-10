@@ -1,5 +1,6 @@
 import { manrope } from "@/constants/Fonts";
 import "./globals.css";
+import MainLayout from "@/components/layout/MainLayout";
 
 export const metadata = {
   title: "StreamVibe",
@@ -9,7 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${manrope.className} bg-c-black-08`}>{children}</body>
+      <body className={`${manrope.className} bg-c-black-08`}>
+        <MainLayout>
+          {children}
+        </MainLayout>
+      </body>
     </html>
   );
 }

@@ -10,7 +10,7 @@ module.exports = {
       container: {
         center: true,
         padding: {
-          DEFAULT: '3rem',
+          DEFAULT: '1.2rem',
           sm: '2rem',
           lg: '4rem',
           xl: '5rem',
@@ -25,7 +25,9 @@ module.exports = {
         "super-xs": "0.815rem",
         "super-sm": "0.925rem",
         "super-base": "1.07rem",
-        "2.5xl": "1.65rem"
+        "2.5xl": "1.65rem",
+        "3.5xl": "2.05rem",
+        "4.5xl": "2.65rem",
       },
       colors: {
         "c-black-06": "#0F0F0F",
