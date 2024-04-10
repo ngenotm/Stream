@@ -1,5 +1,7 @@
-import PlanItem from "./PlanItem";
-import PlanTitle from "./PlanTitle";
+import SubscriptionPlanItem from "./SubscriptionPlanItem";
+import SubscriptionPlanTitle from "./SubscriptionPlanTitle";
+
+
 
 const planVariant = [
     {
@@ -19,15 +21,15 @@ const planVariant = [
     },
 ]
 
-const HomePlan = () => {
+const SubscriptionPlan = () => {
     return (
         <section className="container py-16">
-            <PlanTitle />
+            <SubscriptionPlanTitle />
 
             <div className="grid lg:grid-cols-3 md:grid-cols-2 lg:gap-4 gap-5 md:mt-8 mt-10">
 
                 {planVariant.map(({ title, subtitle, price }, index) =>
-                    <PlanItem key={index} title={title} subtitle={subtitle} price={price} />)}
+                    <SubscriptionPlanItem key={index} title={title} subtitle={subtitle} price={price} />)}
 
             </div>
 
@@ -35,4 +37,4 @@ const HomePlan = () => {
     );
 }
 
-export default HomePlan;
+export default SubscriptionPlan;

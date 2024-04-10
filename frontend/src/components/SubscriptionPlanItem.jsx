@@ -1,4 +1,4 @@
-const PlanItem = ({ title, subtitle, price }) => {
+const SubscriptionPlanItem = ({ title, subtitle, price }) => {
     return (
         <div className="flex flex-col justify-between bg-c-black-10 border border-c-black-15 px-6 py-4 rounded-lg">
             <>
@@ -20,4 +20,4 @@ const PlanItem = ({ title, subtitle, price }) => {
     );
 }
 
-export default PlanItem;
+export default SubscriptionPlanItem;

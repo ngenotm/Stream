@@ -1,4 +1,4 @@
-const PlanTitle = () => {
+const SubscriptionPlanTitle = () => {
     return (
         <div className="flex md:flex-row flex-col md:items-end items-start md:gap-6 gap-3.5">
             <div className="flex-1">
@@ -15,4 +15,4 @@ const PlanTitle = () => {
     );
 }
 
-export default PlanTitle;
+export default SubscriptionPlanTitle;
