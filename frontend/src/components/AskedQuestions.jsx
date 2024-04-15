@@ -1,7 +1,7 @@
 import QuestionTitle from "./QuestionTitle";
-import QuestionItem from "../QuestionItem";
+import QuestionItem from "./QuestionItem";
 
-const HomeQuestions = () => {
+const AskedQuestions = () => {
     return (
         <section className="container mt-16">
 
@@ -17,4 +17,4 @@ const HomeQuestions = () => {
     );
 }
 
-export default HomeQuestions;
+export default AskedQuestions;

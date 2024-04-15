@@ -3,7 +3,7 @@ import SubscriptionPlan from "@/components/SubscriptionPlan";
 import HomeBanner from "@/components/home/HomeBanner";
 import HomeExperience from "@/components/home/HomeExperience";
 import HomeMovieCategory from "@/components/home/HomeMovieCategory";
-import HomeQuestions from "@/components/home/HomeQuestions";
+import AskedQuestion from "@/components/AskedQuestions";
 import HomeTitle from "@/components/home/HomeTitle";
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
 
       <HomeExperience />
 
-      <HomeQuestions />
+      <AskedQuestion />
 
       <SubscriptionPlan />
 

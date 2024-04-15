@@ -2,8 +2,8 @@ const SubscriptionPlanTitle = () => {
     return (
         <div className="flex md:flex-row flex-col md:items-end items-start md:gap-6 gap-3.5">
             <div className="flex-1">
-                <h3 className="text-white font-medium xl:text-2.5xl md:text-2xl text-lg mb-3">Choose the plan that's right for you</h3>
-                <p className="text-c-grey-60 lg:text-sm md:text-super-xs text-xs">
+                <h3 className="text-white font-medium xl:text-2.5xl md:text-2xl text-xl md:mb-3 mb-1.5">Choose the plan that's right for you</h3>
+                <p className="text-c-grey-60 lg:text-sm text-super-xs">
                     Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!
                 </p>
             </div>
