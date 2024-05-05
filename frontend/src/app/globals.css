@@ -4,7 +4,7 @@
 
 @layer components {
   .support-input-field {
-    @apply w-full bg-c-black-08 border border-c-black-15 rounded md:py-2.5 py-3.5 px-3.5
+    @apply w-full bg-c-black-08 border border-c-black-15 rounded md:py-3 py-3.5 px-3.5
      xl:text-super-sm lg:text-sm text-super-xs placeholder:text-c-grey-60 text-c-grey-90
       mt-2 outline-none duration-200 focus:ring-1 focus:border-c-red-45/60 focus:ring-c-red-45/60;
   }
