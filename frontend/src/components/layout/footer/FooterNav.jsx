@@ -2,9 +2,9 @@ const FooterNav = () => {
     return (
         <>
             <div>
-                <p className="text-white font-semibold mb-3.5">Home</p>
+                <p className="3xl:text-[1.45rem] text-white font-semibold mb-3.5">Home</p>
 
-                <ul className="text-sm text-c-grey-60 space-y-2">
+                <ul className="3xl:text-xl text-sm text-c-grey-60 space-y-2">
                     <li>Categories</li>
                     <li>Devices</li>
                     <li>Pricing</li>
@@ -13,9 +13,9 @@ const FooterNav = () => {
             </div>
 
             <div>
-                <p className="text-white font-semibold mb-3.5">Movies</p>
+                <p className="3xl:text-[1.45rem] text-white font-semibold mb-3.5">Movies</p>
 
-                <ul className="text-sm text-c-grey-60 space-y-2">
+                <ul className="3xl:text-xl text-sm text-c-grey-60 space-y-2">
                     <li>Genres</li>
                     <li>Trending</li>
                     <li>New Release</li>
@@ -24,9 +24,9 @@ const FooterNav = () => {
             </div>
 
             <div>
-                <p className="text-white font-semibold mb-3.5">Shows</p>
+                <p className="3xl:text-[1.45rem] text-white font-semibold mb-3.5">Shows</p>
 
-                <ul className="text-sm text-c-grey-60 space-y-2">
+                <ul className="3xl:text-xl text-sm text-c-grey-60 space-y-2">
                     <li>Genres</li>
                     <li>Trending</li>
                     <li>New Release</li>
@@ -35,17 +35,17 @@ const FooterNav = () => {
             </div>
 
             <div>
-                <p className="text-white font-semibold mb-3.5">Support</p>
+                <p className="3xl:text-[1.45rem] text-white font-semibold mb-3.5">Support</p>
 
-                <ul className="text-sm text-c-grey-60 space-y-2">
+                <ul className="3xl:text-xl text-sm text-c-grey-60 space-y-2">
                     <li>Contact Us</li>
                 </ul>
             </div>
 
             <div>
-                <p className="text-white font-semibold mb-3.5">Subscription</p>
+                <p className="3xl:text-[1.45rem] text-white font-semibold mb-3.5">Subscription</p>
 
-                <ul className="text-sm text-c-grey-60 space-y-2">
+                <ul className="3xl:text-xl text-sm text-c-grey-60 space-y-2">
                     <li>Plans</li>
                     <li>Features</li>
                 </ul>
