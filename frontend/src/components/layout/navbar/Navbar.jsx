@@ -1,9 +1,11 @@
 "use client";
 
-import { BellSvg, MenuSvg, SearchSvg } from "@/assets/Svgs";
+import { MenuSvg } from "@/assets/Svgs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NavbarNav from "./NavbarNav";
+import Search from "./Search";
+import NotificationButton from "./NotificationButton";
 
 
 const Navbar = () => {
@@ -18,14 +20,14 @@ const Navbar = () => {
         "></div>
             <div className="container flex items-center justify-between">
                 <Link href="/">
-                    <img src="/images/logo-white.png" alt="StreamVibe" className="lg:w-[165px] w-[150px]" />
+                    <img src="/images/logo-white.png" alt="StreamVibe" className="3xl:w-full lg:w-[165px] w-[150px]" />
                 </Link>
 
                 <NavbarNav pathname={pathname} />
 
                 <div>
-                    <button className="focus:outline-none focus:border-none mx-2.5 md:inline hidden"><SearchSvg /></button>
-                    <button className="focus:outline-none focus:border-none mx-2.5 md:inline hidden"><BellSvg /></button>
+                    <Search />
+                    <NotificationButton />
                     <button
                         className="w-11 h-11 rounded-lg bg-c-black-10 border border-c-black-15 md:hidden flex justify-center items-center "
                     >

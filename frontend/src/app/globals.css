@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer components {
+  .subscription-box {
+    @apply w-full rounded-xl border border-gray-500/20 3xl:py-28 lg:py-20 md:py-14 py-12 md:px-10 px-3.5 flex md:flex-row flex-col items-center max-md:text-center gap-4
+    md:bg-[url(/images/subscription-box-image.jpg)] bg-[url(/images/subscription-box-image-mobile.jpg)] bg-center bg-cover;
+  }
+
   .support-input-field {
     @apply w-full bg-c-black-08 border border-c-black-15 rounded md:py-3 py-3.5 px-3.5
      xl:text-super-sm lg:text-sm text-super-xs placeholder:text-c-grey-60 text-c-grey-90

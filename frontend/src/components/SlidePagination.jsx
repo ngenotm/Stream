@@ -6,17 +6,18 @@ const SlidePagination = () => {
 
             <div className="flex items-center gap-2">
                 <button
-                    className="w-10 h-10 rounded-lg bg-c-black-10 border border-c-black-12
+                    className="3xl:w-12 3xl:h-12 w-10 h-10 rounded-lg bg-c-black-10 border border-c-black-12
                  flex justify-center items-center"
                 ><LeftArrowSvg className="stroke-white w-[18px] h-[18px]" /></button>
                 <div className="flex items-center gap-1">
-                    <div className="h-[2px] min-w-3 w-5 bg-c-red-45"></div>
-                    <div className="h-[2px] min-w-3 bg-c-black-20"></div>
-                    <div className="h-[2px] min-w-3 bg-c-black-20"></div>
-                    <div className="h-[2px] min-w-3 bg-c-black-20"></div>
+                    <div className="h-[2px] 3xl:min-w-5 min-w-3 3xl:w-7
+                     w-5 bg-c-red-45"></div>
+                    <div className="h-[2px] 3xl:min-w-5 min-w-3 bg-c-black-20"></div>
+                    <div className="h-[2px] 3xl:min-w-5 min-w-3 bg-c-black-20"></div>
+                    <div className="h-[2px] 3xl:min-w-5 min-w-3 bg-c-black-20"></div>
                 </div>
                 <button
-                    className="w-10 h-10 rounded-lg bg-c-black-10 border border-c-black-12
+                    className="3xl:w-12 3xl:h-12 w-10 h-10 rounded-lg bg-c-black-10 border border-c-black-12
                  flex justify-center items-center"
                 ><LeftArrowSvg className="stroke-white w-[18px] h-[18px] rotate-180" /></button>
             </div>

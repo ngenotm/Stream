@@ -26,9 +26,11 @@ export const RightArrowSvg = () => {
     )
 }
 
-export const SmartPhoneSvg = () => {
+export const SmartPhoneSvg = (props) => {
     return (
-        <svg width="27" height="27" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            {...props}
+            width="27" height="27" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_184_843)">
                 <g filter="url(#filter0_b_184_843)">
                     <path d="M10.4 19.6C10.4 14.9566 10.3888 10.3021 10.4 5.65871C10.4 3.7474 11.3669 2.35327 13.0646 1.80237C13.4693 1.66745 13.9078 1.61124 14.3351 1.61124C18.2589 1.6 22.1827 1.6 26.0952 1.61124C28.3775 1.62248 30.0415 3.2752 30.0415 5.54628C30.0527 14.9229 30.0527 24.2883 30.0415 33.665C30.0415 35.936 28.3775 37.6 26.1065 37.6C22.2276 37.6112 18.3488 37.6112 14.47 37.6C12.0415 37.6 10.4225 36.0035 10.4113 33.5525C10.3888 28.8979 10.4 24.2546 10.4 19.6ZM20.2264 4.8717C19.4619 4.8717 18.6973 4.8717 17.9216 4.8717C17.3144 4.88294 16.9772 5.16402 16.9659 5.65871C16.9547 6.16464 17.2695 6.51317 17.8541 6.51317C19.4281 6.53566 20.9909 6.53566 22.5649 6.51317C23.1271 6.50193 23.5093 6.11967 23.4868 5.65871C23.4644 5.1865 23.0933 4.8717 22.5199 4.8717C21.7554 4.8717 20.9909 4.8717 20.2264 4.8717ZM20.2264 31.0791C19.3045 31.0791 18.5737 31.8099 18.5849 32.7093C18.5961 33.6087 19.3494 34.3395 20.2489 34.3283C21.1258 34.317 21.8341 33.5975 21.8341 32.7093C21.8454 31.7761 21.1483 31.0791 20.2264 31.0791Z" fill="#E60000" />
@@ -51,9 +53,10 @@ export const SmartPhoneSvg = () => {
 }
 
 
-export const SmartTvSvg = () => {
+export const SmartTvSvg = (props) => {
     return (
-        <svg width="30" height="30" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            {...props} width="30" height="30" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_184_891)">
                 <g filter="url(#filter0_b_184_891)">
                     <mask id="path-1-inside-1_184_891" fill="white">
@@ -78,9 +81,10 @@ export const SmartTvSvg = () => {
     )
 }
 
-export const TabletSvg = () => {
+export const TabletSvg = (props) => {
     return (
-        <svg width="25" height="25" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            {...props} width="25" height="25" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_184_888)">
                 <g filter="url(#filter0_b_184_888)">
                     <mask id="path-1-inside-1_184_888" fill="white">
@@ -106,9 +110,10 @@ export const TabletSvg = () => {
 }
 
 
-export const LaptopSvg = () => {
+export const LaptopSvg = (props) => {
     return (
-        <svg width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            {...props} width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_184_897)">
                 <g filter="url(#filter0_b_184_897)">
                     <mask id="path-1-inside-1_184_897" fill="white">
@@ -135,9 +140,10 @@ export const LaptopSvg = () => {
 
 
 
-export const GameConsoleSvg = () => {
+export const GameConsoleSvg = (props) => {
     return (
-        <svg width="30" height="30" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            {...props} width="30" height="30" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_184_902)">
                 <g filter="url(#filter0_b_184_902)">
                     <mask id="path-1-inside-1_184_902" fill="white">
@@ -163,9 +169,10 @@ export const GameConsoleSvg = () => {
 }
 
 
-export const VrHeadsetSvg = () => {
+export const VrHeadsetSvg = (props) => {
     return (
-        <svg width="30" height="30" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            {...props} width="30" height="30" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_184_907)">
                 <g filter="url(#filter0_b_184_907)">
                     <mask id="path-1-inside-1_184_907" fill="white">
@@ -201,9 +208,10 @@ export const PlusSvg = (props) => {
     )
 }
 
-export const MinusSvg = () => {
+export const MinusSvg = (props) => {
     return (
-        <svg width="22" height="22" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg 
+        {...props} width="22" height="22" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.75 13.75H6.25C5.91848 13.75 5.60054 13.8817 5.36612 14.1161C5.1317 14.3505 5 14.6685 5 15C5 15.3315 5.1317 15.6495 5.36612 15.8839C5.60054 16.1183 5.91848 16.25 6.25 16.25H23.75C24.0815 16.25 24.3995 16.1183 24.6339 15.8839C24.8683 15.6495 25 15.3315 25 15C25 14.6685 24.8683 14.3505 24.6339 14.1161C24.3995 13.8817 24.0815 13.75 23.75 13.75Z" fill="white" />
         </svg>
     )
@@ -255,18 +263,18 @@ export const LinkedinSvg = () => {
 }
 
 
-export const SearchSvg = () => {
+export const SearchSvg = (props) => {
     return (
-        <svg width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg {...props} width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M29.75 29.75L22.388 22.388M22.388 22.388C24.3108 20.4653 25.5 17.809 25.5 14.875C25.5 9.00697 20.743 4.25 14.875 4.25C9.00697 4.25 4.25 9.00697 4.25 14.875C4.25 20.743 9.00697 25.5 14.875 25.5C17.809 25.5 20.4653 24.3108 22.388 22.388Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     )
 }
 
 
-export const BellSvg = () => {
+export const BellSvg = (props) => {
     return (
-        <svg width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg {...props} width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M21.0472 24.1991C23.7312 23.8807 26.3193 23.2497 28.7741 22.3435C26.7386 20.0841 25.4997 17.093 25.4997 13.8125V12.8197C25.4999 12.7965 25.5 12.7732 25.5 12.75C25.5 8.05558 21.6944 4.25 17 4.25C12.3056 4.25 8.5 8.05558 8.5 12.75L8.49972 13.8125C8.49972 17.093 7.2608 20.0841 5.22534 22.3435C7.68032 23.2498 10.2686 23.8808 12.9528 24.1992M21.0472 24.1991C19.72 24.3565 18.3693 24.4375 16.9997 24.4375C15.6303 24.4375 14.2798 24.3565 12.9528 24.1992M21.0472 24.1991C21.1789 24.6091 21.25 25.0462 21.25 25.5C21.25 27.8472 19.3472 29.75 17 29.75C14.6528 29.75 12.75 27.8472 12.75 25.5C12.75 25.0463 12.8211 24.6091 12.9528 24.1992" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     )
