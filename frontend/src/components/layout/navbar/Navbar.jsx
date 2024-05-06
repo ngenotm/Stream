@@ -29,7 +29,7 @@ const Navbar = () => {
                     <Search />
                     <NotificationButton />
                     <button
-                        className="w-11 h-11 rounded-lg bg-c-black-10 border border-c-black-15 md:hidden flex justify-center items-center "
+                        className="w-11 h-11 rounded-lg btn-black-10 border border-c-black-15 md:hidden flex justify-center items-center "
                     >
                         <MenuSvg />
                     </button>

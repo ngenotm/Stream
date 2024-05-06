@@ -5,7 +5,7 @@ const HeaderCallToAction = () => {
     return (
         <div className="flex md:flex-row flex-col items-center justify-center gap-3.5">
             <button className="bg-c-red-45 text-white font-medium xl:h-12 h-11 px-6 flex items-center gap-1.5 rounded-md border-0 outline-none max-md:mt-3">
-                <PlaySvg width={28} /> Play Now
+                <PlaySvg className="w-[28px]" /> Play Now
             </button>
             <div className="flex items-center gap-2.5">
                 <button

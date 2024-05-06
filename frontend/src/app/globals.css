@@ -14,12 +14,16 @@
       mt-2 outline-none duration-200 focus:ring-1 focus:border-c-red-45/60 focus:ring-c-red-45/60;
   }
 
+  .btn-black-06 {
+    @apply bg-c-black-06 hover:bg-c-black-06/50 duration-200
+  }
+  
   .btn-black-08 {
     @apply bg-c-black-08 hover:bg-c-black-06/80 duration-200;
   }
 
   .btn-black-10 {
-    @apply bg-c-black-10 hover:bg-c-black-08 duration-200
+    @apply bg-c-black-10 hover:bg-c-black-08 duration-200;
   }
 }
 
