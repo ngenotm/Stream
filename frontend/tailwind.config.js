@@ -25,6 +25,7 @@ module.exports = {
         "super-xs": "0.815rem",
         "super-sm": "0.925rem",
         "super-base": "1.07rem",
+        "1.5xl": "1.38rem",
         "2.5xl": "1.65rem",
         "3.5xl": "2.05rem",
         "4.5xl": "2.65rem",
