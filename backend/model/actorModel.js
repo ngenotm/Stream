@@ -36,11 +36,16 @@ const actorModel = mongoose.Schema({
         type: String,
         required: [true, 'Country is required']
     },
-    movies: {
-        type: [mongoose.Schema.Types.ObjectId],
+    movies: [{
+        type: mongoose.Schema.Types.ObjectId,
         required: [true, 'Movies is required'],
-        ref: ["Movie", "Series"]
-    }
+        ref: "Movie"
+    }],
+    series: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: [true, 'Series is required'],
+        ref: "Series"
+    }],
 });
 
 module.exports = mongoose.model('Actor', actorModel);

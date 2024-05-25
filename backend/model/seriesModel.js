@@ -1,3 +1,4 @@
+const { ref } = require('joi');
 const mongoose = require('mongoose');
 
 const seriesModel = mongoose.Schema({
@@ -6,8 +7,9 @@ const seriesModel = mongoose.Schema({
         required: [true, 'Title is required'],
     },
     director: {
-        type: String,
-        required: [true, 'Director is required'],
+        type: mongoose.Schema.Types.ObjectId,
+        default: "",
+        ref: "Director"
     },
     description: {
         type: String,
@@ -22,13 +24,26 @@ const seriesModel = mongoose.Schema({
         type: Number,
         required: [true, 'Number of Seasons is required'],
     },
-    genre: {
+    genre: [{
         type: String,
         required: [true, 'Genre is required'],
-    },
+    }],
+    cast: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: [true, 'Cast is required'],
+        ref: "Actor"
+    }],
     country: {
         type: String,
         required: [true, 'Country is required']
+    },
+    language: {
+        type: String,
+        required: [true, 'Language is required']
+    },
+    ageRating: {
+        type: String,
+        required: [true, 'Age Rating is required']
     },
     rotten_rating: {
         type: Number,
@@ -55,6 +70,8 @@ const seriesModel = mongoose.Schema({
         enum: ['Now Showing', 'Coming Soon', 'Expired'],
         required: [true, 'Release Status is required']
     },
+    //! Add awards
+    //! Add review
 });
 
 module.exports = mongoose.model('Series', seriesModel);
