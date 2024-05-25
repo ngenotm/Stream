@@ -1,4 +1,3 @@
-const { ref } = require('joi');
 const mongoose = require('mongoose');
 
 const seriesModel = mongoose.Schema({
@@ -20,10 +19,10 @@ const seriesModel = mongoose.Schema({
         type: Date,
         required: [true, 'Release Date is required'],
     },
-    number_of_seasons: {
-        type: Number,
-        required: [true, 'Number of Seasons is required'],
-    },
+    seasons: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Season'
+    }],
     genre: [{
         type: String,
         required: [true, 'Genre is required'],
@@ -70,8 +69,11 @@ const seriesModel = mongoose.Schema({
         enum: ['Now Showing', 'Coming Soon', 'Expired'],
         required: [true, 'Release Status is required']
     },
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
+    }]
     //! Add awards
-    //! Add review
 });
 
 module.exports = mongoose.model('Series', seriesModel);
