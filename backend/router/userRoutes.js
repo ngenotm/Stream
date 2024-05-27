@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { singleUser, registerUser, login, deleteUser, allUser, getWatchList } = require('../controller/userController');
+const { singleUser, registerUser, login, deleteUser, allUser, getWatchList, logout } = require('../controller/userController');
 const Auth = require('../middleware/auth');
 const AdminAuth = require('../middleware/adminAuth');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
@@ -23,6 +23,8 @@ router.route("/register")
 
 router.route("/login")
     .post(login);
+
+router.post('/logout', logout);
 
 
 module.exports = router;

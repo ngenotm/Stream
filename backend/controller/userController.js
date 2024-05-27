@@ -116,7 +116,17 @@ exports.login = async (req, res) => {
         //! Set HTTP Only cookie
         res.cookie('token', token, { httpOnly: true, sameSite: 'strict' });
 
-        res.status(200).json({ status: 200, message: "Login Successful" });
+        res.status(200).json({ status: 200, message: "Login Successfully" });
+    }
+    catch (error) {
+        res.status(500).json({ status: 500, message: error.message });
+    }
+};
+
+exports.logout = (req, res) => {
+    try {
+        res.clearCookie('token');
+        res.status(200).json({ status: 200, message: "Logout Successfully" });
     }
     catch (error) {
         res.status(500).json({ status: 500, message: error.message });
@@ -128,10 +138,9 @@ exports.login = async (req, res) => {
 exports.deleteUser = async (req, res) => {
     const userId = req.params.id;
 
-    queryValidation(userId, res, "Invalid User ID");
-
     try {
-        const user = await userModel.findByIdAndRemove(userId);
+        // const user = await userModel.findByIdAndRemove(userId);
+        const user = await userModel.findByIdAndDelete(userId);
         if (!user) {
             return res.status(404).json({ status: 404, message: "User not found" });
         }
