@@ -4,21 +4,20 @@ const { queryValidation } = require("../validation/queryValidation");
 const bcrypt = require('bcrypt');
 const { isValidObjectId } = require("mongoose");
 const { createUserValidation, loginValidation } = require("../validation/userValidation");
+const ValidateObjectId = require("../middleware/ValidateObjectId");
 
 
 //! Get Request
 exports.allUser = async (req, res) => {
     try {
         const users = await userModel.find();
-        res.status(200).json({ status: 200, users, message: "All Users" });
+        res.status(200).json({ status: 200, users, message: "User list fetch successfully" });
     } catch (error) {
         res.status(500).json({ status: 500, message: error.message });
     }
 }
 
 exports.singleUser = async (req, res) => {
-    if (!isValidObjectId(req.params.id)) return res.status(400).json({ status: 400, message: "Invalid User ID" });
-
     const userId = req.params.id;
 
     try {
@@ -26,16 +25,45 @@ exports.singleUser = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        res.status(200).json({ status: 200, user, message: "User found" });
+        res.status(200).json({ status: 200, user, message: "User fetch successfully" });
     } catch (error) {
         res.status(500).json({ status: 500, message: error.message });
     }
-    res.send("test")
+};
+
+exports.getWatchList = async (req, res) => {
+    const userId = req.params.id;
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const limit = 12;
+    const skip = (page - 1) * limit;
+
+    if (!isValidObjectId(userId)) return res.status(400).json({ status: 400, message: "Invalid User ID" });
+
+    try {
+        const user = await userModel.findById(userId)
+            .select('watchList')
+            .populate({
+                path: 'watchList.item',
+                options: {
+                    skip: skip,
+                    limit: limit
+                }
+            });
+
+        if (!user) {
+            return res.status(404).json({ status: 404, message: "User not found" });
+        }
+
+        res.status(200).json({ status: 200, watchList: user.watchList, message: "Watchlist fetched" });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: error.message });
+    }
 };
 
 
+
 //! Post Request
-exports.createUser = async (req, res) => {
+exports.registerUser = async (req, res) => {
     const { fullName, email, password } = req.body;
 
     try {
@@ -68,8 +96,8 @@ exports.login = async (req, res) => {
     try {
         if (loginValidation(req.body).error)
             return res.status(400).json({ status: 400, message: loginValidation(req.body).error.message });
-        
-            const user = await userModel.findOne({ email });
+
+        const user = await userModel.findOne({ email });
 
         if (!user) {
             return res.status(404).json({ status: 404, message: "User not found" });
@@ -84,8 +112,11 @@ exports.login = async (req, res) => {
             role: user.role,
         }
         const token = jwt.sign(tokenData, process.env.JWT_SECRET);
-        res.header("Access-Control-Expose-headers", "x-auth-token").header("x-auth-token", token)
-            .status(200).json({ status: 200, message: "Login Successful" });
+
+        //! Set HTTP Only cookie
+        res.cookie('token', token, { httpOnly: true, sameSite: 'strict' });
+
+        res.status(200).json({ status: 200, message: "Login Successful" });
     }
     catch (error) {
         res.status(500).json({ status: 500, message: error.message });

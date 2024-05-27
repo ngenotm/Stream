@@ -1,4 +1,4 @@
-const Series = require('../models/seriesModel');
+const Series = require('../model/seriesModel');
 
 exports.getAllSeries = async (req, res) => {
     try {

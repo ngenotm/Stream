@@ -37,4 +37,4 @@ const episodeModel = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Episode', episodeModel);
+module.exports = mongoose.model('Episodes', episodeModel);

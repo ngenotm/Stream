@@ -8,7 +8,7 @@ const seriesModel = mongoose.Schema({
     director: {
         type: mongoose.Schema.Types.ObjectId,
         default: "",
-        ref: "Director"
+        ref: "Directors"
     },
     description: {
         type: String,
@@ -21,17 +21,16 @@ const seriesModel = mongoose.Schema({
     },
     seasons: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Season'
+        ref: 'Seasons'
     }],
-    genre: [{
-        type: String,
+    genres: {
+        type: [String],
         required: [true, 'Genre is required'],
-    }],
-    cast: [{
-        type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'Cast is required'],
-        ref: "Actor"
-    }],
+    },
+    category: {
+        type: [String],
+        required: [true, 'Category is required']
+    },
     country: {
         type: String,
         required: [true, 'Country is required']
@@ -40,6 +39,11 @@ const seriesModel = mongoose.Schema({
         type: String,
         required: [true, 'Language is required']
     },
+    cast: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: [true, 'Cast is required'],
+        ref: "Actors"
+    }],
     ageRating: {
         type: String,
         required: [true, 'Age Rating is required']
@@ -71,7 +75,7 @@ const seriesModel = mongoose.Schema({
     },
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Review'
+        ref: 'Reviews'
     }]
     //! Add awards
 });

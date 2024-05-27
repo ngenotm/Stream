@@ -1,5 +1,6 @@
 const express = require('express');
 const { createEpisode, getEpisode, updateEpisode, deleteEpisode } = require('../controller/episodeController');
+const ValidateObjectId = require('../middleware/ValidateObjectId');
 
 const router = express.Router();
 
@@ -9,8 +10,8 @@ router
 
 router
     .route('/:id')
-    .get(getEpisode)
-    .patch(updateEpisode)
-    .delete(deleteEpisode);
+    .get(ValidateObjectId ,getEpisode)
+    .patch(ValidateObjectId ,updateEpisode)
+    .delete(ValidateObjectId ,deleteEpisode);
 
 module.exports = router;

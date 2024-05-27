@@ -1,5 +1,6 @@
 const express = require('express');
-const { createSeason, getSeason, updateSeason, deleteSeason } = require('../controller/seasonController');
+const { createSeason, getSeason, updateSeason, deleteSeason, getSeasonsBySeries } = require('../controller/seasonController');
+const ValidateObjectId = require('../middleware/ValidateObjectId');
 
 const router = express.Router();
 
@@ -7,11 +8,11 @@ router.route('/')
     .post(createSeason);
 
 router.route('/series/:seriesId')
-    .get(seasonController.getSeasonsBySeries);
+    .get(getSeasonsBySeries);
 
 router.route('/:id')
-    .get(getSeason)
-    .patch(updateSeason)
-    .delete(deleteSeason);
+    .get(ValidateObjectId, getSeason)
+    .patch(ValidateObjectId, updateSeason)
+    .delete(ValidateObjectId, deleteSeason);
 
 module.exports = router;

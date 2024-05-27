@@ -35,11 +35,16 @@ const directorSchema = new mongoose.Schema({
         required: [true, 'image is required'],
     },
     // awards:{},  //TODO: Add awards
-    movies: {
-        type: [mongoose.Schema.Types.ObjectId],
-        required: [true, 'movies is required'],
-        ref: ['Movie', 'Series']
-    },
+    movies: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: [true, 'Movies is required'],
+        ref: "Movies"
+    }],
+    series: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: [true, 'Series is required'],
+        ref: "Series"
+    }],
 });
 
-module.exports = mongoose.model('Director', directorSchema);
+module.exports = mongoose.model('Directors', directorSchema);

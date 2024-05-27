@@ -1,5 +1,6 @@
 const express = require('express');
 const { getAllDirectors, createDirector, getDirector, updateDirector, deleteDirector } = require('../controller/directorController');
+const ValidateObjectId = require('../middleware/ValidateObjectId');
 
 const router = express.Router();
 
@@ -10,8 +11,8 @@ router
 
 router
     .route('/:id')
-    .get(getDirector)
-    .patch(updateDirector)
-    .delete(deleteDirector);
+    .get(ValidateObjectId ,getDirector)
+    .patch(ValidateObjectId ,updateDirector)
+    .delete(ValidateObjectId ,deleteDirector);
 
 module.exports = router;

@@ -23,13 +23,21 @@ const movieModel = mongoose.Schema({
         type: Number,
         required: [true, 'Duration is required'],
     },
-    genre: {
-        type: String,
+    genres: {
+        type: [String],
         required: [true, 'Genre is required'],
+    },
+    category: {
+        type: [String],
+        required: [true, 'Category is required']
     },
     country: {
         type: String,
         required: [true, 'Country is required']
+    },
+    language: {
+        type: String,
+        required: [true, 'Language is required']
     },
     rotten_rating: {
         type: Number,
@@ -60,12 +68,12 @@ const movieModel = mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         default: [],
         required: false,
-        ref: "Actor"
+        ref: "Actors"
     },
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Review'
+        ref: 'Reviews'
     }]
 })
 
-module.exports = mongoose.model('Movie', movieModel);
+module.exports = mongoose.model('Movies', movieModel);

@@ -1,4 +1,4 @@
-const Episode = require('../models/episodeModel');
+const Episode = require('../model/episodeModel');
 
 exports.getEpisode = async (req, res) => {
     try {

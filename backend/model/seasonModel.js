@@ -12,11 +12,11 @@ const seasonModel = mongoose.Schema({
     },
     episodes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Episode'
+        ref: 'Episodes'
     }]
 });
 
-module.exports = mongoose.model('Season', seasonModel);
+module.exports = mongoose.model('Seasons', seasonModel);
 
 // Season
 //     .findOne({ seasonNumber: 1 })

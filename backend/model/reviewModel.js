@@ -4,11 +4,11 @@ const reviewModel = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, 'User is required'],
-        ref: 'User'
+        ref: 'Users'
     },
     movie: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Movie'
+        ref: 'Movies'
     },
     series: {
         type: mongoose.Schema.Types.ObjectId,
@@ -30,4 +30,4 @@ const reviewModel = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Review', reviewModel);
+module.exports = mongoose.model('Reviews', reviewModel);

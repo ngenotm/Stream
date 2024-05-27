@@ -39,7 +39,7 @@ const actorModel = mongoose.Schema({
     movies: [{
         type: mongoose.Schema.Types.ObjectId,
         required: [true, 'Movies is required'],
-        ref: "Movie"
+        ref: "Movies"
     }],
     series: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -48,4 +48,4 @@ const actorModel = mongoose.Schema({
     }],
 });
 
-module.exports = mongoose.model('Actor', actorModel);
+module.exports = mongoose.model('Actors', actorModel);

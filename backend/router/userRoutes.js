@@ -1,17 +1,28 @@
 const { Router } = require('express');
-const { singleUser, createUser, login, deleteUser, allUser } = require('../controller/userController');
+const { singleUser, registerUser, login, deleteUser, allUser, getWatchList } = require('../controller/userController');
 const Auth = require('../middleware/auth');
 const AdminAuth = require('../middleware/adminAuth');
+const ValidateObjectId = require('../middleware/ValidateObjectId');
 
 const router = Router();
 
-router.get(`/user`, allUser);
-router.get('/user/:id', singleUser);
 
-router.post('/user', createUser);
-router.post('/login', login);
 
-router.delete('/user/:id', deleteUser);
+router.route("/users")
+    .get(allUser);
+
+router.route("/getWatchList/:id")
+    .get(getWatchList);
+
+router.route("/user/:id")
+    .get(ValidateObjectId, singleUser)
+    .delete(ValidateObjectId, deleteUser);
+
+router.route("/register")
+    .post(registerUser);
+
+router.route("/login")
+    .post(login);
 
 
 module.exports = router;
