@@ -1,7 +1,18 @@
-const { isValidObjectId } = require('mongoose');
+const path = require('path');
 const Actor = require('../model/actorModel');
-const { createActorValidation } = require('../validation/actorValidation');
-const queryValidation = require('../validation/queryValidation');
+const uploadImage = require('../utils/upload');
+const fs = require('fs');
+
+//! config uploader
+const upload = uploadImage({
+    fieldName: "profile",
+    fileSize: "4000000",
+    destination: '../public/actor',
+    width: 600,
+    height: 600,
+    quality: 80
+})
+
 
 //! Get Request
 exports.allActors = async (req, res) => {
@@ -30,7 +41,7 @@ exports.singleActor = async (req, res) => {
 
 
 //! Post Request
-exports.createActor = async (req, res) => {
+exports.createActor = [upload, async (req, res) => {
     try {
         const newActor = await Actor.create(req.body);
         res.status(201).json({
@@ -40,24 +51,29 @@ exports.createActor = async (req, res) => {
     catch (error) {
         res.status(500).json({ status: 500, message: error.message });
     }
-};
+}];
 
 
 
 //! Put Request
-exports.updateActor = async (req, res) => {
+exports.updateActor = [upload, async (req, res) => {
     const actorId = req.params.id;
 
     try {
-        const actor = await Actor.findByIdAndUpdate(actorId, req.body, {
+        const actor = await Actor.findById(actorId);
+        if (req.body.profile && actor.profile) {
+            fs.unlinkSync(path.join(__dirname, '../public/actor/', actor.profile));
+        }
+
+        const updatedActor = await Actor.findByIdAndUpdate(actorId, req.body, {
             new: true,
         });
 
-        res.status(200).json({ status: 200, message: "Actor updated", actor });
+        res.status(200).json({ status: 200, message: "Actor updated", actor: updatedActor });
     } catch (error) {
         res.status(500).json({ status: 500, message: error.message });
     }
-};
+}];
 
 
 
@@ -65,12 +81,15 @@ exports.updateActor = async (req, res) => {
 exports.deleteActor = async (req, res) => {
     const actorId = req.params.id;
 
-
     try {
         const actor = await Actor.findByIdAndDelete(actorId);
         if (!actor) {
             return res.status(404).json({ status: 404, message: "Actor not found" });
         }
+        if (actor.profile) {
+            fs.unlinkSync(path.join(__dirname, '../public/actor/', actor.profile));
+        }
+
         res.status(200).json({ status: 200, message: "Actor deleted" });
     }
     catch (error) {
