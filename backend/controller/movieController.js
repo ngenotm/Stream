@@ -32,7 +32,8 @@ exports.singleMovie = async (req, res) => {
 //! Post Request
 
 exports.createMovie = async (req, res) => {
-    const { title, director, description, release_date, duration, genre, country, rotten_rating, imdb_rating, thumbnail, cover, trailer, release_status } = req.body;
+    const { title, director, description, release_date, duration, genre, country,
+        rotten_rating, imdb_rating, thumbnail, cover, trailer, release_status } = req.body;
 
     try {
         if (createMovieValidation(req.body).error)

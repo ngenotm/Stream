@@ -8,21 +8,17 @@ const router = Router();
 
 
 
-router.route("/users")
-    .get(allUser);
+router.get("/users", allUser);
 
-router.route("/getWatchList/:id")
-    .get(getWatchList);
+router.get("/getWatchList/:id", getWatchList);
 
 router.route("/user/:id")
     .get(ValidateObjectId, singleUser)
     .delete(ValidateObjectId, deleteUser);
 
-router.route("/register")
-    .post(registerUser);
+router.post("/register", registerUser);
 
-router.route("/login")
-    .post(login);
+router.get("/login", login);
 
 router.post('/logout', logout);
 

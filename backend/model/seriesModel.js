@@ -39,14 +39,13 @@ const seriesModel = mongoose.Schema({
         type: String,
         required: [true, 'Language is required']
     },
-    cast: [{
-        type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'Cast is required'],
-        ref: "Actors"
-    }],
     ageRating: {
         type: String,
         required: [true, 'Age Rating is required']
+    },
+    production_company: {
+        type: String,
+        required: [true, 'Production Company is required']
     },
     rotten_rating: {
         type: Number,
@@ -56,13 +55,43 @@ const seriesModel = mongoose.Schema({
         type: Number,
         required: [true, 'IMDB Rating is required']
     },
+    awards: [{
+        name: {
+            type: String,
+            required: true
+        },
+        year: {
+            type: Number,
+            required: true
+        }
+    }],
+    box_office: {
+        budget: {
+            type: Number,
+            required: true
+        },
+        gross: {
+            type: Number,
+            required: true
+        }
+    },
+    top_250_rank: {
+        type: Number,
+        required: false,
+        min: 1,
+        max: 250
+    },
+    pictures: {
+        type: [String],
+        required: false
+    },
     thumbnail: {
         type: String,
         required: [true, 'Thumbnail is required']
     },
-    image: {
+    cover: {
         type: String,
-        required: [true, 'Image is required']
+        required: [true, 'Cover is required!']
     },
     trailer: {
         type: String,
@@ -72,6 +101,12 @@ const seriesModel = mongoose.Schema({
         type: String,
         enum: ['Now Showing', 'Coming Soon', 'Expired'],
         required: [true, 'Release Status is required']
+    },
+    actors: {
+        type: [mongoose.Schema.Types.ObjectId],
+        default: [],
+        required: false,
+        ref: "Actors"
     },
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,

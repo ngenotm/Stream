@@ -7,9 +7,7 @@ exports.getAllDirectors = async (req, res) => {
             status: 200,
             message: "fetch data successfully",
             results: directors.length,
-            data: {
-                directors
-            }
+            directors
         });
     } catch (err) {
         res.status(404).json({
@@ -25,9 +23,7 @@ exports.getDirector = async (req, res) => {
         res.status(200).json({
             status: 200,
             message: "fetch data successfully",
-            data: {
-                director
-            }
+            director
         });
     } catch (err) {
         res.status(404).json({
@@ -43,9 +39,7 @@ exports.createDirector = async (req, res) => {
         res.status(201).json({
             status: 201,
             message: 'Director created successfully',
-            data: {
-                director: newDirector
-            }
+            director: newDirector
         });
     } catch (err) {
         res.status(400).json({
@@ -64,9 +58,7 @@ exports.updateDirector = async (req, res) => {
         res.status(200).json({
             status: 200,
             message: "Director updated successfully",
-            data: {
-                director
-            }
+            director
         });
     } catch (err) {
         res.status(404).json({
@@ -82,7 +74,7 @@ exports.deleteDirector = async (req, res) => {
         res.status(204).json({
             status: 204,
             message: "Director deleted successfully",
-            data: null
+            data: "null"
         });
     } catch (err) {
         res.status(404).json({

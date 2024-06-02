@@ -7,7 +7,8 @@ const movieModel = mongoose.Schema({
         required: [true, 'Title is required'],
     },
     director: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Directors',
         required: [true, 'Director is required'],
     },
     description: {
@@ -39,6 +40,14 @@ const movieModel = mongoose.Schema({
         type: String,
         required: [true, 'Language is required']
     },
+    age_rating: {
+        type: String,
+        required: [true, 'Age Rating is required']
+    },
+    production_company: {
+        type: String,
+        required: [true, 'Production Company is required']
+    },
     rotten_rating: {
         type: Number,
         required: [true, 'Rotten Rating is required']
@@ -46,6 +55,36 @@ const movieModel = mongoose.Schema({
     imdb_rating: {
         type: Number,
         required: [true, 'IMDB Rating is required']
+    },
+    awards: [{
+        name: {
+            type: String,
+            required: true
+        },
+        year: {
+            type: Number,
+            required: true
+        }
+    }],
+    box_office: {
+        budget: {
+            type: Number,
+            required: true
+        },
+        gross: {
+            type: Number,
+            required: true
+        }
+    },
+    top_250_rank: {
+        type: Number,
+        required: false,
+        min: 1,
+        max: 250
+    },
+    pictures: {
+        type: [String],
+        required: false
     },
     thumbnail: {
         type: String,

@@ -23,11 +23,11 @@ app.use(express.static(path.join(__dirname, "public", "thumbnail")));
 
 
 //! Routes
-app.use('/api', require('./router/userRoutes'));
-app.use('/api', require('./router/movieRoutes'));
+app.use('/api/user', require('./router/userRoutes'));
+app.use('/api/movie', require('./router/movieRoutes'));
 app.use('/api', require('./router/seriesRoutes'));
 app.use('/api', require('./router/actorRoutes'));
-app.use('/api', require('./router/directorRoutes'));
+app.use('/api/director', require('./router/directorRoutes'));
 app.use('/api', require('./router/reviewRoutes'));
 app.use('/api', require('./router/seasonRoutes'));
 app.use('/api', require('./router/episodeRoutes'));

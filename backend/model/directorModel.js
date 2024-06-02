@@ -1,25 +1,25 @@
 const mongoose = require('mongoose');
 
 const directorSchema = new mongoose.Schema({
-    director_id: {
+    directorId: {
         type: String,
         required: [true, 'director id is required'],
     },
-    full_name: {
+    fullName: {
         type: String,
         required: [true, 'full name is required'],
     },
-    birth_date: {
-        type: Date,
+    birthDate: {
+        type: String, //!Date
         required: [true, 'birth date is required'],
     },
-    birth_place: {
+    birthPlace: {
         type: String,
         required: [true, 'birth place is required'],
     },
     bio: {
         type: String,
-        required: [true, 'bio is required'],
+        default: ""
     },
     gender: {
         type: String,
@@ -34,17 +34,28 @@ const directorSchema = new mongoose.Schema({
         type: String,
         required: [true, 'image is required'],
     },
-    // awards:{},  //TODO: Add awards
+    awards: [{
+        name: {
+            type: String,
+            required: true
+        },
+        year: {
+            type: Number,
+            required: true
+        },
+    }],
     movies: [{
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'Movies is required'],
         ref: "Movies"
     }],
     series: [{
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'Series is required'],
         ref: "Series"
     }],
+    deathDate: {
+        type: Date,
+        required: false
+    },
 });
 
 module.exports = mongoose.model('Directors', directorSchema);

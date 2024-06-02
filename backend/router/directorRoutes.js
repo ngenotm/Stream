@@ -4,15 +4,13 @@ const ValidateObjectId = require('../middleware/ValidateObjectId');
 
 const router = express.Router();
 
-router
-    .route('/')
-    .get(getAllDirectors)
-    .post(createDirector);
+router.get("/directorList", getAllDirectors);
+router.post("/createDirector", createDirector);
 
 router
     .route('/:id')
-    .get(ValidateObjectId ,getDirector)
-    .patch(ValidateObjectId ,updateDirector)
-    .delete(ValidateObjectId ,deleteDirector);
+    .get(getDirector)
+    .put(updateDirector)
+    .delete(deleteDirector);
 
 module.exports = router;
