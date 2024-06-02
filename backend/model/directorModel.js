@@ -30,9 +30,9 @@ const directorSchema = new mongoose.Schema({
         type: String,
         required: [true, 'country is required'],
     },
-    image: {
+    profile: {
         type: String,
-        required: [true, 'image is required'],
+        required: [true, 'Profile is required'],
     },
     awards: [{
         name: {

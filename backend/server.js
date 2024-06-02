@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, "public", "thumbnail")));
 app.use('/api/user', require('./router/userRoutes'));
 app.use('/api/movie', require('./router/movieRoutes'));
 app.use('/api', require('./router/seriesRoutes'));
-app.use('/api', require('./router/actorRoutes'));
+app.use('/api/actor', require('./router/actorRoutes'));
 app.use('/api/director', require('./router/directorRoutes'));
 app.use('/api', require('./router/reviewRoutes'));
 app.use('/api', require('./router/seasonRoutes'));

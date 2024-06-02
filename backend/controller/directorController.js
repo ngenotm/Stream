@@ -70,11 +70,13 @@ exports.updateDirector = async (req, res) => {
 
 exports.deleteDirector = async (req, res) => {
     try {
-        await Director.findByIdAndDelete(req.params.id);
+        const director = await Director.findByIdAndDelete(req.params.id);
+        if (!director) {
+            return res.status(404).json({ status: 404, message: "Actor not found" })
+        }
         res.status(204).json({
             status: 204,
             message: "Director deleted successfully",
-            data: "null"
         });
     } catch (err) {
         res.status(404).json({

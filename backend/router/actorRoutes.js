@@ -8,11 +8,11 @@ const ValidateObjectId = require('../middleware/ValidateObjectId');
 const router = Router();
 
 
-router.route("/actor")
-    .get(allActors)
-    .post(Auth, AdminAuth, createActor);
+router.get("/actorList", allActors)
 
-router.route("/actor/:id")
+router.post("/", createActor);
+
+router.route("/:id")
     .get(ValidateObjectId, singleActor)
     .put(ValidateObjectId, updateActor)
     .delete(ValidateObjectId, deleteActor);

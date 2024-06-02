@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const actorModel = mongoose.Schema({
-    actor_id: {
+    actorId: {
         type: String,
         required: [true, 'Actor ID is required'],
     },
@@ -9,43 +9,53 @@ const actorModel = mongoose.Schema({
         type: String,
         required: [true, 'Full Name is required'],
     },
-    date_of_birth: {
+    birthDate: {
         type: String,
         required: [true, 'Date of Birth is required'],
     },
-    place_of_birth: {
+    birthPlace: {
         type: String,
         required: [true, 'Place of Birth is required'],
     },
-    biography: {
+    bio: {
         type: String,
         default: "",
-        required: false,
     },
     gender: {
         type: String,
+        enum: ["male", "female"],
         required: [true, 'Gender is required'],
     },
-    // awards:{},  //TODO: Add awards
-    image: {
-        type: String,
-        required: [true, 'Image is required']
-    },
-    //! I might have created a table for actors from all countries.
     country: {
         type: String,
         required: [true, 'Country is required']
     },
+    profile: {
+        type: String,
+        required: [true, 'Profile is required']
+    },
+    awards: [{
+        name: {
+            type: String,
+            required: true
+        },
+        year: {
+            type: Number,
+            required: true
+        },
+    }],
     movies: [{
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'Movies is required'],
         ref: "Movies"
     }],
     series: [{
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'Series is required'],
         ref: "Series"
     }],
+    deathDate: {
+        type: Date,
+        required: false
+    },
 });
 
 module.exports = mongoose.model('Actors', actorModel);
