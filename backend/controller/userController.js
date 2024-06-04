@@ -6,7 +6,6 @@ const { isValidObjectId } = require("mongoose");
 const { createUserValidation, loginValidation } = require("../validation/userValidation");
 const ValidateObjectId = require("../middleware/ValidateObjectId");
 
-
 //! Get Request
 exports.allUser = async (req, res) => {
     try {

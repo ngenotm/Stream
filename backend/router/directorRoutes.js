@@ -1,11 +1,13 @@
 const express = require('express');
-const { getAllDirectors, createDirector, getDirector, updateDirector, deleteDirector } = require('../controller/directorController');
+const { getAllDirectors, createDirector, getDirector, updateDirector, deleteDirector, createNewDirector } = require('../controller/directorController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
 
 const router = express.Router();
 
+router.post("/createDirector", createNewDirector)
+
 router.get("/directorList", getAllDirectors);
-router.post("/createDirector", createDirector);
+router.post("/", createDirector);
 
 router
     .route('/:id')
