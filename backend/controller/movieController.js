@@ -1,7 +1,10 @@
 const { isValidObjectId } = require("mongoose");
+const path = require('path');
+
 const Movie = require("../model/movieModel");
 const { createMovieValidation } = require("../validation/movieValidation");
-const path = require('path');
+const upload = require('../utils/videoUploader');
+
 
 //! Get Request
 exports.allMovies = async (req, res) => {
@@ -29,49 +32,6 @@ exports.singleMovie = async (req, res) => {
 
 
 //! Post Request
-const multer = require('multer');
-const shortid = require("shortid");
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        let dir;
-        switch (file.fieldname) {
-            case 'thumbnail':
-                dir = 'public/thumbnail';
-                break;
-            case 'cover':
-                dir = 'public/cover';
-                break;
-            case 'trailer':
-                dir = 'public/trailer';
-                break;
-            case 'files':
-                dir = 'public/videos';
-                break;
-            default:
-                dir = 'public/';
-        }
-        cb(null, dir);
-    },
-    filename: (req, file, cb) => {
-
-        // if(file.fieldname='files'){
-        //     console.log(file)
-        // }
-        console.log(req.body);
-        console.log("___________");
-        console.log(req.files);
-        console.log("___________");
-        console.log(file);
-
-        // const timestamp = Date.now();
-        const ext = path.extname(file.originalname);
-        // const name = path.basename(file.originalname, ext);
-        cb(null, `${req.body.title}-${req.body.release_date}-${shortid.generate()}-streamvibe${ext}`);
-    },
-});
-
-const upload = multer({ storage })
-
 exports.createMovie = [upload.fields([{ name: 'thumbnail', maxCount: 1 }, { name: "cover", maxCount: 1 }, { name: 'trailer', maxCount: 1 }, { name: 'files' }]), async (req, res) => {
     try {
         const thumbnailUrl = req.files.thumbnail[0].filename;
