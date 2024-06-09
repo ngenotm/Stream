@@ -20,7 +20,7 @@ exports.singleMovie = async (req, res) => {
     const movieId = req.params.id;
 
     try {
-        const movie = await Movie.findById(movieId).populate("actors");
+        const movie = await Movie.findById(movieId).populate("actors director");
         if (!movie) {
             return res.status(404).json({ message: "Movie not found" });
         }
@@ -105,11 +105,11 @@ exports.deleteMovie = async (req, res) => {
     if (!isValidObjectId(movieId)) return res.status(400).json({ message: "Invalid Movie ID" });
 
     try {
-        const movie = await movieModel.findByIdAndRemove(movieId);
+        const movie = await Movie.findByIdAndDelete(movieId);
         if (!movie) {
             return res.status(404).json({ message: "Movie not found" });
         }
-        res.status(200).json({ status: 200, message: "Movie deleted" });
+        res.status(200).json({ status: 200, message: "Movie deleted successfully" });
     } catch (error) {
         res.status(500).json({ status: 500, message: error.message });
     }
