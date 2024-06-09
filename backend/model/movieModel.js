@@ -26,7 +26,7 @@ const movieModel = mongoose.Schema({
     },
     genres: {
         type: [String],
-        required: [true, 'Genre is required'],
+        required: [true, 'Genres is required'],
     },
     category: {
         type: [String],
@@ -46,7 +46,7 @@ const movieModel = mongoose.Schema({
     },
     production_company: {
         type: String,
-        required: [true, 'Production Company is required']
+        required: [false, 'Production Company is required']
     },
     rotten_rating: {
         type: Number,
@@ -69,11 +69,11 @@ const movieModel = mongoose.Schema({
     box_office: {
         budget: {
             type: Number,
-            required: true
+            required: false
         },
         gross: {
             type: Number,
-            required: true
+            required: false
         }
     },
     top_250_rank: {
@@ -98,9 +98,20 @@ const movieModel = mongoose.Schema({
         type: String,
         required: [true, 'Trailer is required']
     },
+    files: [{
+        quality: {
+            type: String,
+            required: true,
+            enum: ['360p', '480p', '720p', '1080p', '4K']
+        },
+        url: {
+            type: String,
+            required: true
+        }
+    }],
     release_status: {
         type: String,
-        enum: ['now showing', 'coming soon', 'expired'],
+        enum: ['coming soon', 'now showing'],
         required: [true, 'Release Status is required']
     },
     actors: {
@@ -116,3 +127,24 @@ const movieModel = mongoose.Schema({
 })
 
 module.exports = mongoose.model('Movies', movieModel);
+
+
+
+
+// const Movie = require('./models/movieModel');
+// const cron = require('node-cron');
+
+// cron.schedule('0 0 * * *', async () => {
+//     const now = new Date();
+//     now.setHours(0, 0, 0, 0);
+
+//     const movies = await Movie.find({
+//         release_status: 'coming soon',
+//         release_date: { $lte: now }
+//     });
+
+//     movies.forEach(async (movie) => {
+//         movie.release_status = 'now showing';
+//         await movie.save();
+//     });
+// });

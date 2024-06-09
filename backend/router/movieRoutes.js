@@ -4,13 +4,16 @@ const ValidateObjectId = require('../middleware/ValidateObjectId');
 
 const router = Router();
 
-router.route("/movie")
+router.route("/")
     .get(allMovies)
     .post(createMovie);
 
-router.route("/movie/:id")
-    .get(ValidateObjectId ,singleMovie)
-    .put(ValidateObjectId ,updateMovie)
-    .delete(ValidateObjectId ,deleteMovie);
+
+// router.post("/createMovie", createMovie);
+
+router.route("/:id")
+    .get(ValidateObjectId, singleMovie)
+    .put(ValidateObjectId, updateMovie)
+    .delete(ValidateObjectId, deleteMovie);
 
 module.exports = router;
