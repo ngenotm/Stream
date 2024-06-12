@@ -1,11 +1,13 @@
 const { Router } = require('express');
 const { singleUser, registerUser, login, deleteUser, allUser, getWatchList, logout, refreshToken } = require('../controller/userController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
+const Authenticate = require('../middleware/Authenticate');
+const Authorize = require('../middleware/Authorize');
 
 const router = Router();
 
 
-router.get("/users", allUser);
+router.get("/users", [Authenticate, Authorize(["admin"])], allUser);
 
 router.get("/getWatchList/:id", getWatchList);
 
