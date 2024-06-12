@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { singleUser, registerUser, login, deleteUser, allUser, getWatchList, logout } = require('../controller/userController');
+const { singleUser, registerUser, login, deleteUser, allUser, getWatchList, logout, refreshToken } = require('../controller/userController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
 
 const router = Router();
@@ -14,10 +14,9 @@ router.route("/user/:id")
     .delete(ValidateObjectId, deleteUser);
 
 router.post("/register", registerUser);
-
-router.get("/login", login);
-
+router.post("/login", login);
 router.post('/logout', logout);
+router.post("/refreshToken", refreshToken);
 
 
 module.exports = router;

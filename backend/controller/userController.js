@@ -110,11 +110,29 @@ exports.login = async (req, res) => {
             email: user.email,
             role: user.role,
         }
+
         const token = jwt.sign(tokenData, process.env.JWT_SECRET);
+        const refreshToken = jwt.sign(tokenData, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });
 
-        //! Set HTTP Only cookie
-        res.cookie('token', token, { httpOnly: true, sameSite: 'strict' });
+        user.refreshToken = refreshToken; //! Save refresh token to user database
+        await user.save();
 
+        // Set HTTP Only cookie for refreshToken
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: process.env.NODE_ENV == "production",
+            maxAge: 86400000 * 30, // 30 day
+            path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
+        });
+        res.cookie('token', token, {
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: process.env.NODE_ENV == "production",
+            maxAge: 86400000 // 1 day
+        });
+
+        // Set HTTP Only cookie for token (access token)
         res.status(200).json({ status: 200, message: "Login Successfully" });
     }
     catch (error) {
@@ -122,9 +140,55 @@ exports.login = async (req, res) => {
     }
 };
 
+
+exports.refreshToken = async (req, res) => {
+    const { refreshToken } = req.cookies
+    if (!refreshToken) return res.status(401).json({ status: 401, message: "No refresh token provided" });
+
+    console.log(req.cookies)
+    console.log(refreshToken)
+
+    try {
+        //! Verify the refresh token
+        const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+        const user = await userModel.findById(decoded.id);
+
+        if (!user || user.refreshToken !== refreshToken) {
+            return res.status(403).json({ status: 403, message: "Invalid refresh token" });
+        }
+
+        // Generate a new access token
+        const newTokenData = { id: user._id, email: user.email, role: user.role };
+        const newToken = jwt.sign(newTokenData, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        // Optionally generate a new refresh token
+        const newRefreshToken = jwt.sign(newTokenData, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });
+        user.refreshToken = newRefreshToken; // Update the refresh token in the database
+        await user.save();
+
+        // Set HTTP Only cookies for the new tokens
+        res.cookie('refreshToken', newRefreshToken, {
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: process.env.NODE_ENV == "production",
+            path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
+        });
+        res.cookie('token', newToken, {
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: process.env.NODE_ENV == "production",
+            maxAge: 3600000 // 1 hour
+        });
+
+        res.status(200).json({ status: 200, message: "Tokens refreshed successfully" });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: error.message });
+    }
+};
+
 exports.logout = (req, res) => {
     try {
-        res.clearCookie('token');
+        res.cookie('token', '', { httpOnly: true, sameSite: 'strict', expires: new Date(0) });
         res.status(200).json({ status: 200, message: "Logout Successfully" });
     }
     catch (error) {
@@ -133,12 +197,12 @@ exports.logout = (req, res) => {
 };
 
 
+
 //! Delete Request
 exports.deleteUser = async (req, res) => {
     const userId = req.params.id;
 
     try {
-        // const user = await userModel.findByIdAndRemove(userId);
         const user = await userModel.findByIdAndDelete(userId);
         if (!user) {
             return res.status(404).json({ status: 404, message: "User not found" });
