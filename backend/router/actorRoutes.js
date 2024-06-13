@@ -1,10 +1,8 @@
 const { Router } = require('express');
-const { allActors, singleActor, createActor, updateActor, deleteActor } =
-    require('../controller/actorController');
-const Auth = require('../middleware/auth');
-const AdminAuth = require('../middleware/adminAuth');
+const { allActors, singleActor, createActor, updateActor, deleteActor } = require('../controller/actorController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
-
+const Authenticate = require('../middleware/Authenticate');
+const Authorize = require('../middleware/Authorize');
 const router = Router();
 
 
@@ -14,8 +12,8 @@ router.post("/", createActor);
 
 router.route("/:id")
     .get(ValidateObjectId, singleActor)
-    .put(ValidateObjectId, updateActor)
-    .delete(ValidateObjectId, deleteActor);
+    .put(ValidateObjectId, [Authenticate, Authorize(["admin"])], updateActor)
+    .delete(ValidateObjectId, [Authenticate, Authorize(["admin"])], deleteActor);
 
 
 module.exports = router;

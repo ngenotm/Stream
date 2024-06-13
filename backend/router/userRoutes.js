@@ -13,12 +13,13 @@ router.get("/getWatchList/:id", getWatchList);
 
 router.route("/user/:id")
     .get(ValidateObjectId, singleUser)
-    .delete(ValidateObjectId, deleteUser);
+    .delete(ValidateObjectId, [Authenticate, Authorize(["admin"])], deleteUser);
+
+//! must add edit user route here
 
 router.post("/register", registerUser);
 router.post("/login", login);
 router.post('/logout', logout);
 router.post("/refreshToken", refreshToken);
-
 
 module.exports = router;

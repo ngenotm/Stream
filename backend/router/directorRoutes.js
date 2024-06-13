@@ -1,18 +1,19 @@
 const express = require('express');
-const { getAllDirectors, createDirector, getDirector, updateDirector, deleteDirector, createNewDirector } = require('../controller/directorController');
+const { getAllDirectors, getDirector, updateDirector, deleteDirector, createDirector } = require('../controller/directorController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
+const Authorize = require('../middleware/Authorize');
+const Authenticate = require('../middleware/Authenticate');
 
 const router = express.Router();
 
-router.post("/createDirector", createNewDirector)
 
 router.get("/directorList", getAllDirectors);
-router.post("/", createDirector);
+router.post("/", [Authenticate, Authorize(["admin"])], createDirector);
 
 router
     .route('/:id')
-    .get(getDirector)
-    .put(updateDirector)
-    .delete(deleteDirector);
+    .get(ValidateObjectId, getDirector)
+    .put([ValidateObjectId, Authenticate, Authorize(["admin"])], updateDirector)
+    .delete([ValidateObjectId, Authenticate, Authorize(["admin"])], deleteDirector);
 
 module.exports = router;

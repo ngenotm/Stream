@@ -12,21 +12,6 @@ const upload = uploadImage({
     quality: 80
 });
 
-exports.createNewDirector = [upload, async (req, res) => {
-    try {
-        const newDirector = await Director.create(req.body);
-        res.status(201).json({
-            status: 201,
-            message: "Director created successfully",
-            director: newDirector
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 404,
-            message: err
-        });
-    }
-}];
 
 
 
@@ -63,12 +48,12 @@ exports.getDirector = async (req, res) => {
     }
 };
 
-exports.createDirector = async (req, res) => {
+exports.createDirector = [upload, async (req, res) => {
     try {
         const newDirector = await Director.create(req.body);
         res.status(201).json({
             status: 201,
-            message: 'Director created successfully',
+            message: "Director created successfully",
             director: newDirector
         });
     } catch (err) {
@@ -77,7 +62,7 @@ exports.createDirector = async (req, res) => {
             message: err
         });
     }
-};
+}];
 
 exports.updateDirector = async (req, res) => {
     try {
@@ -85,6 +70,11 @@ exports.updateDirector = async (req, res) => {
             new: true,
             runValidators: true
         });
+
+        if (!director) {
+            return res.status(404).json({ status: 404, message: "Director not found" })
+        }
+
         res.status(200).json({
             status: 200,
             message: "Director updated successfully",
@@ -104,7 +94,7 @@ exports.deleteDirector = async (req, res) => {
         if (!director) {
             return res.status(404).json({ status: 404, message: "Actor not found" })
         }
-        res.status(204).json({
+        res.status(200).json({
             status: 204,
             message: "Director deleted successfully",
         });

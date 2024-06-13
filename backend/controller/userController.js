@@ -145,9 +145,6 @@ exports.refreshToken = async (req, res) => {
     const { refreshToken } = req.cookies
     if (!refreshToken) return res.status(401).json({ status: 401, message: "No refresh token provided" });
 
-    console.log(req.cookies)
-    console.log(refreshToken)
-
     try {
         //! Verify the refresh token
         const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
@@ -195,7 +192,6 @@ exports.logout = (req, res) => {
         res.status(500).json({ status: 500, message: error.message });
     }
 };
-
 
 
 //! Delete Request
