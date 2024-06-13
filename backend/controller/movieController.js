@@ -8,6 +8,28 @@ const upload = require('../utils/videoUploader');
 
 //! Get Request
 exports.allMovies = async (req, res) => {
+    // const page = parseInt(req.query.page) || 1;
+    // const limit = parseInt(req.query.limit) || 10;
+    // const skip = (page - 1) * limit;
+    // try {
+    //     const movies = await Movie.find().skip(skip).limit(limit);
+    //     const total = await Movie.countDocuments();
+    //     res.status(200).json({
+    //         status: 200,
+    //         message: "Fetched movies successfully",
+    //         results: movies.length,
+    //         total,
+    //         data: {
+    //             movies,
+    //         },
+    //     });
+    // } catch (err) {
+    //     res.status(500).json({
+    //         status: 500,
+    //         message: err.message,
+    //     });
+    // }
+
     try {
         const movies = await Movie.find();
         res.status(200).json({ status: 200, movies, message: "All movies" });

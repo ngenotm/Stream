@@ -120,10 +120,10 @@ const movieModel = mongoose.Schema({
         required: false,
         ref: "Actors"
     },
-    reviews: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Reviews'
-    }]
+    // reviews: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Reviews'
+    // }]
 })
 
 module.exports = mongoose.model('Movies', movieModel);

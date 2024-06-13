@@ -6,13 +6,17 @@ const reviewModel = mongoose.Schema({
         required: [true, 'User is required'],
         ref: 'Users'
     },
-    movie: {
+    // movie: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Movies'
+    // },
+    // series: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Series'
+    // },
+    media: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Movies'
-    },
-    series: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Series'
+        required: [true, 'Media is required'],
     },
     text: {
         type: String,

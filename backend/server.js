@@ -31,7 +31,7 @@ app.use('/api/movie', require('./router/movieRoutes'));
 app.use('/api', require('./router/seriesRoutes'));
 app.use('/api/actor', require('./router/actorRoutes'));
 app.use('/api/director', require('./router/directorRoutes'));
-app.use('/api', require('./router/reviewRoutes'));
+app.use('/api/review', require('./router/reviewRoutes'));
 app.use('/api', require('./router/seasonRoutes'));
 app.use('/api', require('./router/episodeRoutes'));
 
