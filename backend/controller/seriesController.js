@@ -21,7 +21,15 @@ exports.getAllSeries = async (req, res) => {
 
 exports.getSeries = async (req, res) => {
     try {
-        const series = await Series.findById(req.params.id).populate('director seasons actors');
+        const series = await Series.findById(req.params.id).populate("director actors").populate({
+            path: 'seasons',
+            model: 'Seasons',
+            populate: {
+                path: 'episodes',
+                model: 'Episodes'
+            }
+        });
+        if (!series) return res.status(404).json({ message: "Series not found" });
         res.status(200).json({
             status: 'success',
             series
