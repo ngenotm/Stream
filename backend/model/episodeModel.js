@@ -10,31 +10,43 @@ const episodeModel = mongoose.Schema({
         default: "",
         require: false
     },
-    release_date: {
-        type: Date,
-        required: [true, 'Release Date is required'],
+    releaseDate: {
+        type: String,
+        default: new Date()
+        // required: [true, 'Release Date is required'],
     },
     runtime: {
         type: Number,
         required: [true, 'Runtime is required'],
     },
-    season: {
+    episodeNumber: {
         type: Number,
-        required: [true, 'Season is required'],
+        required: [true, 'Episode number is required'],
+    },
+    seasonNumber: {
+        type: Number,
+        required: [true, 'Season number is required'],
     },
     series: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, 'Series is required'],
         ref: "Series"
     },
-    thumbnail: {
+    pictures: [{
         type: String,
-        required: [true, 'Thumbnail is required']
-    },
-    video: {
-        type: String,
-        required: [true, 'Video is required']
-    },
+        required: [true, 'Picture is required']
+    }],
+    files: [{
+        quality: {
+            type: String,
+            required: true,
+            enum: ['360p', '480p', '720p', '1080p', '4K']
+        },
+        url: {
+            type: String,
+            required: true
+        }
+    }],
 });
 
 module.exports = mongoose.model('Episodes', episodeModel);

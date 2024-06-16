@@ -12,7 +12,7 @@ router.route('/series/:seriesId')
 
 router.route('/:id')
     .get(ValidateObjectId, getSeason)
-    .patch(ValidateObjectId, updateSeason)
+    .put(ValidateObjectId, updateSeason)
     .delete(ValidateObjectId, deleteSeason);
 
 module.exports = router;

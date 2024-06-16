@@ -6,13 +6,15 @@ const seasonModel = mongoose.Schema({
         required: [true, 'Series is required'],
         ref: 'Series'
     },
+    //! must change to default and check season data base for seasonNumber ...
     seasonNumber: {
         type: Number,
         required: [true, 'Season number is required'],
     },
     episodes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Episodes'
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'Episodes'
+        type:String
     }]
 });
 

@@ -3,33 +3,11 @@ const path = require('path');
 
 const Movie = require("../model/movieModel");
 const { createMovieValidation } = require("../validation/movieValidation");
-const upload = require('../utils/videoUploader');
+const { movieUploader } = require('../utils/videoUploader');
 
 
 //! Get Request
 exports.allMovies = async (req, res) => {
-    // const page = parseInt(req.query.page) || 1;
-    // const limit = parseInt(req.query.limit) || 10;
-    // const skip = (page - 1) * limit;
-    // try {
-    //     const movies = await Movie.find().skip(skip).limit(limit);
-    //     const total = await Movie.countDocuments();
-    //     res.status(200).json({
-    //         status: 200,
-    //         message: "Fetched movies successfully",
-    //         results: movies.length,
-    //         total,
-    //         data: {
-    //             movies,
-    //         },
-    //     });
-    // } catch (err) {
-    //     res.status(500).json({
-    //         status: 500,
-    //         message: err.message,
-    //     });
-    // }
-
     try {
         const movies = await Movie.find();
         res.status(200).json({ status: 200, movies, message: "All movies" });
@@ -54,7 +32,8 @@ exports.singleMovie = async (req, res) => {
 
 
 //! Post Request
-exports.createMovie = [upload.fields([{ name: 'thumbnail', maxCount: 1 }, { name: "cover", maxCount: 1 }, { name: 'trailer', maxCount: 1 }, { name: 'files' }]), async (req, res) => {
+// exports.createMovie = [upload.fields([{ name: 'thumbnail', maxCount: 1 }, { name: "cover", maxCount: 1 }, { name: 'trailer', maxCount: 1 }, { name: 'files' }]), async (req, res) => {
+exports.createMovie = [movieUploader, async (req, res) => {
     try {
         const thumbnailUrl = req.files.thumbnail[0].filename;
         const trailerUrl = req.files.trailer[0].filename;
@@ -86,9 +65,6 @@ exports.createMovie = [upload.fields([{ name: 'thumbnail', maxCount: 1 }, { name
 //! Put Request
 exports.updateMovie = async (req, res) => {
     const movieId = req.params.id;
-    const { title, director, description, release_date, duration, genre, country, rotten_rating, imdb_rating, thumbnail, cover, trailer, release_status } = req.body;
-
-    if (!isValidObjectId(movieId)) return res.status(400).json({ message: "Invalid Movie ID" });
 
     try {
         const movie = await movieModel.findById(movieId);
@@ -99,21 +75,7 @@ exports.updateMovie = async (req, res) => {
         if (createMovieValidation(req.body).error)
             return res.status(400).json({ text: createMovieValidation(req.body).error.message });
 
-        await movieModel.findByIdAndUpdate(movieId, {
-            title,
-            director,
-            description,
-            release_date,
-            duration,
-            genre,
-            country,
-            rotten_rating,
-            imdb_rating,
-            thumbnail,
-            cover,
-            trailer,
-            release_status
-        }, { new: true });
+        await movieModel.findByIdAndUpdate(movieId, req.body, { new: true });
         res.status(200).json({ status: 200, message: "Movie updated" });
     } catch (error) {
         res.status(500).json({ status: 500, message: error.message });
@@ -123,8 +85,6 @@ exports.updateMovie = async (req, res) => {
 //! Delete Request
 exports.deleteMovie = async (req, res) => {
     const movieId = req.params.id;
-
-    if (!isValidObjectId(movieId)) return res.status(400).json({ message: "Invalid Movie ID" });
 
     try {
         const movie = await Movie.findByIdAndDelete(movieId);

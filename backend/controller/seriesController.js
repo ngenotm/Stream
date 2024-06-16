@@ -1,18 +1,19 @@
 const Series = require('../model/seriesModel');
+const { seriesUploader } = require('../utils/videoUploader');
+
 
 exports.getAllSeries = async (req, res) => {
+    console.log("first")
     try {
-        const series = await Series.find().populate('director seasons cast reviews');
+        const series = await Series.find().populate('director seasons actors');
         res.status(200).json({
             status: 'success',
-            results: series.length,
-            data: {
-                series
-            }
+            total: series.length,
+            series
         });
     } catch (err) {
-        res.status(404).json({
-            status: 'fail',
+        res.status(500).json({
+            status: '500',
             message: err
         });
     }
@@ -20,38 +21,43 @@ exports.getAllSeries = async (req, res) => {
 
 exports.getSeries = async (req, res) => {
     try {
-        const series = await Series.findById(req.params.id).populate('director seasons cast reviews');
+        const series = await Series.findById(req.params.id).populate('director seasons actors');
         res.status(200).json({
             status: 'success',
-            data: {
-                series
-            }
+            series
         });
     } catch (err) {
-        res.status(404).json({
-            status: 'fail',
+        res.status(500).json({
+            status: '500',
             message: err
         });
     }
 };
 
-exports.createSeries = async (req, res) => {
+exports.createSeries = [seriesUploader, async (req, res) => {
     try {
+        const thumbnailUrl = req.files.thumbnail[0].filename;
+        const trailerUrl = req.files.trailer[0].filename;
+        const coverUrl = req.files.cover[0].filename
+
+        req.body.thumbnail = thumbnailUrl;
+        req.body.trailer = trailerUrl;
+        req.body.cover = coverUrl;
+
         const newSeries = await Series.create(req.body);
         res.status(201).json({
             status: 'success',
-            data: {
-                series: newSeries
-            }
+            series: newSeries
         });
     } catch (err) {
-        res.status(400).json({
-            status: 'fail',
+        res.status(500).json({
+            status: '500',
             message: err
         });
     }
-};
+}];
 
+//! must test and change the controller
 exports.updateSeries = async (req, res) => {
     try {
         const series = await Series.findByIdAndUpdate(req.params.id, req.body, {
@@ -65,8 +71,8 @@ exports.updateSeries = async (req, res) => {
             }
         });
     } catch (err) {
-        res.status(404).json({
-            status: 'fail',
+        res.status(500).json({
+            status: '500',
             message: err
         });
     }
@@ -74,14 +80,19 @@ exports.updateSeries = async (req, res) => {
 
 exports.deleteSeries = async (req, res) => {
     try {
-        await Series.findByIdAndDelete(req.params.id);
-        res.status(204).json({
-            status: 'success',
+        const series = await Series.findByIdAndDelete(req.params.id);
+        if (!series) return res.status(404).json({ message: "Series not found" });
+
+        //! must delete all episodes and season in the series
+
+        res.status(200).json({
+            status: '200',
+            message: "Series deleted successfully",
             data: null
         });
     } catch (err) {
-        res.status(404).json({
-            status: 'fail',
+        res.status(500).json({
+            status: '500',
             message: err
         });
     }

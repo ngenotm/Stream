@@ -7,7 +7,7 @@ const seriesModel = mongoose.Schema({
     },
     director: {
         type: mongoose.Schema.Types.ObjectId,
-        default: "",
+        required: [true, 'Director is required'],
         ref: "Directors"
     },
     description: {
@@ -15,8 +15,8 @@ const seriesModel = mongoose.Schema({
         default: "",
         require: false
     },
-    release_date: {
-        type: Date,
+    releaseDate: {
+        type: String,
         required: [true, 'Release Date is required'],
     },
     seasons: [{
@@ -43,15 +43,16 @@ const seriesModel = mongoose.Schema({
         type: String,
         required: [true, 'Age Rating is required']
     },
-    production_company: {
+    //! Must change
+    productionCompany: {
         type: String,
         required: [true, 'Production Company is required']
     },
-    rotten_rating: {
+    rottenRating: {
         type: Number,
         required: [true, 'Rotten Rating is required']
     },
-    imdb_rating: {
+    imdbRating: {
         type: Number,
         required: [true, 'IMDB Rating is required']
     },
@@ -65,17 +66,17 @@ const seriesModel = mongoose.Schema({
             required: true
         }
     }],
-    box_office: {
+    boxOffice: {
         budget: {
             type: Number,
-            required: true
+            // required: true
         },
         gross: {
             type: Number,
-            required: true
+            // required: true
         }
     },
-    top_250_rank: {
+    top250rank: {
         type: Number,
         required: false,
         min: 1,
@@ -97,10 +98,11 @@ const seriesModel = mongoose.Schema({
         type: String,
         required: [true, 'Trailer is required']
     },
-    release_status: {
+    releaseStatus: {
         type: String,
         enum: ['Now Showing', 'Coming Soon', 'Expired'],
-        required: [true, 'Release Status is required']
+        // required: [true, 'Release Status is required']
+        default: 'Now Showing'
     },
     actors: {
         type: [mongoose.Schema.Types.ObjectId],
@@ -108,11 +110,6 @@ const seriesModel = mongoose.Schema({
         required: false,
         ref: "Actors"
     },
-    reviews: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Reviews'
-    }]
-    //! Add awards
 });
 
 module.exports = mongoose.model('Series', seriesModel);
