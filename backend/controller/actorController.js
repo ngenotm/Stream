@@ -62,6 +62,8 @@ exports.updateActor = [upload, editValidation, async (req, res) => {
 
     try {
         const actor = await Actor.findById(actorId);
+        if (!actor) return res.status(404).json({ status: 404, message: "Actor not found" });
+
         if (req.body.profile && actor.profile) {
             fs.unlinkSync(path.join(__dirname, '../public/actor/', actor.profile));
         }

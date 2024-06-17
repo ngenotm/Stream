@@ -1,5 +1,10 @@
+const fs = require('fs');
+const path = require('path');
+
 const Director = require('../model/directorModel');
 const uploadImage = require('../utils/upload');
+const { createValidation, editValidation } = require('../validation/directorValidation');
+
 
 
 //! config uploader
@@ -48,7 +53,7 @@ exports.getDirector = async (req, res) => {
     }
 };
 
-exports.createDirector = [upload, async (req, res) => {
+exports.createDirector = [upload, createValidation, async (req, res) => {
     try {
         const newDirector = await Director.create(req.body);
         res.status(201).json({
@@ -64,29 +69,26 @@ exports.createDirector = [upload, async (req, res) => {
     }
 }];
 
-exports.updateDirector = async (req, res) => {
-    try {
-        const director = await Director.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
+exports.updateDirector = [upload, editValidation, async (req, res) => {
+    const directorId = req.params.id;
 
-        if (!director) {
-            return res.status(404).json({ status: 404, message: "Director not found" })
+    try {
+        const director = await Director.findById(directorId);
+        if(!director) return res.status(404).json({ status: 404, message: "Director not found" });
+
+        if (req.body.profile && director.profile) {
+            fs.unlinkSync(path.join(__dirname, '../public/director/', director.profile));
         }
 
-        res.status(200).json({
-            status: 200,
-            message: "Director updated successfully",
-            director
+        const updatedDirector = await Director.findByIdAndUpdate(directorId, req.body, {
+            new: true,
         });
-    } catch (err) {
-        res.status(404).json({
-            status: 404,
-            message: err
-        });
+
+        res.status(200).json({ status: 200, message: "Director updated", director: updatedDirector });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: error.message });
     }
-};
+}];
 
 exports.deleteDirector = async (req, res) => {
     try {
