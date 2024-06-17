@@ -1,19 +1,14 @@
 const mongoose = require('mongoose');
 
 const reviewModel = mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'User is required'],
-        ref: 'Users'
+    fullName: {
+        type: String,
+        required: [true, 'Full name is required'],
     },
-    // movie: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Movies'
-    // },
-    // series: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Series'
-    // },
+    email: {
+        type: String,
+        required: [true, 'Email is required'],
+    },
     media: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, 'Media is required'],
