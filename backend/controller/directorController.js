@@ -3,7 +3,7 @@ const path = require('path');
 
 const Director = require('../model/directorModel');
 const uploadImage = require('../utils/upload');
-const { createValidation, editValidation } = require('../validation/directorValidation');
+const { createDirectorValidation, editDirectorValidation } = require('../validation/directorValidation');
 
 
 
@@ -53,7 +53,7 @@ exports.getDirector = async (req, res) => {
     }
 };
 
-exports.createDirector = [upload, createValidation, async (req, res) => {
+exports.createDirector = [upload, createDirectorValidation, async (req, res) => {
     try {
         const newDirector = await Director.create(req.body);
         res.status(201).json({
@@ -69,7 +69,7 @@ exports.createDirector = [upload, createValidation, async (req, res) => {
     }
 }];
 
-exports.updateDirector = [upload, editValidation, async (req, res) => {
+exports.updateDirector = [upload, editDirectorValidation, async (req, res) => {
     const directorId = req.params.id;
 
     try {

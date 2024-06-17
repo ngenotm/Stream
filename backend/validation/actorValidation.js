@@ -1,7 +1,7 @@
 const joi = require('joi');
 
 
-exports.createValidation = (req, res, next) => {
+exports.createActorValidation = (req, res, next) => {
     const schema = joi.object({
         actorId: joi.string()
             .required(),
@@ -30,7 +30,7 @@ exports.createValidation = (req, res, next) => {
 };
 
 
-exports.editValidation = (req, res, next) => {
+exports.editActorValidation = (req, res, next) => {
     const schema = joi.object({
         fullName: joi.string()
             .min(3)

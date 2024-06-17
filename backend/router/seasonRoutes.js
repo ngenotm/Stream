@@ -1,11 +1,12 @@
 const express = require('express');
 const { createSeason, getSeason, updateSeason, deleteSeason, getSeasonsBySeries } = require('../controller/seasonController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
+const { createSeasonValidation } = require('../validation/seasonValidation');
 
 const router = express.Router();
 
 router.route('/')
-    .post(createSeason);
+    .post(createSeasonValidation, createSeason);
 
 router.route('/series/:seriesId')
     .get(getSeasonsBySeries);

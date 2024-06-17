@@ -14,7 +14,7 @@ const seasonModel = mongoose.Schema({
     episodes: [{
         // type: mongoose.Schema.Types.ObjectId,
         // ref: 'Episodes'
-        type:String
+        type: String
     }]
 });
 
