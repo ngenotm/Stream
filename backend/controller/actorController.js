@@ -2,6 +2,7 @@ const path = require('path');
 const Actor = require('../model/actorModel');
 const uploadImage = require('../utils/upload');
 const fs = require('fs');
+const { createValidation, editValidation } = require('../validation/actorValidation');
 
 //! config uploader
 const upload = uploadImage({
@@ -41,7 +42,7 @@ exports.singleActor = async (req, res) => {
 
 
 //! Post Request
-exports.createActor = [upload, async (req, res) => {
+exports.createActor = [upload, createValidation, async (req, res) => {
     try {
         const newActor = await Actor.create(req.body);
         res.status(201).json({
@@ -56,7 +57,7 @@ exports.createActor = [upload, async (req, res) => {
 
 
 //! Put Request
-exports.updateActor = [upload, async (req, res) => {
+exports.updateActor = [upload, editValidation, async (req, res) => {
     const actorId = req.params.id;
 
     try {

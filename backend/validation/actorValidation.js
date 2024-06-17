@@ -1,15 +1,49 @@
 const joi = require('joi');
 
 
-exports.createActorValidation = (data) => {
+exports.createValidation = (req, res, next) => {
     const schema = joi.object({
-        fullName: joi.string().min(3).max(30).required(),
-        date_of_birth: joi.string().required(),
-        place_of_birth: joi.string().required(),
-        biography: joi.string().default(""),
-        image: joi.string().required(),
-        country: joi.string().required()
+        actorId: joi.string()
+            .required(),
+        fullName: joi.string()
+            .min(3)
+            .max(50)
+            .required(),
+        birthDate: joi.string()
+            .required(),
+        birthPlace: joi.string()
+            .required(),
+        country: joi.string()
+            .required(),
+        bio: joi.string()
+            .default(""),
+        gender: joi.string()
+            .valid("male", "female")
+            .required(),
+        profile: joi.string()
+            .required(),
     });
-    return schema.validate(data)
-}
+    const { error } = schema.validate(req.body);
+    if (error) return res.status(400).json({ status: 400, message: error.details.map(d => d.message) });
 
+    next();
+};
+
+
+exports.editValidation = (req, res, next) => {
+    const schema = joi.object({
+        fullName: joi.string()
+            .min(3)
+            .max(50),
+        birthDate: joi.string(),
+        birthPlace: joi.string(),
+        country: joi.string(),
+        bio: joi.string(),
+        profile: joi.string(),
+    });
+
+    const { error } = schema.validate(req.body);
+    if (error) return res.status(400).json({ status: 400, message: error.details.map(d => d.message) });
+
+    next();
+}
