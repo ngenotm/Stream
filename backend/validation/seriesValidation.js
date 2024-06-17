@@ -28,14 +28,22 @@ exports.createSeriesValidation = (req, res, next) => {
         productionCompany: joi.string(),
         rottenRating: joi.number().required(),
         imdbRating: joi.number().required(),
+        awards: joi.array().items(joi.object({
+            name: joi.string().required(),
+            year: joi.string().required()
+        })),
+        boxOffice: joi.object({
+            budget: joi.number(),
+            gross: joi.number()
+        }),
+        top250rank: joi.number().min(1).max(250),
         releaseStatus: joi.string().valid('now showing', 'coming soon', 'expired').default('now showing'),
+        actors: joi.array().items(joi.string()),
         thumbnail: joi.string().required(),
         trailer: joi.string().required(),
         cover: joi.string().required(),
-        pictures: joi.array().items(joi.string())
+        pictures: joi.array().items(joi.string()),
     });
-
-
 
     const { error } = schema.validate(req.body);
     if (error) return res.status(400).json({ status: 400, message: error.details.map(d => d.message) });

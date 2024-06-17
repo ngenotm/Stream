@@ -12,7 +12,7 @@ router
 router
     .route('/:id')
     .get(ValidateObjectId, getSeries)
-    .patch(ValidateObjectId, updateSeries)
+    .put(ValidateObjectId, updateSeries)
     .delete(ValidateObjectId, deleteSeries);
 
 module.exports = router;

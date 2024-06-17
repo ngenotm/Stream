@@ -32,27 +32,9 @@ exports.singleMovie = async (req, res) => {
 
 
 //! Post Request
-// exports.createMovie = [upload.fields([{ name: 'thumbnail', maxCount: 1 }, { name: "cover", maxCount: 1 }, { name: 'trailer', maxCount: 1 }, { name: 'files' }]), async (req, res) => {
-exports.createMovie = [movieUploader, async (req, res) => {
+exports.createMovie = [movieUploader, createMovieValidation, async (req, res) => {
     try {
-        const thumbnailUrl = req.files.thumbnail[0].filename;
-        const trailerUrl = req.files.trailer[0].filename;
-        if (req.files.files) {
-            const fileUrls = req.files.files.map(file => file.filename);
-            req.body.files = fileUrls.map((url, index) => ({
-                quality: "1080p",
-                url
-            }));
-        }
-
-        const coverUrl = req.files.cover[0].filename
-
-        req.body.thumbnail = thumbnailUrl;
-        req.body.trailer = trailerUrl;
-        req.body.cover = coverUrl;
-
         const newMovie = await Movie.create(req.body);
-        await newMovie.save();
 
         res.status(201).json({ status: 201, message: "Movie created successfully", movie: newMovie });
     }

@@ -6,15 +6,15 @@ const movieModel = mongoose.Schema({
         type: String,
         required: [true, 'Title is required'],
     },
-    director: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Directors',
-        required: [true, 'Director is required'],
-    },
     description: {
         type: String,
         default: "",
         require: false
+    },
+    director: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Directors',
+        required: [true, 'Director is required'],
     },
     releaseDate: {
         type: String,
@@ -40,13 +40,13 @@ const movieModel = mongoose.Schema({
         type: String,
         required: [true, 'Language is required']
     },
-    ageRating: {
-        type: String,
-        required: [true, 'Age Rating is required']
-    },
     productionCompany: {
         type: String,
         required: [false, 'Production Company is required']
+    },
+    ageRating: {
+        type: String,
+        required: [true, 'Age Rating is required']
     },
     rottenRating: {
         type: Number,
@@ -120,8 +120,6 @@ const movieModel = mongoose.Schema({
         required: false,
         ref: "Actors"
     },
-    //! Add awards
-
 })
 
 module.exports = mongoose.model('Movies', movieModel);
