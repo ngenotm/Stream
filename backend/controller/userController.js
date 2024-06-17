@@ -71,8 +71,8 @@ exports.registerUser = async (req, res) => {
             return res.status(400).json({ status: 400, message: "User already exists" });
         }
 
-        if (createUserValidation(req.body).error)
-            return res.status(400).json({ status: 400, message: createUserValidation(req.body).error.message });
+        // if (createUserValidation(req.body).error)
+        //     return res.status(400).json({ status: 400, message: createUserValidation(req.body).error.message });
 
         const newUser = new userModel({
             fullName,
@@ -93,8 +93,6 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        if (loginValidation(req.body).error)
-            return res.status(400).json({ status: 400, message: loginValidation(req.body).error.message });
 
         const user = await userModel.findOne({ email });
 
@@ -192,6 +190,10 @@ exports.logout = (req, res) => {
         res.status(500).json({ status: 500, message: error.message });
     }
 };
+
+
+
+//! must add edit user controller here
 
 
 //! Delete Request

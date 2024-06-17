@@ -3,6 +3,7 @@ const { singleUser, registerUser, login, deleteUser, allUser, getWatchList, logo
 const ValidateObjectId = require('../middleware/ValidateObjectId');
 const Authenticate = require('../middleware/Authenticate');
 const Authorize = require('../middleware/Authorize');
+const { registerValidation, loginValidation } = require('../validation/userValidation');
 
 const router = Router();
 
@@ -17,8 +18,8 @@ router.route("/user/:id")
 
 //! must add edit user route here
 
-router.post("/register", registerUser);
-router.post("/login", login);
+router.post("/register", registerValidation, registerUser);
+router.post("/login", loginValidation, login);
 router.post('/logout', logout);
 router.post("/refreshToken", refreshToken);
 

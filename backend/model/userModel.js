@@ -24,16 +24,21 @@ const userSchema = new mongoose.Schema({
     fullName: {
         type: String,
         required: [true, 'Please enter your full name'],
+        min: [3, 'Full name must be at least 3 characters'],
+        max: [50, 'Full name must be at most 50 characters'],
     },
     email: {
         type: String,
         required: [true, 'Please enter your email'],
         unique: [true, 'Email already exists'],
+        lowercase: [true, 'Email must be in lowercase'],
+        trim: true,
+        match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please fill a valid email address']
     },
     password: {
         type: String,
         required: [true, 'Please enter your password'],
-        minlength: [6, 'Password must be at least 6 characters'],
+        min: [8, 'Password must be at least 8 characters'],
     },
     refreshToken: { type: String },
     bookMark: {

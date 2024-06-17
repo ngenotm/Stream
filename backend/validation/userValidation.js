@@ -1,18 +1,43 @@
 const joi = require('joi');
 
-exports.createUserValidation = (data) => {
+exports.registerValidation = (req, res, next) => {
     const schema = joi.object({
-        fullName: joi.string().min(3).max(30).required(),
-        email: joi.string().email().required(),
-        password: joi.string().min(6).max(30).required()
+        fullName: joi.string()
+            .min(3)
+            .max(50)
+            .required(),
+        email: joi.string()
+            .email()
+            .trim()
+            .lowercase()
+            .required(),
+        password: joi.string()
+            .min(8)
+            .max(50)
+            .required()
     });
-    return schema.validate(data)
+    const { error } = schema.validate(req.body);
+    if (error) return res.status(400).json({ status: 400, message: error.details.map(d => d.message) });
+    console.log("test")
+    next();
 };
 
-exports.loginValidation = (data) => {
+exports.loginValidation = (req, res, next) => {
     const schema = joi.object({
-        email: joi.string().email().required(),
-        password: joi.string().min(6).max(30).required()
+        email: joi.string()
+            .email()
+            .trim()
+            .lowercase()
+            .required(),
+        password: joi.string()
+            .min(8)
+            .max(50)
+            .required()
     });
-    return schema.validate(data)
+    const { error } = schema.validate(req.body);
+    if (error) return res.status(400).json({ status: 400, message: error.details.map(d => d.message) });
+    console.log("test")
+    next();
 };
+
+//! must add edit user validation here
