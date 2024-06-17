@@ -10,8 +10,8 @@ router
 
 router
     .route('/:id')
-    .get(ValidateObjectId ,getEpisode)
-    .patch(ValidateObjectId ,updateEpisode)
-    .delete(ValidateObjectId ,deleteEpisode);
+    .get(ValidateObjectId, getEpisode)
+    .put(ValidateObjectId, updateEpisode)
+    .delete(ValidateObjectId, deleteEpisode);
 
 module.exports = router;

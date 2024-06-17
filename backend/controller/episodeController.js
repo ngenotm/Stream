@@ -1,6 +1,7 @@
 const Episode = require('../model/episodeModel');
 const Season = require('../model/seasonModel');
 const { episodeUploader } = require('../utils/videoUploader');
+const { createEpisodeValidation } = require('../validation/episodeValidation');
 
 //! Single Episode
 exports.getEpisode = async (req, res) => {
@@ -43,7 +44,7 @@ exports.getEpisodesBySeason = async (req, res) => {
     }
 }
 
-exports.createEpisode = [episodeUploader, async (req, res) => {
+exports.createEpisode = [episodeUploader, createEpisodeValidation, async (req, res) => {
     //! must send seriesTitle in the body
     try {
         if (req.files.pictures) {
@@ -58,6 +59,7 @@ exports.createEpisode = [episodeUploader, async (req, res) => {
                 url
             }));
         }
+
         else return res.status(400).json({ status: 400, message: "Files are required" });
 
         const season = await Season.findOne({ series: req.body.series, seasonNumber: req.body.seasonNumber });
