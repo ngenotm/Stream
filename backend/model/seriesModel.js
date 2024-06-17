@@ -41,12 +41,14 @@ const seriesModel = mongoose.Schema({
     },
     ageRating: {
         type: String,
-        required: [true, 'Age Rating is required']
+        default: null
+        // required: [true, 'Age Rating is required']
     },
     //! Must change
     productionCompany: {
         type: String,
-        required: [true, 'Production Company is required']
+        default: null
+        // required: [true, 'Production Company is required']
     },
     rottenRating: {
         type: Number,
@@ -100,9 +102,9 @@ const seriesModel = mongoose.Schema({
     },
     releaseStatus: {
         type: String,
-        enum: ['Now Showing', 'Coming Soon', 'Expired'],
+        enum: ['now showing', 'coming soon', 'expired'],
         // required: [true, 'Release Status is required']
-        default: 'Now Showing'
+        default: 'now showing'
     },
     actors: {
         type: [mongoose.Schema.Types.ObjectId],

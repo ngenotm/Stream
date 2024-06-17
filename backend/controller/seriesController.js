@@ -1,5 +1,6 @@
 const Series = require('../model/seriesModel');
 const { seriesUploader } = require('../utils/videoUploader');
+const { createSeriesValidation } = require('../validation/seriesValidation');
 
 
 exports.getAllSeries = async (req, res) => {
@@ -42,19 +43,11 @@ exports.getSeries = async (req, res) => {
     }
 };
 
-exports.createSeries = [seriesUploader, async (req, res) => {
+exports.createSeries = [seriesUploader, createSeriesValidation, async (req, res) => {
     try {
-        const thumbnailUrl = req.files.thumbnail[0].filename;
-        const trailerUrl = req.files.trailer[0].filename;
-        const coverUrl = req.files.cover[0].filename
-
-        req.body.thumbnail = thumbnailUrl;
-        req.body.trailer = trailerUrl;
-        req.body.cover = coverUrl;
-
         const newSeries = await Series.create(req.body);
         res.status(201).json({
-            status: 'success',
+            status: '201',
             series: newSeries
         });
     } catch (err) {
