@@ -36,7 +36,7 @@ InputField.propTypes = {
     onChange: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
     textarea: PropTypes.bool,
-    customClass:PropTypes.string
+    customClass: PropTypes.string
 };
 
 export default InputField;
