@@ -11,9 +11,8 @@ import NotificationButton from "./NotificationButton";
 const Navbar = () => {
 
     const pathname = usePathname();
-
     return (
-        <header className={`py-5 ${pathname === "/" && "absolute"} top-0 right-0 z-30 w-full`}>
+        <header className={`py-5 ${pathname === "/" && "absolute"} top-0 right-0 z-30 w-full ${pathname == "/login" && "hidden"}`}>
             <div
                 className="fixed w-full h-[5px] top-0 right-0 z-20
           3xl:bg-slate-500 2xl:bg-amber-400 xl:bg-stone-600 lg:bg-red-800 md:bg-orange-500 sm:bg-violet-500 bg-teal-400
