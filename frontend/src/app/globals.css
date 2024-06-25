@@ -15,9 +15,9 @@
   }
 
   .btn-black-06 {
-    @apply bg-c-black-06 hover:bg-c-black-06/50 duration-200
+    @apply bg-c-black-06 hover:bg-c-black-06/50 duration-200;
   }
-  
+
   .btn-black-08 {
     @apply bg-c-black-08 hover:bg-c-black-06/80 duration-200;
   }

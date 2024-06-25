@@ -1,7 +1,7 @@
 import InputField from "@/components/common/InputField";
 import Link from "next/link";
 
-const SignupPage = ({page,setPage}) => {
+const SignupPage = ({ page, setPage }) => {
     return (
         <section className={`w-[50%] h-full transition-all duration-700 py-10 px-14
             ${page == "login" && "delay-500"} ${page == "login" ? "-translate-x-full" : "translate-x-0"}`

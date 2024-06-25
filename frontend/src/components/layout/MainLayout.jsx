@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import Footer from "./footer/Footer";
 import Navbar from "./navbar/Navbar";
 

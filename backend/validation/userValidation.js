@@ -14,7 +14,8 @@ exports.registerValidation = (req, res, next) => {
         password: joi.string()
             .min(8)
             .max(50)
-            .required()
+            .required(),
+        remember: joi.boolean()
     });
     const { error } = schema.validate(req.body);
     if (error) return res.status(400).json({ status: 400, message: error.details.map(d => d.message) });
@@ -32,7 +33,8 @@ exports.loginValidation = (req, res, next) => {
         password: joi.string()
             .min(8)
             .max(50)
-            .required()
+            .required(),
+        remember: joi.boolean()
     });
     const { error } = schema.validate(req.body);
     if (error) return res.status(400).json({ status: 400, message: error.details.map(d => d.message) });

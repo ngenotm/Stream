@@ -1,6 +1,12 @@
+import { ToastContainer } from "react-toastify";
+
 import { manrope } from "@/constants/Fonts";
-import "./globals.css";
 import MainLayout from "@/components/layout/MainLayout";
+
+import "./globals.css";
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 export const metadata = {
   title: "StreamVibe",
@@ -13,6 +19,12 @@ export default function RootLayout({ children }) {
       <body className={`${manrope.className} bg-c-black-08`}>
         <MainLayout>
           {children}
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            closeOnClick={true}
+          />
         </MainLayout>
       </body>
     </html>
