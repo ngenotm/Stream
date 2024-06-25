@@ -63,7 +63,7 @@ exports.getWatchList = async (req, res) => {
 
 //! Post Request
 exports.registerUser = async (req, res) => {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, remember } = req.body;
 
     try {
         const user = await userModel.findOne({ email });
@@ -79,7 +79,36 @@ exports.registerUser = async (req, res) => {
             email,
             password
         });
+
+        const tokenData = {
+            id: newUser._id,
+            email: newUser.email,
+            role: newUser.role,
+        }
+
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET);
+
         await newUser.save();
+
+        if (remember) {
+            const refreshToken = jwt.sign(tokenData, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });
+
+            newUser.refreshToken = refreshToken; //! Save refresh token to user database
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                sameSite: 'strict',
+                secure: process.env.NODE_ENV == "production",
+                maxAge: 86400000 * 30, // 30 day
+                path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
+            });
+        }
+        res.cookie('token', token, {
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: process.env.NODE_ENV == "production",
+            maxAge: 86400000 // 1 day
+        });
+
         res.status(201).json({ status: 201, message: "User created", user: newUser });
     }
     catch (error) {
@@ -90,10 +119,9 @@ exports.registerUser = async (req, res) => {
 
 //? Login
 exports.login = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, remember } = req.body;
 
     try {
-
         const user = await userModel.findOne({ email });
 
         if (!user) {
@@ -116,13 +144,15 @@ exports.login = async (req, res) => {
         await user.save();
 
         // Set HTTP Only cookie for refreshToken
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            sameSite: 'strict',
-            secure: process.env.NODE_ENV == "production",
-            maxAge: 86400000 * 30, // 30 day
-            path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
-        });
+        if (remember) {
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                sameSite: 'strict',
+                secure: process.env.NODE_ENV == "production",
+                maxAge: 86400000 * 30, // 30 day
+                path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
+            });
+        }
         res.cookie('token', token, {
             httpOnly: true,
             sameSite: 'strict',
