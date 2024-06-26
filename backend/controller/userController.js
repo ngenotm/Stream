@@ -145,19 +145,17 @@ exports.login = async (req, res) => {
 
         // Set HTTP Only cookie for refreshToken
         if (remember) {
-            // console.log(refreshToken)
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                sameSite: 'strict',
+                // sameSite: 'strict',
                 secure: process.env.NODE_ENV == "production",
                 maxAge: 86400000 * 30, // 30 day
                 path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
             });
         }
-        // console.log(token)
         res.cookie('token', token, {
             httpOnly: true,
-            sameSite: 'strict',
+            // sameSite: 'strict',
             secure: process.env.NODE_ENV == "production",
             maxAge: 86400000 // 1 day
         });
@@ -172,7 +170,6 @@ exports.login = async (req, res) => {
 
 
 exports.refreshToken = async (req, res) => {
-    // console.log(req.cookies)
     const { refreshToken } = req.cookies
     if (!refreshToken) return res.status(401).json({ status: 401, message: "No refresh token provided" });
 
@@ -197,13 +194,13 @@ exports.refreshToken = async (req, res) => {
         // Set HTTP Only cookies for the new tokens
         res.cookie('refreshToken', newRefreshToken, {
             httpOnly: true,
-            sameSite: 'strict',
+            // sameSite: 'strict',
             secure: process.env.NODE_ENV == "production",
             path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
         });
         res.cookie('token', newToken, {
             httpOnly: true,
-            sameSite: 'strict',
+            // sameSite: 'strict',
             secure: process.env.NODE_ENV == "production",
             maxAge: 3600000 // 1 hour
         });

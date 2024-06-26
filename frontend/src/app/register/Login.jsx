@@ -23,6 +23,11 @@ const LoginPage = ({ page, setPage }) => {
             password,
             remember
         }).then(async res => {
+            await axios.get("http://localhost:5000/api/user/setCookie").then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            });
             router.push("/")
             toast.success('Login successful!');
         }).catch(err => {
