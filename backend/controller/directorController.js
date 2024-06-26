@@ -30,8 +30,8 @@ exports.getAllDirectors = async (req, res) => {
             directors
         });
     } catch (err) {
-        res.status(404).json({
-            status: 404,
+        res.status(500).json({
+            status: 500,
             message: err
         });
     }
@@ -46,8 +46,8 @@ exports.getDirector = async (req, res) => {
             director
         });
     } catch (err) {
-        res.status(404).json({
-            status: 404,
+        res.status(500).json({
+            status: 500,
             message: err
         });
     }
@@ -62,8 +62,8 @@ exports.createDirector = [upload, createDirectorValidation, async (req, res) => 
             director: newDirector
         });
     } catch (err) {
-        res.status(400).json({
-            status: 404,
+        res.status(500).json({
+            status: 500,
             message: err
         });
     }
@@ -74,7 +74,7 @@ exports.updateDirector = [upload, editDirectorValidation, async (req, res) => {
 
     try {
         const director = await Director.findById(directorId);
-        if(!director) return res.status(404).json({ status: 404, message: "Director not found" });
+        if (!director) return res.status(404).json({ status: 404, message: "Director not found" });
 
         if (req.body.profile && director.profile) {
             fs.unlinkSync(path.join(__dirname, '../public/director/', director.profile));
@@ -86,7 +86,10 @@ exports.updateDirector = [upload, editDirectorValidation, async (req, res) => {
 
         res.status(200).json({ status: 200, message: "Director updated", director: updatedDirector });
     } catch (error) {
-        res.status(500).json({ status: 500, message: error.message });
+        res.status(500).json({
+            status: 500,
+            message: error.message
+        });
     }
 }];
 
@@ -101,8 +104,8 @@ exports.deleteDirector = async (req, res) => {
             message: "Director deleted successfully",
         });
     } catch (err) {
-        res.status(404).json({
-            status: 404,
+        res.status(500).json({
+            status: 500,
             message: err
         });
     }
