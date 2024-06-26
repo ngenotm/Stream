@@ -7,9 +7,9 @@ import AskedQuestion from "@/components/AskedQuestions";
 import HomeTitle from "@/components/home/HomeTitle";
 
 export default function Home() {
+
   return (
     <>
-
       <HomeBanner />
 
       <HomeTitle />

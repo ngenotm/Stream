@@ -2,10 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2';
 import { useRouter } from "next/navigation";
 
-import InputField from "@/components/common/InputField";
 import { toast } from "react-toastify";
 
 
@@ -14,10 +12,6 @@ const LoginPage = ({ page, setPage }) => {
     const router = useRouter();
     const { register, handleSubmit, formState: { errors }, setError } = useForm();
     const [isLoading, setIsLoading] = useState(false);
-
-    const onSubmit = (data) => {
-        console.log(data);
-    };
 
     const handleLogin = async (data) => {
         const { email, password, remember } = data; //! Use data from form
@@ -28,11 +22,14 @@ const LoginPage = ({ page, setPage }) => {
             email,
             password,
             remember
-        }).then(res => {
+        }).then(async res => {
             router.push("/")
             toast.success('Login successful!');
         }).catch(err => {
-            // console.log(err);
+            if (err.message == "Network Error") {
+                return toast.error("Something went wrong! Please try again later.");
+            }
+
             const { status } = err.response
 
             if (status === 500) {
@@ -51,22 +48,13 @@ const LoginPage = ({ page, setPage }) => {
         });
     };
 
-    //! Your form JSX remains largely the same, just ensure InputField components are correctly integrated with react-hook-form
-
-    const result = () => {
-        // console.log(email, password, remember);
-        // errors.email = { message: "Invalid email address" }
-        // errors.email.message ="invalid email address"
-        console.log(errors)
-    }
-
 
     return (
         <section
             className={`w-[50%] h-full transition-all duration-700 py-10 px-14
                      ${page == "signup" && "delay-500"} ${page == "signup" ? "translate-x-full" : "translate-x-0"}`}
         >
-            <h2 className="text-white text-2.5xl font-semibold" onClick={result}>Log In Form</h2>
+            <h2 className="text-white text-2.5xl font-semibold">Log In Form</h2>
 
             <form onSubmit={handleSubmit(handleLogin)} className="mt-14">
                 <div className="space-y-6">
@@ -84,7 +72,7 @@ const LoginPage = ({ page, setPage }) => {
                     </div>
 
                     <div>
-                        <label htmlFor={"email"} className="text-white lg:text-super-sm md:text-sm mb-1">password</label>
+                        <label htmlFor={"password"} className="text-white lg:text-super-sm md:text-sm mb-1">password</label>
                         <input
                             type="password"
                             id="password"

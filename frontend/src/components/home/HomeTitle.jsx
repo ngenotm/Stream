@@ -1,6 +1,7 @@
 import { PlaySvg } from "@/assets/Svgs";
 
 const HomeTitle = () => {
+
     return (
         <section className="relative -top-20 pt-4">
             <h2 className="font-semibold text-center 2xl:text-5xl lg:text-4.5xl md:text-4xl text-2xl mb-4 text-white">The Best Streaming Experience</h2>

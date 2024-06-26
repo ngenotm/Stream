@@ -21,6 +21,6 @@ router.route("/user/:id")
 router.post("/register", registerValidation, registerUser);
 router.post("/login", loginValidation, login);
 router.post('/logout', logout);
-router.post("/refreshToken", refreshToken);
+router.get("/refreshToken", refreshToken);
 
 module.exports = router;

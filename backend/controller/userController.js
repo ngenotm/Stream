@@ -68,7 +68,7 @@ exports.registerUser = async (req, res) => {
     try {
         const user = await userModel.findOne({ email });
         if (user) {
-            return res.status(400).json({ status: 400, message: "User already exists" });
+            return res.status(409).json({ status: 409, message: "User already exists" });
         }
 
         // if (createUserValidation(req.body).error)
@@ -145,6 +145,7 @@ exports.login = async (req, res) => {
 
         // Set HTTP Only cookie for refreshToken
         if (remember) {
+            // console.log(refreshToken)
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 sameSite: 'strict',
@@ -153,6 +154,7 @@ exports.login = async (req, res) => {
                 path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
             });
         }
+        // console.log(token)
         res.cookie('token', token, {
             httpOnly: true,
             sameSite: 'strict',
@@ -170,6 +172,7 @@ exports.login = async (req, res) => {
 
 
 exports.refreshToken = async (req, res) => {
+    // console.log(req.cookies)
     const { refreshToken } = req.cookies
     if (!refreshToken) return res.status(401).json({ status: 401, message: "No refresh token provided" });
 

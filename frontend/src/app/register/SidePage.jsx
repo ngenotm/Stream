@@ -1,7 +1,34 @@
 import { HomeIcon } from "@/assets/Svgs";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useCallback } from "react";
 
 const SidePage = ({ page, setPage }) => {
+
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const changeQueryString = useCallback(
+        (name, value) => {
+            const params = new URLSearchParams(searchParams)
+            params.set(name, value)
+
+            return params.toString()
+        },
+        [searchParams]
+    );
+
+    const handleSignup = () => {
+        setPage("signup");
+        router.push(pathname + '?' + changeQueryString('page', 'signup'))
+    }
+
+    const handleLogin = () => {
+        setPage("login");
+        router.push(pathname + '?' + changeQueryString('page', 'login'))
+    }
+
     return (
         <div
             className={`w-[50%] h-full bg-green-500 absolute transition-transform duration-700 bg-[url('/images/header-banner.jpg')] bg-cover bg-center overflow-hidden
@@ -16,50 +43,52 @@ const SidePage = ({ page, setPage }) => {
                     </Link>
                 </div>
 
-                <div className="relative">
-                    {/*//! Login Text Info */}
-                    <div className={`mt-20 w-full absolute top-0 transition-all duration-700 ${page == "login" ? "left-0" : "left-[-200%]"}`}>
-                        <h1
-                            className={`text-white text-3xl font-semibold`}
-                        >Log In Page</h1>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <div className="relative">
+                        {/*//! Login Text Info */}
+                        <div className={`mt-20 w-full absolute top-0 transition-all duration-700 ${page == "login" ? "left-0" : "left-[-200%]"}`}>
+                            <h1
+                                className={`text-white text-3xl font-semibold`}
+                            >Log In Page</h1>
 
-                        <p className="text-white/80 mt-10 text-base leading-7 mb-10">
-                            To access your account and take advantage of all the special features and services on our site,
-                            please log in with your personal information. If you do not have an account yet, you can sign up
-                            and enjoy our exclusive benefits.
-                        </p>
+                            <p className="text-white/80 mt-10 text-base leading-7 mb-10">
+                                To access your account and take advantage of all the special features and services on our site,
+                                please log in with your personal information. If you do not have an account yet, you can sign up
+                                and enjoy our exclusive benefits.
+                            </p>
 
 
-                        <button
-                            className={`bg-c-red-45 text-white text-super-base font-medium rounded-full px-14 py-3.5
+                            <button
+                                className={`bg-c-red-45 text-white text-super-base font-medium rounded-full px-14 py-3.5
                                    `}
-                            onClick={() => setPage("signup")}
-                        >
-                            Sign Up Page
-                        </button>
-                    </div>
+                                onClick={handleSignup}
+                            >
+                                Sign Up Page
+                            </button>
+                        </div>
 
-                    {/*//! Sign Up Text Info */}
-                    <div className={`mt-20 w-full absolute top-0 transition-all duration-700 ${page == "signup" ? "left-0" : "left-[-200%]"}`}>
-                        <h1
-                            className={`text-white text-3xl font-semibold`}
-                        >Sign Up Page</h1>
+                        {/*//! Sign Up Text Info */}
+                        <div className={`mt-20 w-full absolute top-0 transition-all duration-700 ${page == "signup" ? "left-0" : "left-[-200%]"}`}>
+                            <h1
+                                className={`text-white text-3xl font-semibold`}
+                            >Sign Up Page</h1>
 
-                        <p className="text-white/80 mt-10 text-base leading-7 mb-10">
-                            To access your account and take advantage of all the special features and services on our site,
-                            please log in with your personal information. If you do not have an account yet, you can sign up
-                            and enjoy our exclusive benefits.
-                        </p>
+                            <p className="text-white/80 mt-10 text-base leading-7 mb-10">
+                                To access your account and take advantage of all the special features and services on our site,
+                                please log in with your personal information. If you do not have an account yet, you can sign up
+                                and enjoy our exclusive benefits.
+                            </p>
 
-                        <button
-                            className={`bg-c-red-45 text-white text-super-base font-medium rounded-full px-14 py-3.5
+                            <button
+                                className={`bg-c-red-45 text-white text-super-base font-medium rounded-full px-14 py-3.5
                                    `}
-                            onClick={() => setPage("login")}
-                        >
-                            Log In Page
-                        </button>
+                                onClick={handleLogin}
+                            >
+                                Log In Page
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </Suspense>
 
 
             </div>
