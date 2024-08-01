@@ -120,7 +120,6 @@ exports.registerUser = async (req, res) => {
 //? Login
 exports.login = async (req, res) => {
     const { email, password, remember } = req.body;
-
     try {
         const user = await userModel.findOne({ email });
 
@@ -143,15 +142,22 @@ exports.login = async (req, res) => {
         user.refreshToken = refreshToken; //! Save refresh token to user database
         await user.save();
 
-        // Set HTTP Only cookie for refreshToken
         if (remember) {
-            // console.log("refresh token has been set")
+            console.log("refresh token has been set")
+            // res.cookie('refreshToken', refreshToken, {
+            //     httpOnly: true,
+            //     sameSite: 'strict',
+            //     secure: process.env.NODE_ENV == "production",
+            //     maxAge: 86400000 * 30, // 30 day
+            //     path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
+            // });
+
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 sameSite: 'strict',
                 secure: process.env.NODE_ENV == "production",
                 maxAge: 86400000 * 30, // 30 day
-                path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
+                path: `${process.env.FRONT_ADDRESS}/api/user/refreshToken`   //! This is important and should be the same as the route path
             });
         }
         res.cookie('token', token, {

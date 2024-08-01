@@ -33,18 +33,6 @@ const LoginPage = ({ page, setPage }) => {
                 throw { status: loginResponse.status, message: error.message };
             }
 
-            // const cookieResponse = await fetch("http://localhost:5000/api/user/setCookie", {
-            //     method: 'GET',
-            //     credentials: 'include'
-            // });
-
-            // if (!cookieResponse.ok) {
-            //     const error = await cookieResponse.json();
-            //     throw { status: cookieResponse.status, message: error.message };
-            // }
-
-            // console.log(await cookieResponse.json());
-
             router.push("/");
             toast.success('Login successful!');
         } catch (err) {
