@@ -14,44 +14,64 @@ const LoginPage = ({ page, setPage }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = async (data) => {
-        const { email, password, remember } = data; //! Use data from form
+        const { email, password, remember } = data; // Use data from form
 
-        console.log(email, password, remember)
+        console.log(email, password, remember);
 
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
-            email,
-            password,
-            remember
-        }).then(async res => {
-            await axios.get("http://localhost:5000/api/user/setCookie").then(res => {
-                console.log(res)
-            }).catch(err => {
-                console.log(err)
+        try {
+            const loginResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password, remember }),
+                credentials: 'include'
             });
-            router.push("/")
+
+            if (!loginResponse.ok) {
+                const error = await loginResponse.json();
+                throw { status: loginResponse.status, message: error.message };
+            }
+
+            // const cookieResponse = await fetch("http://localhost:5000/api/user/setCookie", {
+            //     method: 'GET',
+            //     credentials: 'include'
+            // });
+
+            // if (!cookieResponse.ok) {
+            //     const error = await cookieResponse.json();
+            //     throw { status: cookieResponse.status, message: error.message };
+            // }
+
+            // console.log(await cookieResponse.json());
+
+            router.push("/");
             toast.success('Login successful!');
-        }).catch(err => {
-            if (err.message == "Network Error") {
+        } catch (err) {
+            if (err.message === "Network Error") {
                 return toast.error("Something went wrong! Please try again later.");
             }
 
-            const { status } = err.response
+            const { status } = err;
 
             if (status === 500) {
                 return toast.error("Server error! Please try again later.");
             }
 
             if (status === 404) {
-                return setError("email", { type: "manual", message: "User not found!" }); // Set error for email
+                return setError("email", { type: "manual", message: "User not found!" });
             }
 
             if (status === 401) {
-                return setError("password", { type: "manual", message: "Incorrect password!" }); // Set error for password
+                return setError("password", { type: "manual", message: "Incorrect password!" });
             }
 
-            toast.error("Login failed! Please try again.")
-        });
+            console.log(err)
+
+            toast.error("Login failed! Please try again.");
+        }
     };
+
 
 
     return (

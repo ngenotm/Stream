@@ -9,16 +9,20 @@ const connectDb = require('./config/db');
 //! Config Env
 dotEnv.config({ path: './config/config.env' });
 
+
+//! Connect to Database
+connectDb();
+
 //! cors options
 const corsOptions = {
     origin: "http://localhost:3000",
     credentials: true,
 };
 
-//! Connect to Database
-connectDb();
-
-const app = express().use(express.json()).use(cors(corsOptions)).use(cookieParser());
+const app = express().use(express.json())
+    .use(cors(corsOptions))
+    .use(express.urlencoded({ extended: true }))
+    .use(cookieParser());
 
 
 //! Static Folder

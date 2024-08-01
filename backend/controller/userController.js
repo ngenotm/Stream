@@ -145,7 +145,7 @@ exports.login = async (req, res) => {
 
         // Set HTTP Only cookie for refreshToken
         if (remember) {
-            console.log("refresh token has been set")
+            // console.log("refresh token has been set")
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 sameSite: 'strict',
