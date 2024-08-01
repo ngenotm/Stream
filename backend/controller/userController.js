@@ -145,9 +145,10 @@ exports.login = async (req, res) => {
 
         // Set HTTP Only cookie for refreshToken
         if (remember) {
+            console.log("refresh token has been set")
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                // sameSite: 'strict',
+                sameSite: 'strict',
                 secure: process.env.NODE_ENV == "production",
                 maxAge: 86400000 * 30, // 30 day
                 path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
@@ -155,8 +156,8 @@ exports.login = async (req, res) => {
         }
         res.cookie('token', token, {
             httpOnly: true,
-            // sameSite: 'strict',
-            secure: process.env.NODE_ENV == "production",
+            sameSite: 'strict',
+            secure: process.env.NODE_ENV !== 'development',
             maxAge: 86400000 // 1 day
         });
 
