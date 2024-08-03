@@ -12,36 +12,51 @@ const SignupPage = ({ page, setPage }) => {
 
 
     const handleSignup = async (data) => {
-        const { fullName, email, password, remember } = data; //! Use data from form
+        const { fullName, email, password, remember } = data;
 
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fullName,
+                    email,
+                    password,
+                    remember
+                }),
+                credentials: "include"
+            });
 
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/register`, {
-            fullName,
-            email,
-            password,
-            remember
-        }).then(res => {
-            console.log(res)
-            router.push("/")
+            if (!response.ok) {
+                const errorData = await response.json();
+                const { status } = response;
+
+                if (status === 500) {
+                    return toast.error("Server error! Please try again later.");
+                }
+
+                if (status === 409) {
+                    return setError("email", { type: "manual", message: "User already exists!" }); // Set error for user exists
+                }
+                console.log(errorData)
+                return toast.error("Signup failed! Please try again.");
+            }
+
+            const res = await response.json();
+            console.log(res);
+            router.push("/");
             toast.success('Signup successful!');
-        }).catch(err => {
-            if (err.message == "Network Error") {
+        } catch (err) {
+            if (err.message === "Network Error") {
                 return toast.error("Something went wrong! Please try again later.");
             }
 
-            const { status } = err.response;
-
-            if (status === 500) {
-                return toast.error("Server error! Please try again later.");
-            }
-
-            if (status === 409) {
-                return setError("email", { type: "manual", message: "User already exists!" }); //! Set error for user exists
-            }
-
-            toast.error("Signup failed! Please try again.")
-        });
+            toast.error("Signup failed! Please try again.");
+        }
     };
+
 
 
 

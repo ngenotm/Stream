@@ -94,18 +94,31 @@ exports.registerUser = async (req, res) => {
             const refreshToken = jwt.sign(tokenData, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });
 
             newUser.refreshToken = refreshToken; //! Save refresh token to user database
+            // res.cookie('refreshToken', refreshToken, {
+            //     httpOnly: true,
+            //     sameSite: 'strict',
+            //     secure: process.env.NODE_ENV == "production",
+            //     maxAge: 86400000 * 30, // 30 day
+            //     path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
+            // });
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 sameSite: 'strict',
                 secure: process.env.NODE_ENV == "production",
                 maxAge: 86400000 * 30, // 30 day
-                path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
+                path: `${process.env.FRONT_ADDRESS}/api/user/refreshToken`   //! This is important and should be the same as the route path
             });
         }
+        // res.cookie('token', token, {
+        //     httpOnly: true,
+        //     sameSite: 'strict',
+        //     secure: process.env.NODE_ENV == "production",
+        //     maxAge: 86400000 // 1 day
+        // });
         res.cookie('token', token, {
             httpOnly: true,
             sameSite: 'strict',
-            secure: process.env.NODE_ENV == "production",
+            secure: process.env.NODE_ENV !== 'development',
             maxAge: 86400000 // 1 day
         });
 
@@ -143,15 +156,6 @@ exports.login = async (req, res) => {
         await user.save();
 
         if (remember) {
-            console.log("refresh token has been set")
-            // res.cookie('refreshToken', refreshToken, {
-            //     httpOnly: true,
-            //     sameSite: 'strict',
-            //     secure: process.env.NODE_ENV == "production",
-            //     maxAge: 86400000 * 30, // 30 day
-            //     path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
-            // });
-
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 sameSite: 'strict',

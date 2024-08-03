@@ -1,19 +1,18 @@
-"use client"
 import { PlaySvg } from "@/assets/Svgs";
-import axios from "axios";
-import { useEffect } from "react";
-const HomeTitle = () => {
-    const getCookie = async () => {
-        await axios.get("http://localhost:5000/api/user/getCookie", { withCredentials: true }).then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err)
-        });
-    };
 
-    useEffect(() => {
-        getCookie();
-    }, [])
+
+const HomeTitle = () => {
+    // const getCookie = async () => {
+    //     await axios.get("http://localhost:5000/api/user/getCookie", { withCredentials: true }).then(res => {
+    //         console.log(res)
+    //     }).catch(err => {
+    //         console.log(err)
+    //     });
+    // };
+
+    // useEffect(() => {
+    //     getCookie();
+    // }, [])
 
     return (
         <section className="relative -top-20 pt-4">

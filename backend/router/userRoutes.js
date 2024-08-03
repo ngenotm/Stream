@@ -31,10 +31,10 @@ router.get("/setCookie", (req, res) => {
     }).send("Cookie set");
 });
 
-router.get("/getCookie", (req, res) => {
-    console.log(req.cookies)
-    const token = req.cookies.token;
-    res.send(token);
-});
+// router.get("/getCookie", (req, res) => {
+//     console.log(req.cookies)
+//     const token = req.cookies.token;
+//     res.send(token);
+// });
 
 module.exports = router;

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import Link from "next/link";
 import { useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
@@ -14,7 +13,7 @@ const LoginPage = ({ page, setPage }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = async (data) => {
-        const { email, password, remember } = data; // Use data from form
+        const { email, password, remember } = data;
 
         console.log(email, password, remember);
 
