@@ -1,10 +1,9 @@
-const userModel = require("../model/userModel");
 const jwt = require('jsonwebtoken');
-const { queryValidation } = require("../validation/queryValidation");
 const bcrypt = require('bcrypt');
-const { isValidObjectId } = require("mongoose");
-const { createUserValidation, loginValidation } = require("../validation/userValidation");
-const ValidateObjectId = require("../middleware/ValidateObjectId");
+
+const userModel = require("../model/userModel");
+const { generateAccessToken, generateRefreshToken } = require("../utils/tokenUtils");
+const { setRefreshTokenCookie, setTokenCookie } = require("../utils/cookieUtils");
 
 //! Get Request
 exports.allUser = async (req, res) => {
@@ -17,14 +16,41 @@ exports.allUser = async (req, res) => {
 }
 
 exports.singleUser = async (req, res) => {
-    const userId = req.params.id;
-
     try {
-        const user = await userModel.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
+        const { refreshToken, token } = req.cookies;
+
+        if (token) {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const user = await userModel.findById(decoded.id).select('-password -refreshToken -watchList');
+            if (!user) {
+                return res.status(404).json({ status: 404, message: "User not found" });
+            }
+            return res.status(200).json({ status: 200, user, message: "User fetch successfully" });
         }
-        res.status(200).json({ status: 200, user, message: "User fetch successfully" });
+        else if (refreshToken) {
+            const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+            const user = await userModel.findById(decoded.id);
+            if (!user) {
+                return res.status(404).json({ status: 404, message: "User not found" });
+            }
+            const newTokenData = { id: user._id, email: user.email, role: user.role };
+
+            //! Generate new access token and refresh token
+            const newToken = generateAccessToken(newTokenData);
+            const newRefreshToken = generateRefreshToken(newTokenData);
+
+            user.refreshToken = newRefreshToken; //! Save refresh token to user database
+            setTokenCookie(res, newToken);
+            setRefreshTokenCookie(res, newRefreshToken);
+
+            await user.save();
+
+            return res.status(200).json({ status: 200, user, message: "User fetch successfully" });
+        }
+
+        else {
+            return res.status(401).json({ status: 401, message: "Unauthorized" });
+        }
     } catch (error) {
         res.status(500).json({ status: 500, message: error.message });
     }
@@ -36,7 +62,6 @@ exports.getWatchList = async (req, res) => {
     const limit = 12;
     const skip = (page - 1) * limit;
 
-    if (!isValidObjectId(userId)) return res.status(400).json({ status: 400, message: "Invalid User ID" });
 
     try {
         const user = await userModel.findById(userId)
@@ -71,9 +96,6 @@ exports.registerUser = async (req, res) => {
             return res.status(409).json({ status: 409, message: "User already exists" });
         }
 
-        // if (createUserValidation(req.body).error)
-        //     return res.status(400).json({ status: 400, message: createUserValidation(req.body).error.message });
-
         const newUser = new userModel({
             fullName,
             email,
@@ -86,12 +108,12 @@ exports.registerUser = async (req, res) => {
             role: newUser.role,
         }
 
-        const token = jwt.sign(tokenData, process.env.JWT_SECRET);
+        const token = generateAccessToken(tokenData);
 
         await newUser.save();
 
         if (remember) {
-            const refreshToken = jwt.sign(tokenData, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });
+            const refreshToken = generateRefreshToken(tokenData);
 
             newUser.refreshToken = refreshToken; //! Save refresh token to user database
             // res.cookie('refreshToken', refreshToken, {
@@ -101,13 +123,7 @@ exports.registerUser = async (req, res) => {
             //     maxAge: 86400000 * 30, // 30 day
             //     path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
             // });
-            res.cookie('refreshToken', refreshToken, {
-                httpOnly: true,
-                sameSite: 'strict',
-                secure: process.env.NODE_ENV == "production",
-                maxAge: 86400000 * 30, // 30 day
-                path: `${process.env.FRONT_ADDRESS}/api/user/refreshToken`   //! This is important and should be the same as the route path
-            });
+            setRefreshTokenCookie(res, refreshToken);
         }
         // res.cookie('token', token, {
         //     httpOnly: true,
@@ -115,12 +131,7 @@ exports.registerUser = async (req, res) => {
         //     secure: process.env.NODE_ENV == "production",
         //     maxAge: 86400000 // 1 day
         // });
-        res.cookie('token', token, {
-            httpOnly: true,
-            sameSite: 'strict',
-            secure: process.env.NODE_ENV !== 'development',
-            maxAge: 86400000 // 1 day
-        });
+        setTokenCookie(res, token);
 
         res.status(201).json({ status: 201, message: "User created", user: newUser });
     }
@@ -134,42 +145,35 @@ exports.registerUser = async (req, res) => {
 exports.login = async (req, res) => {
     const { email, password, remember } = req.body;
     try {
-        const user = await userModel.findOne({ email });
+        const user = await userModel.findOne({ email })
+            .select("email password role refreshToken");
 
         if (!user) {
             return res.status(404).json({ status: 404, message: "User not found" });
         }
+
         const isMatch = bcrypt.compareSync(password, user.password);
         if (!isMatch) {
             return res.status(401).json({ status: 401, message: "Invalid Credentials" });
         }
+
         const tokenData = {
             id: user._id,
             email: user.email,
             role: user.role,
         }
 
-        const token = jwt.sign(tokenData, process.env.JWT_SECRET);
-        const refreshToken = jwt.sign(tokenData, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });
+        const token = generateAccessToken(tokenData);
+        const refreshToken = generateRefreshToken(tokenData);
 
         user.refreshToken = refreshToken; //! Save refresh token to user database
         await user.save();
 
         if (remember) {
-            res.cookie('refreshToken', refreshToken, {
-                httpOnly: true,
-                sameSite: 'strict',
-                secure: process.env.NODE_ENV == "production",
-                maxAge: 86400000 * 30, // 30 day
-                path: `${process.env.FRONT_ADDRESS}/api/user/refreshToken`   //! This is important and should be the same as the route path
-            });
+            setRefreshTokenCookie(res, refreshToken);
         }
-        res.cookie('token', token, {
-            httpOnly: true,
-            sameSite: 'strict',
-            secure: process.env.NODE_ENV !== 'development',
-            maxAge: 86400000 // 1 day
-        });
+
+        setTokenCookie(res, token);
 
         // Set HTTP Only cookie for token (access token)
         res.status(200).json({ status: 200, message: "Login Successfully" });
@@ -187,34 +191,25 @@ exports.refreshToken = async (req, res) => {
     try {
         //! Verify the refresh token
         const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-        const user = await userModel.findById(decoded.id);
+        const user = await userModel.findById(decoded.id)
+            .select("email role refreshToken");
 
         if (!user || user.refreshToken !== refreshToken) {
             return res.status(403).json({ status: 403, message: "Invalid refresh token" });
         }
 
-        // Generate a new access token
+        //! Generate a new access token
         const newTokenData = { id: user._id, email: user.email, role: user.role };
-        const newToken = jwt.sign(newTokenData, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const newToken = generateAccessToken(newTokenData);
 
-        // Optionally generate a new refresh token
-        const newRefreshToken = jwt.sign(newTokenData, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });
+        //! Optionally generate a new refresh token
+        const newRefreshToken = generateRefreshToken(newTokenData);
         user.refreshToken = newRefreshToken; // Update the refresh token in the database
         await user.save();
 
-        // Set HTTP Only cookies for the new tokens
-        res.cookie('refreshToken', newRefreshToken, {
-            httpOnly: true,
-            // sameSite: 'strict',
-            secure: process.env.NODE_ENV == "production",
-            path: '/api/user/refreshToken'   //! This is important and should be the same as the route path
-        });
-        res.cookie('token', newToken, {
-            httpOnly: true,
-            // sameSite: 'strict',
-            secure: process.env.NODE_ENV == "production",
-            maxAge: 3600000 // 1 hour
-        });
+        // Set HTTP Only cookie for token (access token)
+        setTokenCookie(res, newToken);
+        setRefreshTokenCookie(res, newRefreshToken);
 
         res.status(200).json({ status: 200, message: "Tokens refreshed successfully" });
     } catch (error) {
@@ -225,6 +220,8 @@ exports.refreshToken = async (req, res) => {
 exports.logout = (req, res) => {
     try {
         res.cookie('token', '', { httpOnly: true, sameSite: 'strict', expires: new Date(0) });
+        res.cookie('refreshToken', '', { httpOnly: true, sameSite: 'strict', expires: new Date(0) });
+
         res.status(200).json({ status: 200, message: "Logout Successfully" });
     }
     catch (error) {

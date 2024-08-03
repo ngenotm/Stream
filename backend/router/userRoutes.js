@@ -10,12 +10,11 @@ const router = Router();
 
 router.get("/users", [Authenticate, Authorize(["admin"])], allUser);
 
-router.get("/getWatchList/:id", getWatchList);
+router.get("/getWatchList/:id", ValidateObjectId, getWatchList);
 
 router.route("/user/:id")
     .get(ValidateObjectId, singleUser)
     .delete(ValidateObjectId, [Authenticate, Authorize(["admin"])], deleteUser);
-
 //! must add edit user route here
 
 router.post("/register", registerValidation, registerUser);
@@ -30,11 +29,5 @@ router.get("/setCookie", (req, res) => {
         expires: new Date(Date.now() + 1000 * 40), //! 40 seconds
     }).send("Cookie set");
 });
-
-// router.get("/getCookie", (req, res) => {
-//     console.log(req.cookies)
-//     const token = req.cookies.token;
-//     res.send(token);
-// });
 
 module.exports = router;

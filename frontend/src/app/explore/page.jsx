@@ -1,8 +1,6 @@
-import { ClockIcon, EyeIcon, LeftArrowSvg, LikeSvg, PlaySvg, PlusSvg, SoundSvg, StarIcon } from "@/assets/Svgs";
 import GenresCard from "@/components/GenresCard";
 import SlidePagination from "@/components/SlidePagination";
 import Carousel from "@/components/carousel/Carousel";
-import Link from "next/link";
 import ArticleSection from "./ArticleSection";
 
 const ExplorePage = () => {

@@ -14,13 +14,13 @@ dotEnv.config({ path: './config/config.env' });
 connectDb();
 
 //! cors options
-const corsOptions = {
-    origin: "http://localhost:3000",
-    credentials: true,
-};
+// const corsOptions = {
+//     origin: "http://localhost:3000",
+//     credentials: true,
+// };
 
 const app = express().use(express.json())
-    .use(cors(corsOptions))
+    .use(cors())
     .use(express.urlencoded({ extended: true }))
     .use(cookieParser());
 
