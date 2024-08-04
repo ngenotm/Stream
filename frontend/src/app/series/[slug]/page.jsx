@@ -1,5 +1,5 @@
 import PreviewsSection from "@/components/PreviewSection";
-import SubscriptionBox from "@/components/SubscriptionBox";
+import SubscriptionBox from "@/components/subscription/SubscriptionBox";
 import CastSection from "@/components/singleSeries/CastSection";
 import Description from "@/components/singleSeries/Description";
 import Director from "@/components/singleSeries/Director";

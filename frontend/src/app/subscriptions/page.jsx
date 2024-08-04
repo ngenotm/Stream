@@ -1,5 +1,5 @@
-import SubscriptionBox from "@/components/SubscriptionBox";
-import SubscriptionPlan from "@/components/SubscriptionPlan";
+import SubscriptionBox from "@/components/subscription/SubscriptionBox";
+import SubscriptionPlan from "@/components/subscription/SubscriptionPlan";
 
 const SubscriptionsPage = () => {
     return (

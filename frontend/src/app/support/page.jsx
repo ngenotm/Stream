@@ -1,7 +1,7 @@
 import WelcomeSection from "./WelcomeSection";
 import SupportForm from "./SupportForm";
-import AskedQuestions from "@/components/AskedQuestions";
-import SubscriptionBox from "@/components/SubscriptionBox";
+import AskedQuestions from "@/components/question/AskedQuestions";
+import SubscriptionBox from "@/components/subscription/SubscriptionBox";
 
 const SupportPage = () => {
     return (
