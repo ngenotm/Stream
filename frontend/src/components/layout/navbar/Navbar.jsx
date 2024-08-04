@@ -1,14 +1,20 @@
 "use client";
 
-import { MenuSvg } from "@/assets/Svgs";
+import { MenuSvg, UserOIcon, UserPlusOIcon } from "@/assets/Svgs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NavbarNav from "./NavbarNav";
 import Search from "./Search";
 import NotificationButton from "./NotificationButton";
+import useUserStore from "@/stores/useUserStore";
 
 
 const Navbar = () => {
+
+    const user = useUserStore((state) => state.user);
+    const loading = useUserStore((state) => state.loading);
+
+    console.log(user, loading)
 
     const pathname = usePathname();
     return (
@@ -24,9 +30,21 @@ const Navbar = () => {
 
                 <NavbarNav pathname={pathname} />
 
-                <div>
+                <div className="flex items-center gap-2">
                     <Search />
-                    <NotificationButton />
+
+                    {loading || !user ? <div className="3xl:w-[5rem] w-[4.1rem] h-1" ></div> : !loading && user ?
+                        <>
+                            <Link href="/profile">
+                                <UserOIcon className="3xl:w-[2.4rem] 3xl:h-[2.4rem]" />
+                            </Link>
+                            <NotificationButton />
+                        </> :
+                        <button className="focus:outline-none focus:border-none mx-2.5 md:inline hidden">
+                            <UserPlusOIcon className="3xl:w-[2.4rem] 3xl:h-[2.4rem]" />
+                        </button>
+                    }
+
                     <button
                         className="w-11 h-11 rounded-lg btn-black-10 border border-c-black-15 md:hidden flex justify-center items-center "
                     >

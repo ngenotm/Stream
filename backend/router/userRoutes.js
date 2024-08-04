@@ -12,8 +12,8 @@ router.get("/users", [Authenticate, Authorize(["admin"])], allUser);
 
 router.get("/getWatchList/:id", ValidateObjectId, getWatchList);
 
+router.get("/userData", singleUser);
 router.route("/user/:id")
-    .get(ValidateObjectId, singleUser)
     .delete(ValidateObjectId, [Authenticate, Authorize(["admin"])], deleteUser);
 //! must add edit user route here
 

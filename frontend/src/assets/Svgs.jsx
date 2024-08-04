@@ -423,3 +423,21 @@ export const HomeIcon = (props) => {
         </svg>
     )
 }
+
+
+export const UserPlusOIcon = (props) => {
+    return (
+        <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 7.5V10.5M18 10.5V13.5M18 10.5H21M18 10.5H15M12.75 6.375C12.75 8.23896 11.239 9.75 9.375 9.75C7.51104 9.75 6 8.23896 6 6.375C6 4.51104 7.51104 3 9.375 3C11.239 3 12.75 4.51104 12.75 6.375ZM3.00092 19.2343C3.00031 19.198 3 19.1615 3 19.125C3 15.6042 5.85418 12.75 9.375 12.75C12.8958 12.75 15.75 15.6042 15.75 19.125V19.1276C15.75 19.1632 15.7497 19.1988 15.7491 19.2343C13.8874 20.3552 11.7065 21 9.375 21C7.04353 21 4.86264 20.3552 3.00092 19.2343Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    )
+}
+
+export const UserOIcon = (props) => {
+    return (
+        <svg {...props} width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.75 5C12.75 7.07107 11.0711 8.75 9.00002 8.75C6.92896 8.75 5.25002 7.07107 5.25002 5C5.25002 2.92893 6.92896 1.25 9.00002 1.25C11.0711 1.25 12.75 2.92893 12.75 5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M1.50116 19.1182C1.57146 15.0369 4.9019 11.75 9.00002 11.75C13.0983 11.75 16.4287 15.0371 16.4989 19.1185C14.2161 20.166 11.6764 20.75 9.00034 20.75C6.32402 20.75 3.78412 20.1659 1.50116 19.1182Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    )
+}

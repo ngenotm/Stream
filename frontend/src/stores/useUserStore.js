@@ -8,10 +8,18 @@ const useUserStore = create(
         fetchUser: async () => {
             set({ loading: true, error: null });
             try {
-                const response = await fetch('/api/user'); // Replace with your API endpoint
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/userData`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include'
+                });
                 const data = await response.json();
-                set({ user: data, loading: false });
+                console.log(data)
+                set({ user: data.user, loading: false });
             } catch (error) {
+                console.log(error)
                 set({ error: error.message, loading: false });
             }
         },
