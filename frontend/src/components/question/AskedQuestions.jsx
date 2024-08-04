@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import QuestionTitle from "./QuestionTitle";
 import QuestionItem from './QuestionItem';
-import { questions } from './questions';
+import { questions } from '../../constants/questions';
 
 
 const AskedQuestions = () => {
