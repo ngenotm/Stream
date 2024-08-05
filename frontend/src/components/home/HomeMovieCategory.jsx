@@ -1,4 +1,5 @@
 import MultipleCard from "../MultipleCard";
+import MultipleCardSkeleton from "../MultipleCardSkeleton";
 import MovieCategoryTitle from "./MovieCategoryTitle";
 
 const fetchMovieCategories = async () => {
@@ -8,13 +9,12 @@ const fetchMovieCategories = async () => {
         return data;
     } catch (error) {
         console.error('Error fetching movie categories:', error);
+        return []
     }
 }
 
 const HomeMovieCategory = async () => {
     const categories = await fetchMovieCategories();
-    console.log(categories)
-
 
     return (
         <section className="container mt-14">
@@ -23,8 +23,12 @@ const HomeMovieCategory = async () => {
             <div
                 className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 lg:gap-8 md:gap-4 gap-2.5 flex-nowrap max-lg:overflow-x-auto"
             >
-
-                <MultipleCard />
+                {!categories || categories?.length === 0 ?
+                    Array.from({ length: 3 }).map((_, index) => <MultipleCardSkeleton key={index} />) :
+                    Object.entries(categories).map(([category, images], index) => (
+                        <MultipleCard key={index} title={category} images={images} />
+                    ))
+                }
 
             </div>
 
