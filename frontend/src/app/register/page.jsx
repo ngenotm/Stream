@@ -8,13 +8,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import useUserStore from "@/stores/useUserStore";
 
 const RegisterPage = () => {
-    const router = useRouter();
-    const { user, loading } = useUserStore((state) => state);
+    // const router = useRouter();
+    // const { user, loading } = useUserStore((state) => state);
 
-    useEffect(() => {
-        if (!loading && user || loading && user) return router.push("/");
+    // useEffect(() => {
+    //     if (!loading && user || loading && user) return router.push("/");
 
-    }, [user,router])
+    // }, [user,router])
 
     const searchParams = useSearchParams();
     const [page, setPage] = useState(searchParams.get("page") ? searchParams.get("page") : "login");

@@ -17,9 +17,7 @@ const setRefreshTokenCookie = (res, refreshToken) => {
 };
 
 const setTokenCookie = (res, token) => {
-    const secure = process.env.NODE_ENV !== 'development';
-    const options = createCommonCookieOptions(secure, 86400000); // 1 day
-    setCookie(res, 'token', token, options);
+    setCookie(res, 'token', token, createCommonCookieOptions(86400000));
 };
 
 module.exports = {

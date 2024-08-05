@@ -8,7 +8,7 @@ const SubscriptionPlanContent = ({ user, time }) => {
         <>
             {time === "yearly" ? planVariantYearly.map(({ title, subtitle, price }, index) =>
                 user === null ?
-                    <SubscriptionPlanSkeleton /> :
+                    <SubscriptionPlanSkeleton key={index} /> :
                     <SubscriptionPlanItem
                         key={index}
                         title={title}
@@ -17,7 +17,7 @@ const SubscriptionPlanContent = ({ user, time }) => {
                     />
             ) : planVariantMonthly.map(({ title, subtitle, price }, index) =>
                 user === null ?
-                    <SubscriptionPlanSkeleton /> :
+                    <SubscriptionPlanSkeleton key={index} /> :
                     <SubscriptionPlanItem
                         key={index}
                         title={title}
