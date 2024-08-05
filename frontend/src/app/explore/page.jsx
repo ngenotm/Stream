@@ -1,4 +1,4 @@
-import GenresCard from "@/components/GenresCard";
+import GenresCard from "@/components/MultipleCard";
 import SlidePagination from "@/components/SlidePagination";
 import Carousel from "@/components/carousel/Carousel";
 import ArticleSection from "./ArticleSection";

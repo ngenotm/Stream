@@ -1,7 +1,7 @@
 import { RightArrowSvg } from "@/assets/Svgs";
 import Link from "next/link";
 // lg:hover:scale-105
-const CategoryCard = () => {
+const MultipleCard = () => {
     return (
         <Link href="/" className="flex-shrink-0 max-lg:w-[200px] max-sm:w-[11rem]">
             <div className="lg:px-5 md:px-4 md:py-4 p-3 bg-c-black-10 border border-c-black-15 rounded-xl relative  duration-300 cursor-pointer">
@@ -35,4 +35,4 @@ const CategoryCard = () => {
     );
 }
 
-export default CategoryCard;
+export default MultipleCard;
