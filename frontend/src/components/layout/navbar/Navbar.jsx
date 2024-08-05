@@ -13,7 +13,6 @@ const Navbar = () => {
 
     const user = useUserStore((state) => state.user);
     const loading = useUserStore((state) => state.loading);
-console.log(user)
 
     const pathname = usePathname();
     return (

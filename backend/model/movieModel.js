@@ -26,10 +26,46 @@ const movieModel = mongoose.Schema({
     },
     genres: {
         type: [String],
+        enum: [
+            'Action',
+            'Comedy',
+            'Drama',
+            'Horror',
+            'Science Fiction',
+            'Fantasy',
+            'Romance',
+            'Thriller',
+            'Mystery',
+            'Documentary',
+            'Adventure',
+            'Crime',
+            'Musical',
+            'Western',
+            'Animation',
+            'War'
+        ],
         required: [true, 'Genres is required'],
     },
     category: {
         type: [String],
+        enum: [
+            'action',
+            'comedy',
+            'drama',
+            'horror',
+            'science fiction',
+            'fantasy',
+            'romance',
+            'thriller',
+            'mystery',
+            'documentary',
+            'adventure',
+            'crime',
+            'musical',
+            'western',
+            'animation',
+            'war'
+        ],
         required: [true, 'Category is required']
     },
     country: {

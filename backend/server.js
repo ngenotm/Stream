@@ -26,14 +26,13 @@ const app = express().use(express.json())
 
 
 //! Static Folder
-app.use(express.static(path.join(__dirname, "public", "actor")));
-app.use(express.static(path.join(__dirname, "public", "cover")));
-app.use(express.static(path.join(__dirname, "public", "director")));
-app.use(express.static(path.join(__dirname, "public", "profile")));
-app.use(express.static(path.join(__dirname, "public", "thumbnail")));
-app.use(express.static(path.join(__dirname, "public", "trailer")));
-app.use(express.static(path.join(__dirname, "public", "videos")));
-
+app.use("/public", express.static(path.join(__dirname, "public", "actor")));
+app.use("/public", express.static(path.join(__dirname, "public", "cover")));
+app.use("/public", express.static(path.join(__dirname, "public", "director")));
+app.use("/public", express.static(path.join(__dirname, "public", "profile")));
+app.use("/public", express.static(path.join(__dirname, "public", "thumbnail")));
+app.use("/public", express.static(path.join(__dirname, "public", "trailer")));
+app.use("/public", express.static(path.join(__dirname, "public", "videos")));
 
 //! Routes
 app.use('/api/user', require('./router/userRoutes'));

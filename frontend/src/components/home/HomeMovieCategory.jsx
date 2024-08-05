@@ -1,11 +1,23 @@
 import MultipleCard from "../MultipleCard";
 import MovieCategoryTitle from "./MovieCategoryTitle";
 
+const fetchMovieCategories = async () => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/categories`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching movie categories:', error);
+    }
+}
 
-const HomeMovieCategory = () => {
+const HomeMovieCategory = async () => {
+    const categories = await fetchMovieCategories();
+    console.log(categories)
+
+
     return (
         <section className="container mt-14">
-
             <MovieCategoryTitle />
 
             <div

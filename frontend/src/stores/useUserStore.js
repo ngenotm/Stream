@@ -16,7 +16,7 @@ const useUserStore = create(
                     credentials: 'include'
                 });
                 const data = await response.json();
-                console.log(data)
+                // console.log(data)
                 set({ user: data.user, loading: false });
             } catch (error) {
                 console.log(error)

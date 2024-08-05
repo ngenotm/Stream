@@ -20,7 +20,6 @@ exports.singleUser = async (req, res) => {
         const { refreshToken, token } = req.cookies;
 
         if (token) {
-            console.log("run this line 1")
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const user = await userModel.findById(decoded.id).select("-refreshToken");
             if (!user) {
@@ -29,7 +28,6 @@ exports.singleUser = async (req, res) => {
             return res.status(200).json({ status: 200, user, message: "User fetch successfully" });
         }
         else if (refreshToken) {
-            console.log("run this line 2")
             const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
             const user = await userModel.findById(decoded.id).select("-refreshToken");
             // .select('-password -refreshToken -watchList')
