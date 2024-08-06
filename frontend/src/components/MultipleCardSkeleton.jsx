@@ -1,7 +1,7 @@
 const MultipleCardSkeleton = () => {
     return (
         <div
-            className="flex-shrink-0 max-lg:w-[200px] max-sm:w-[11rem] lg:px-5 md:px-4 md:py-4
+            className="flex-shrink-0 w-56 max-sm:w-[11rem] lg:px-5 md:px-4 md:py-4
              p-3 bg-c-black-10 border border-c-black-15 rounded-xl relative animate-pulse"
         >
             <div className="space-y-1">

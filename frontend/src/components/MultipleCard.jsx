@@ -7,13 +7,14 @@ const MultipleCard = ({ title, images }) => {
     const displayImages = images.slice(0, 4);
 
     return (
-        <Link href="/" className="flex-shrink-0 max-lg:w-[200px] max-sm:w-[11rem]">
+        <Link href="/" className="flex-shrink-0 3xl:w-72 md:w-60 w-44">
             <div className="lg:px-5 md:px-4 md:py-4 p-3 bg-c-black-10 border border-c-black-15 rounded-xl relative  duration-300 cursor-pointer">
 
                 <div className="mb-9">
                     <div className="grid grid-cols-2 gap-1">
                         {displayImages.map((src, index) => (
-                            <img key={index} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${src}`} alt="movie name" className="w-full rounded-xl aspect-square" />
+                            <img key={index} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${src}`} alt="movie name"
+                                className="w-full rounded-xl aspect-square object-cover object-top" />
                         ))}
                         {Array.from({ length: placeholders }).map((_, index) => (
                             <div key={index + displayImages.length} className="w-full bg-c-black-20 rounded-xl aspect-square"></div>

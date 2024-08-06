@@ -1,6 +1,6 @@
 import SlidePagination from "../SlidePagination";
 
-const MovieCategoryTitle = () => {
+const MovieCategoryTitle = ({ totalSlides, currentIndex, onNext, onPrev }) => {
     return (
         <div className="flex items-end lg:mb-10 md:mb-8 mb-4">
 
@@ -10,7 +10,12 @@ const MovieCategoryTitle = () => {
                     Whether you are looking for a comedy to make you laugh, a drama to make you think, or a documentary to learn something new
                 </p>
             </div>
-            <SlidePagination />
+            <SlidePagination
+                currentIndex={currentIndex}
+                total={totalSlides}
+                onNext={onNext}
+                onPrev={onPrev}
+            />
 
         </div>
     );
