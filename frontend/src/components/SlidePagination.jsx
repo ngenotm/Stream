@@ -32,7 +32,6 @@ const { LeftArrowSvg } = require("@/assets/Svgs");
 // export default SlidePagination;
 import React from 'react'
 const SlidePagination = ({ currentIndex, total, onNext, onPrev }) => {
-    console.log(currentIndex);
     return (
         <div className="rounded-xl bg-c-black-06 border border-c-black-12 p-2 lg:flex items-center hidden">
             <div className="flex items-center gap-2">

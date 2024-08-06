@@ -244,7 +244,7 @@ const HomeMovieCategory = () => {
                 className="flex lg:gap-8 md:gap-4 gap-2.5 flex-nowrap overflow-x-auto pb-2.5 custom-scrollbar custom-scrollbar-sm"
             >
                 {loading || categories?.length === 0
-                    ? Array.from({ length: 3 }).map((_, index) => <MultipleCardSkeleton key={index} />)
+                    ? Array.from({ length: 5 }).map((_, index) => <MultipleCardSkeleton key={index} />)
                     : Object.entries(categories).map(([category, images], index) => (
                         <MultipleCard key={index} title={category} images={images} />
                     ))}

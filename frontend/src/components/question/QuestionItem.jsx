@@ -8,7 +8,10 @@ const QuestionItem = ({ handleClick, openId, id, question, answer }) => {
                     {String(id).padStart(2, '0')}
                 </div>
                 <div className="flex flex-1 flex-col justify-center items-start">
-                    <h6 className="text-white/85 3xl:text-xl lg:text-super-sm text-super-xs line-clamp-1 mb-2">
+                    <h6
+                        className="text-white/85 3xl:text-xl lg:text-super-sm text-super-xs line-clamp-1 mb-2 cursor-pointer"
+                        onClick={() => handleClick(id)}
+                    >
                         {question}
                     </h6>
                     <p

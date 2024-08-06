@@ -12,7 +12,7 @@ const MainLayout = ({ children }) => {
     return (
         <>
             <Navbar />
-            <div className="min-h-screen">
+            <div className="min-h-screen bg-c-black-08 -z-40">
                 {children}
             </div>
             <Footer />

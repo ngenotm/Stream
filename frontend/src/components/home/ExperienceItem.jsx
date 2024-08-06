@@ -1,6 +1,6 @@
 const ExperienceItem = ({ icon, title, subtitle }) => {
     return (
-        <div className="rounded-lg border border-c-black-15 bg-c-black-06 relative -z-10 px-5 py-5">
+        <div className="rounded-lg border border-c-black-15 bg-c-black-06 relative px-5 py-5 z-0">
             <div className="absolute rounded-lg w-full h-full top-0 right-0 bg-gradient-to-bl from-c-red-45/10 to-c-black-08 to-60% -z-10" />
 
             <div className="flex items-center gap-4">

@@ -16,7 +16,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${manrope.className} bg-c-black-08 custom-scrollbar custom-scrollbar-md`}>
+      <body className={`${manrope.className} custom-scrollbar custom-scrollbar-md bg-c-black-08`}>
         <MainLayout>
           {children}
           <ToastContainer
