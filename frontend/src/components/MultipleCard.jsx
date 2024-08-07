@@ -3,8 +3,8 @@ import Link from "next/link";
 
 
 const MultipleCard = ({ title, images }) => {
-    const placeholders = 4 - images.length;
-    const displayImages = images.slice(0, 4);
+    const placeholders = 4 - images?.length;
+    const displayImages = images?.slice(0, 4);
 
     return (
         <Link href="/" className="flex-shrink-0 3xl:w-72 md:w-60 w-44">
@@ -12,11 +12,11 @@ const MultipleCard = ({ title, images }) => {
 
                 <div className="mb-9">
                     <div className="grid grid-cols-2 gap-1">
-                        {displayImages.map((src, index) => (
+                        {displayImages?.map((src, index) => (
                             <img key={index} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${src}`} alt="movie name"
                                 className="w-full rounded-xl aspect-square object-cover object-top" />
                         ))}
-                        {Array.from({ length: placeholders }).map((_, index) => (
+                        {Array.from({ length: placeholders })?.map((_, index) => (
                             <div key={index + displayImages.length} className="w-full bg-c-black-20 rounded-xl aspect-square"></div>
                         ))}
                     </div>

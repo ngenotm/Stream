@@ -1,12 +1,11 @@
-"use client"
-import React, { useState, useRef, useEffect } from 'react';
-import MultipleCardSkeleton from '../MultipleCardSkeleton';
-import MultipleCard from '../MultipleCard';
-import MovieCategoryTitle from './MovieCategoryTitle';
-import { fetchMovieCategories } from '../../services/MovieService';
+"use client";
+import MultipleCard from "@/components/MultipleCard";
+import SlidePagination from "@/components/SlidePagination";
+import { useEffect, useRef, useState } from "react";
+import { fetchMovieCategories } from "../../services/MovieService";
+import MultipleCardSkeleton from "@/components/MultipleCardSkeleton";
 
-
-const HomeMovieCategory = () => {
+const GenresSection = () => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -37,13 +36,12 @@ const HomeMovieCategory = () => {
     };
 
     return (
-        <section className="container mt-14">
-            <MovieCategoryTitle
-                totalSlides={categories ? categories.length : 0}
-                currentIndex={currentIndex}
-                onNext={handleNext}
-                onPrev={handlePrev}
-            />
+        <div className="" style={{ marginTop: "2.3rem" }}>
+            <div className="flex items-center justify-between mb-4">
+                <h5 className="text-white 3xl:text-2.5xl md:text-1.5xl text-xl font-medium">Our Genres</h5>
+                <SlidePagination currentIndex={currentIndex} onNext={handleNext} onPrev={handlePrev} total={categories ? categories.length : 0} />
+            </div>
+
             <div
                 ref={scrollContainerRef}
                 className="flex lg:gap-8 md:gap-4 gap-2.5 flex-nowrap overflow-x-auto pb-2.5 custom-scrollbar custom-scrollbar-sm"
@@ -54,9 +52,8 @@ const HomeMovieCategory = () => {
                         <MultipleCard key={index} title={category} images={images} />
                     ))}
             </div>
-        </section>
+        </div>
     );
-};
+}
 
-
-export default HomeMovieCategory;
+export default GenresSection;
