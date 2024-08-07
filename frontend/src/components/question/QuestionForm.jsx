@@ -1,41 +1,33 @@
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
 import FormField from "../FormField";
 import TextAreaField from "../TextAreaField";
-import { toast } from "react-toastify";
+import useUserStore from "@/stores/useUserStore";
+import { sendSupportRequest } from "../../services/SupportService";
+
 
 const QuestionForm = () => {
     const { register, handleSubmit, formState: { errors }, setError, reset } = useForm();
+    const user = useUserStore(state => state.user);
 
     const onSubmit = async (data) => {
-        const { subject, question } = data;
+        if (user) {
+            const { subject, question } = data;
+            try {
+                await sendSupportRequest({
+                    fullName: user?.fullName,
+                    email: user?.email,
+                    subject,
+                    message: question,
+                });
+                reset();
 
-        console.log(data);
-
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/support/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                fullName: "test",
-                email: "text@gmail.com",
-                subject,
-                message: question,
-            }),
-        });
-
-        if (!response.ok) {
-            if (response.status === 500) {
-                toast.error("Server error! Please try again later.");
-            } else {
-                toast.error('Failed to send message! Please try again later.');
+                toast.success('Message sent successfully! Please be patient.');
+            } catch (error) {
+                toast.error(error.message);
             }
-            return;
         }
-
-        reset();
-
-        toast.success('Message sent successfully! Please be patient.');
     }
 
     return (
@@ -76,8 +68,10 @@ const QuestionForm = () => {
                     }}
                     errors={errors}
                 />
-
-                <button className="bg-c-red-45 text-white/90 px-8 py-2.5 rounded-md  font-medium">
+                <button
+                    className="bg-c-red-45 text-white py-2 px-4 rounded 3xl:text-lg text-super-sm"
+                    type="submit"
+                >
                     Submit Question
                 </button>
 

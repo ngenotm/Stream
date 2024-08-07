@@ -11,12 +11,11 @@ import QuestionForm from './QuestionForm';
 
 const AskedQuestions = () => {
     const [openId, setOpenId] = useState(null);
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleClick = (id) => {
         setOpenId(openId === id ? null : id);
     };
-
 
     return (
         <section className="container mt-16">

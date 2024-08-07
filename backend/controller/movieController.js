@@ -44,7 +44,6 @@ exports.movieCategories = async (req, res) => {
             const movies = await Movie.find({ category }).limit(4);
             // Select four images from the fetched movies
             const images = movies.map(movie => movie.thumbnail).slice(0, 4);
-            console.log(images)
             // Store the selected images in the object
             categoryImages[category] = images;
         }
