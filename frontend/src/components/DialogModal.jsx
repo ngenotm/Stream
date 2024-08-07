@@ -76,7 +76,7 @@ const DialogModal = ({ children, isOpen, setIsOpen, title }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex items-center justify-between gap-3 mb-5">
-                    <h6 className="text-white font-semibold text-lg">{title}</h6>
+                    <h6 className="text-white font-semibold text-xl">{title}</h6>
                     <button className="p-1.5" onClick={() => setIsOpen(false)}>
                         <XmarkIcon />
                     </button>

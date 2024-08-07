@@ -10,30 +10,73 @@ import { toast } from 'react-toastify';
 const SupportForm = () => {
     const { register, handleSubmit, formState: { errors }, setError, reset } = useForm();
 
-    const onSubmit = async (data) => {
-        console.log("first")
-        const { firstName, lastName, email, phoneNumber, message } = data; //! Use data from form
+    // const onSubmit = async (data) => {
+    //     console.log("first")
+    //     const { firstName, lastName, email, phoneNumber, message } = data; //! Use data from form
 
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/support/`, {
-            firstName, lastName, email, phoneNumber, message
-        }).then(res => {
-            console.log(res)
+    //     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/support/`, {
+    //         firstName, lastName, email, phoneNumber, message
+    //     }).then(res => {
+    //         console.log(res)
+    //         reset();
+    //         toast.success('Message sent successfully! Please be patient.');
+    //     }).catch(err => {
+    //         if (err.message == "Network Error") {
+    //             return toast.error("Something went wrong! Please try again later.");
+    //         }
+
+    //         const { status } = err.response
+
+    //         if (status === 500) {
+    //             return toast.error("Server error! Please try again later.");
+    //         }
+
+    //         toast.error('Failed to send message! Please try again later.');
+    //     })
+    // }
+
+    const onSubmit = async (data) => {
+        const { firstName, lastName, email, phoneNumber, message } = data;
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/support/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName,
+                    lastName,
+                    email,
+                    phoneNumber,
+                    message,
+                }),
+            });
+
+            if (!response.ok) {
+                if (response.status === 500) {
+                    toast.error("Server error! Please try again later.");
+                } else {
+                    toast.error('Failed to send message! Please try again later.');
+                }
+                return;
+            }
+
+            const result = await response.json();
+            console.log(result);
             reset();
             toast.success('Message sent successfully! Please be patient.');
-        }).catch(err => {
-            if (err.message == "Network Error") {
-                return toast.error("Something went wrong! Please try again later.");
+
+        } catch (error) {
+            // Handle network errors
+            if (error.message === "Failed to fetch") {
+                toast.error("Something went wrong! Please try again later.");
+            } else {
+                toast.error('Failed to send message! Please try again later.');
             }
+        }
+    };
 
-            const { status } = err.response
-
-            if (status === 500) {
-                return toast.error("Server error! Please try again later.");
-            }
-
-            toast.error('Failed to send message! Please try again later.');
-        })
-    }
 
     return (
         <form
@@ -139,7 +182,7 @@ const SupportForm = () => {
 
             </div>
             <div className="flex lg:flex-row flex-col lg:items-start max-lg:gap-4 justify-between mt-5">
-            
+
                 <CheckboxField
                     label="I agree with Terms of Use and Privacy Policy"
                     id="agree-policy"
