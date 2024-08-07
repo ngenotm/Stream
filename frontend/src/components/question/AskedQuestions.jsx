@@ -6,11 +6,12 @@ import QuestionTitle from "./QuestionTitle";
 import QuestionItem from './QuestionItem';
 import { questions } from '../../constants/questions';
 import DialogModal from '../DialogModal';
+import QuestionForm from './QuestionForm';
 
 
 const AskedQuestions = () => {
     const [openId, setOpenId] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     const handleClick = (id) => {
         setOpenId(openId === id ? null : id);
@@ -32,7 +33,9 @@ const AskedQuestions = () => {
                     />
                 ))}
             </div>
-            <DialogModal isOpen={isOpen} setIsOpen={setIsOpen} />
+            <DialogModal isOpen={isOpen} setIsOpen={setIsOpen} title={"Ask a New Question"} >
+                <QuestionForm />
+            </DialogModal>
         </section>
     );
 };

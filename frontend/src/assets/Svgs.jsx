@@ -441,3 +441,12 @@ export const UserOIcon = (props) => {
         </svg>
     )
 }
+
+
+export const XmarkIcon = (props) => {
+    return (
+        <svg {...props} width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4L20 20M20 4L4 20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}

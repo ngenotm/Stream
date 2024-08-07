@@ -41,22 +41,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { XmarkIcon } from "@/assets/Svgs";
 
-const DialogModal = ({ children, isOpen, setIsOpen }) => {
-    // State to handle the transition effect
+const DialogModal = ({ children, isOpen, setIsOpen, title }) => {
     const [show, setShow] = useState(isOpen);
 
     useEffect(() => {
-        // Handle scroll locking
         if (isOpen) {
             document.body.style.overflow = 'hidden';
             document.body.style.paddingRight = '11px';
-            setShow(true); // Start showing the modal with transition
+            setShow(true);
         } else {
             document.body.style.overflow = 'auto';
             document.body.style.paddingRight = '0';
-            // Delay hiding the modal until the opacity transition is finished
-            setTimeout(() => setShow(false), 300); // Match the duration with your transition
+            setTimeout(() => setShow(false), 300);
         }
 
         return () => {
@@ -72,11 +70,19 @@ const DialogModal = ({ children, isOpen, setIsOpen }) => {
             onClick={() => setIsOpen(false)}
         >
             <div
-                className={`bg-c-black-06 border border-c-black-15 rounded-xl xl:min-w-600 h-36 
-        transition-transform duration-300 transform ${isOpen ? 'scale-100' : 'scale-95'}`}
+                className={`bg-c-black-06 border border-c-black-15 rounded-xl xl:min-w-600  
+        transition-transform duration-300 transform ${isOpen ? 'scale-100' : 'scale-95'}
+        px-8 py-7`}
                 onClick={(e) => e.stopPropagation()}
             >
-                {isOpen ? children : null}
+                <div className="flex items-center justify-between gap-3 mb-5">
+                    <h6 className="text-white font-semibold text-lg">{title}</h6>
+                    <button className="p-1.5" onClick={() => setIsOpen(false)}>
+                        <XmarkIcon />
+                    </button>
+                </div>
+                {/* {isOpen ? children : null} */}
+                {children}
             </div>
         </div >
     );
