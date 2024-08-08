@@ -49,7 +49,7 @@ exports.movieCategories = async (req, res) => {
         res.status(200).json(categoryImages);
     } catch (error) {
         console.error('Error fetching movie categories:', error);
-    res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: 'Internal server error' });
     }
 }
 
@@ -83,11 +83,16 @@ exports.topRatedMovies = async (req, res) => {
                 { $limit: parseInt(limit) || 10 }
             ]);
 
-            topRatedMovies[category] = movies.map(movie => ({
-                title: movie.movieDetails.title,
-                averageRating: movie.averageRating,
-                thumbnail: movie.movieDetails.thumbnail
-            }));
+            // topRatedMovies[category] = movies.map(movie => ({
+
+            //     title: movie.movieDetails.title,
+            //     averageRating: movie.averageRating,
+            //     thumbnail: movie.movieDetails.thumbnail
+            // }));
+            topRatedMovies[category] = movies.map(movie => {
+                if (limit) return movie.movieDetails.thumbnail;
+                return { title: movie.movieDetails.title, averageRating: movie.averageRating, thumbnail: movie.movieDetails.thumbnail }
+            });
         }
 
         res.status(200).json(topRatedMovies);

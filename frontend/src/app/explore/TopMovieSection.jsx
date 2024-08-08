@@ -2,7 +2,6 @@
 import MultipleCard from "@/components/MultipleCard";
 import SlidePagination from "@/components/SlidePagination";
 import { useEffect, useRef, useState } from "react";
-import { fetchMovieCategories } from "../../services/MovieService";
 import MultipleCardSkeleton from "@/components/MultipleCardSkeleton";
 
 const TopMovieSection = () => {
@@ -11,9 +10,16 @@ const TopMovieSection = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollContainerRef = useRef(null);
 
+    const fetchTopRatedCategories = async () => {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/top-rated?limit=4`);
+        const data = await response.json();
+        return data;
+    }
+
+
     useEffect(() => {
         const getCategories = async () => {
-            const data = await fetchMovieCategories();
+            const data = await fetchTopRatedCategories();
             setCategories(data);
             setLoading(false);
         };
@@ -48,8 +54,8 @@ const TopMovieSection = () => {
             >
                 {loading || categories?.length === 0
                     ? Array.from({ length: 5 }).map((_, index) => <MultipleCardSkeleton key={index} />)
-                    : Object.entries(categories).map(([category, images], index) => (
-                        <MultipleCard key={index} title={category} images={images} />
+                    : Object.entries(categories).map(([category, thumbnail], index) => (
+                        <MultipleCard key={index} title={category} images={thumbnail} />
                     ))}
             </div>
         </div>

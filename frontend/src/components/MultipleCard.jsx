@@ -13,7 +13,7 @@ const MultipleCard = ({ title, images }) => {
                 <div className="mb-9">
                     <div className="grid grid-cols-2 gap-1">
                         {displayImages?.map((src, index) => (
-                            <img key={index} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${src}`} alt="movie name"
+                            <img key={index} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${src}`} alt={src}
                                 className="w-full rounded-xl aspect-square object-cover object-top" />
                         ))}
                         {Array.from({ length: placeholders })?.map((_, index) => (

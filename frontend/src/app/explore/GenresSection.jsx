@@ -14,6 +14,7 @@ const GenresSection = () => {
     useEffect(() => {
         const getCategories = async () => {
             const data = await fetchMovieCategories();
+            console.log(data)
             setCategories(data);
             setLoading(false);
         };
