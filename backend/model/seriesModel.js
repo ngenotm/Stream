@@ -25,10 +25,46 @@ const seriesModel = mongoose.Schema({
     }],
     genres: {
         type: [String],
-        required: [true, 'Genre is required'],
+        enum: [
+            'action',
+            'comedy',
+            'drama',
+            'horror',
+            'science fiction',
+            'fantasy',
+            'romance',
+            'thriller',
+            'mystery',
+            'documentary',
+            'adventure',
+            'crime',
+            'musical',
+            'western',
+            'animation',
+            'war'
+        ],
+        required: [true, 'Genres is required'],
     },
     category: {
         type: [String],
+        enum: [
+            'action',
+            'comedy',
+            'drama',
+            'horror',
+            'science fiction',
+            'fantasy',
+            'romance',
+            'thriller',
+            'mystery',
+            'documentary',
+            'adventure',
+            'crime',
+            'musical',
+            'western',
+            'animation',
+            'war'
+        ],
         required: [true, 'Category is required']
     },
     country: {

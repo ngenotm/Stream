@@ -1,7 +1,5 @@
-const { isValidObjectId } = require("mongoose");
-const path = require('path');
-
 const Movie = require("../model/movieModel");
+const Review = require("../model/reviewModel");
 const { createMovieValidation } = require("../validation/movieValidation");
 const { movieUploader } = require('../utils/videoUploader');
 
@@ -48,15 +46,57 @@ exports.movieCategories = async (req, res) => {
             categoryImages[category] = images;
         }
 
-        // Send the object as a response
-        setTimeout(() => {
-            res.status(200).json(categoryImages);
-        }, 1000);
+        res.status(200).json(categoryImages);
     } catch (error) {
         console.error('Error fetching movie categories:', error);
-        res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+exports.topRatedMovies = async (req, res) => {
+    const { limit } = req.query;
+    try {
+        const categories = await Movie.distinct('category');
+
+        const topRatedMovies = {};
+
+        for (const category of categories) {
+            const movies = await Review.aggregate([
+                {
+                    $lookup: {
+                        from: 'movies',
+                        localField: 'media',
+                        foreignField: '_id',
+                        as: 'movieDetails'
+                    }
+                },
+                { $unwind: '$movieDetails' },
+                { $match: { 'movieDetails.category': category } },
+                {
+                    $group: {
+                        _id: '$media',
+                        averageRating: { $avg: '$rating' },
+                        movieDetails: { $first: '$movieDetails' }
+                    }
+                },
+                { $sort: { averageRating: -1 } },
+                { $limit: parseInt(limit) || 10 }
+            ]);
+
+            topRatedMovies[category] = movies.map(movie => ({
+                title: movie.movieDetails.title,
+                averageRating: movie.averageRating,
+                thumbnail: movie.movieDetails.thumbnail
+            }));
+        }
+
+        res.status(200).json(topRatedMovies);
+    } catch (error) {
+        console.error('Error fetching top-rated movies:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 
 
 //! Post Request

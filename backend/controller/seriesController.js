@@ -1,3 +1,4 @@
+const Review = require('../model/reviewModel');
 const Series = require('../model/seriesModel');
 const { seriesUploader } = require('../utils/videoUploader');
 const { createSeriesValidation } = require('../validation/seriesValidation');
@@ -43,6 +44,101 @@ exports.getSeries = async (req, res) => {
     }
 };
 
+
+exports.topRatedSeries = async (req, res) => {
+    try {
+        // Fetch distinct categories from the Series model
+        const categories = await Series.distinct('category');
+
+        // Initialize an object to store top-rated series for each category
+        const topRatedSeries = {};
+
+        // Loop through each category
+        for (const category of categories) {
+            // Aggregate reviews to calculate the average rating for each series in the current category
+            const series = await Review.aggregate([
+                {
+                    $lookup: {
+                        from: 'series',
+                        localField: 'media',
+                        foreignField: '_id',
+                        as: 'seriesDetails'
+                    }
+                },
+                { $unwind: '$seriesDetails' },
+                { $match: { 'seriesDetails.category': category } },
+                {
+                    $group: {
+                        _id: '$media',
+                        averageRating: { $avg: '$rating' },
+                        seriesDetails: { $first: '$seriesDetails' }
+                    }
+                },
+                { $sort: { averageRating: -1 } },
+                { $limit: 10 }
+            ]);
+
+            // Store the top-rated series in the object
+            topRatedSeries[category] = series.map(serie => ({
+                title: serie.seriesDetails.title,
+                averageRating: serie.averageRating,
+                thumbnail: serie.seriesDetails.thumbnail
+            }));
+        }
+
+        res.status(200).json(topRatedSeries);
+    } catch (error) {
+        console.error('Error fetching top-rated series:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+// exports.topRatedSeries = async (req, res) => {
+//     const { limit } = req.query;
+//     try {
+//         const categories = await Series.distinct('category');
+
+//         const topRatedSeries = {};
+
+//         for (const category of categories) {
+//             const series = await Review.aggregate([
+//                 {
+//                     $lookup: {
+//                         from: 'series',
+//                         localField: 'media',
+//                         foreignField: '_id',
+//                         as: 'seriesDetails'
+//                     }
+//                 },
+//                 { $unwind: '$seriesDetails' },
+//                 { $match: { 'seriesDetails.category': category } },
+//                 {
+//                     $group: {
+//                         _id: '$media',
+//                         averageRating: { $avg: '$rating' },
+//                         seriesDetails: { $first: '$seriesDetails' }
+//                     }
+//                 },
+//                 { $sort: { averageRating: -1 } },
+//                 { $limit: parseInt(limit) || 10 }
+//             ]);
+
+//             topRatedSeries[category] = series.map(seriesItem => ({
+//                 title: seriesItem.seriesDetails.title,
+//                 averageRating: seriesItem.averageRating,
+//                 thumbnail: seriesItem.seriesDetails.thumbnail
+//             }));
+//         }
+
+//         res.status(200).json(topRatedSeries);
+//     } catch (error) {
+//         console.error('Error fetching top-rated movies:', error);
+//         res.status(500).json({ message: 'Internal server error' });
+//     }
+// };
+
+
+
+//! Post Request
 exports.createSeries = [seriesUploader, createSeriesValidation, async (req, res) => {
     try {
         const newSeries = await Series.create(req.body);

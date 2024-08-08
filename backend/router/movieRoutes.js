@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { allMovies, singleMovie, createMovie, updateMovie, deleteMovie, movieCategories } = require('../controller/movieController');
+const { allMovies, singleMovie, createMovie, updateMovie, deleteMovie, movieCategories, topRatedMovies } = require('../controller/movieController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
 const Authorize = require('../middleware/Authorize');
 const Authenticate = require('../middleware/Authenticate');
@@ -13,6 +13,7 @@ router.route("/")
 router.route("/categories")
     .get(movieCategories);
 
+router.get("/top-rated", topRatedMovies);
 
 
 // router.route("/categories/:category", async (req, res) => {
