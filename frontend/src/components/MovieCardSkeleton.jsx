@@ -1,6 +1,6 @@
 const MovieCardSkeleton = () => {
     return (
-        <div className="bg-c-black-10 border border-c-black-15 rounded-xl flex-shrink-0 3xl:w-72 xl:w-56 md:w-48 w-[11rem] md:px-4 px-2.5 md:py-4 py-2.5">
+        <div className="bg-c-black-10 border border-c-black-15 rounded-xl flex-shrink-0 3xl:w-72 md:w-60 w-44 md:px-4 px-2.5 md:py-4 py-2.5">
             <div className="bg-c-black-20 animate-pulse rounded-xl w-full aspect-thumbnail"></div>
 
             <div className="mt-4 mb-3">
@@ -18,9 +18,11 @@ const MovieCardSkeleton = () => {
                 </div>
             </div>
 
-            <div className="flex justify-between gap-1 mt-3">
+            <div className="flex justify-between gap-1 mt-3.5">
                 <div className="bg-c-black-15 animate-pulse rounded 3xl:py-1.5 py-0.5 3xl:px-4 px-2 w-3/4 h-5"></div>
             </div>
+
+            <div className="bg-c-black-15 w-full h-8 mt-5 rounded-lg animate-pulse"></div>
         </div>
 
     );
