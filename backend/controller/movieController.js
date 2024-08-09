@@ -22,6 +22,8 @@ exports.singleMovie = async (req, res) => {
         if (!movie) {
             return res.status(404).json({ message: "Movie not found" });
         }
+        movie.views += 1;
+        await movie.save();
         res.status(200).json({ status: 200, movie, message: "Movie fetch successfully" });
     } catch (error) {
         res.status(500).json({ status: 500, message: error.message });
@@ -99,6 +101,71 @@ exports.topRatedMovies = async (req, res) => {
     } catch (error) {
         console.error('Error fetching top-rated movies:', error);
         res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+// exports.trendingMovies = async (req, res) => {
+//     try {
+//         const currentDate = new Date();
+
+//         const recentMovies = await Movie.find({
+//             publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
+//         }).sort({ views: -1 })
+//             .limit(12);
+
+
+//         res.status(200).send({ status: 200, message: "trading movies fetch successfully", movies: recentMovies });
+//     } catch (error) {
+//         console.error("Error fetching recent movies:", error);
+//         res.status(500).send({ message: "Internal Server Error" });
+//     }
+// };
+
+
+exports.trendingMovies = async (req, res) => {
+    try {
+        const currentDate = new Date();
+
+        const recentMovies = await Movie.aggregate([
+            {
+                $match: {
+                    publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    averageRating: { $avg: '$reviews.rating' }
+                }
+            },
+            {
+                $sort: { views: -1 }
+            },
+            {
+                $limit: 12
+            },
+            {
+                $project: {
+                    title: 1,
+                    views: 1,
+                    duration: 1,
+                    averageRating: 1,
+                    thumbnail: 1
+                }
+            }
+        ]);
+
+        res.status(200).send({ status: 200, message: "Trending movies fetched successfully", movies: recentMovies });
+    } catch (error) {
+        console.error("Error fetching recent movies:", error);
+        res.status(500).send({ message: "Internal Server Error" });
     }
 };
 

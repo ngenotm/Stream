@@ -150,6 +150,14 @@ const movieModel = mongoose.Schema({
         enum: ['coming soon', 'now showing'],
         required: [true, 'Release Status is required']
     },
+    publish_date: {
+        type: Date,
+        default: Date.now
+    },
+    views: {
+        type: Number,
+        default: 0
+    },
     actors: {
         type: [mongoose.Schema.Types.ObjectId],
         default: [],

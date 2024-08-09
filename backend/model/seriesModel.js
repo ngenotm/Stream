@@ -142,6 +142,14 @@ const seriesModel = mongoose.Schema({
         // required: [true, 'Release Status is required']
         default: 'now showing'
     },
+    publish_date: {
+        type: Date,
+        default: Date.now
+    },
+    views: {
+        type: Number,
+        default: 0
+    },
     actors: {
         type: [mongoose.Schema.Types.ObjectId],
         default: [],

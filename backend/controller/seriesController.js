@@ -92,50 +92,16 @@ exports.topRatedSeries = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
-// exports.topRatedSeries = async (req, res) => {
-//     const { limit } = req.query;
-//     try {
-//         const categories = await Series.distinct('category');
 
-//         const topRatedSeries = {};
+exports.trendingSeries = async () => {
+    const currentDate = new Date();
+    const recentSeries = await Series.find({
+        publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
+    }).sort({ views: -1 })
+        .limit(12);
 
-//         for (const category of categories) {
-//             const series = await Review.aggregate([
-//                 {
-//                     $lookup: {
-//                         from: 'series',
-//                         localField: 'media',
-//                         foreignField: '_id',
-//                         as: 'seriesDetails'
-//                     }
-//                 },
-//                 { $unwind: '$seriesDetails' },
-//                 { $match: { 'seriesDetails.category': category } },
-//                 {
-//                     $group: {
-//                         _id: '$media',
-//                         averageRating: { $avg: '$rating' },
-//                         seriesDetails: { $first: '$seriesDetails' }
-//                     }
-//                 },
-//                 { $sort: { averageRating: -1 } },
-//                 { $limit: parseInt(limit) || 10 }
-//             ]);
-
-//             topRatedSeries[category] = series.map(seriesItem => ({
-//                 title: seriesItem.seriesDetails.title,
-//                 averageRating: seriesItem.averageRating,
-//                 thumbnail: seriesItem.seriesDetails.thumbnail
-//             }));
-//         }
-
-//         res.status(200).json(topRatedSeries);
-//     } catch (error) {
-//         console.error('Error fetching top-rated movies:', error);
-//         res.status(500).json({ message: 'Internal server error' });
-//     }
-// };
-
+    return recentSeries;
+};
 
 
 //! Post Request
