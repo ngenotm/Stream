@@ -4,6 +4,7 @@ import Carousel from "@/components/carousel/Carousel";
 import ArticleSection from "./ArticleSection";
 import GenresSection from "./GenresSection";
 import TopMovieSection from "./TopMovieSection";
+import TrendingSection from "./TrendingSection";
 
 const ExplorePage = () => {
     return (
@@ -32,7 +33,8 @@ const ExplorePage = () => {
                     <TopMovieSection />
 
                     {/*//! Trending Article */}
-                    <ArticleSection title="Trending Now" />
+                    <TrendingSection />
+                    {/* <ArticleSection title="Trending Now" /> */}
 
                     {/*//! New Released Article */}
                     <ArticleSection title="New Releases" />

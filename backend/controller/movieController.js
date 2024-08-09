@@ -84,43 +84,18 @@ exports.topRatedMovies = async (req, res) => {
                 { $sort: { averageRating: -1 } },
                 { $limit: parseInt(limit) || 10 }
             ]);
-
-            // topRatedMovies[category] = movies.map(movie => ({
-
-            //     title: movie.movieDetails.title,
-            //     averageRating: movie.averageRating,
-            //     thumbnail: movie.movieDetails.thumbnail
-            // }));
             topRatedMovies[category] = movies.map(movie => {
                 if (limit) return movie.movieDetails.thumbnail;
                 return { title: movie.movieDetails.title, averageRating: movie.averageRating, thumbnail: movie.movieDetails.thumbnail }
             });
         }
 
-        res.status(200).json(topRatedMovies);
+        res.status(200).json({ status: 200, message: "top rated movies fetch successfully", movies: topRatedMovies });
     } catch (error) {
         console.error('Error fetching top-rated movies:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
-
-// exports.trendingMovies = async (req, res) => {
-//     try {
-//         const currentDate = new Date();
-
-//         const recentMovies = await Movie.find({
-//             publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
-//         }).sort({ views: -1 })
-//             .limit(12);
-
-
-//         res.status(200).send({ status: 200, message: "trading movies fetch successfully", movies: recentMovies });
-//     } catch (error) {
-//         console.error("Error fetching recent movies:", error);
-//         res.status(500).send({ message: "Internal Server Error" });
-//     }
-// };
-
 
 exports.trendingMovies = async (req, res) => {
     try {

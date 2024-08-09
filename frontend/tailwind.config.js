@@ -18,6 +18,9 @@ module.exports = {
           "3xl": "7rem"
         },
       },
+      aspectRatio: {
+        "thumbnail": "4 / 4.5",
+      },
       screens: {
         "3xl": "2000px"
       },

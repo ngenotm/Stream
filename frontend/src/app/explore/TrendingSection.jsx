@@ -1,23 +1,35 @@
 "use client";
-import MultipleCard from "@/components/MultipleCard";
+import MovieCard from "@/components/MovieCard";
+import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 import SlidePagination from "@/components/SlidePagination";
 import { useEffect, useRef, useState } from "react";
-import { fetchMovieCategories } from "../../services/MovieService";
-import MultipleCardSkeleton from "@/components/MultipleCardSkeleton";
 
-const GenresSection = () => {
-    const [categories, setCategories] = useState([]);
+
+
+const TrendingSection = () => {
+    const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollContainerRef = useRef(null);
 
+    const getTrendingMovies = async () => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/trending-movies`);
+            const data = await response.json();
+            return data.movies;
+        } catch (error) {
+            console.error("Error fetching trending movies:", error);
+        }
+    }
+
     useEffect(() => {
-        const getCategories = async () => {
-            const data = await fetchMovieCategories();
-            setCategories(data);
+        const getMovies = async () => {
+            const data = await getTrendingMovies();
+            console.log(data)
+            setMovies(data);
             setLoading(false);
         };
-        getCategories();
+        getMovies();
     }, []);
 
 
@@ -39,21 +51,23 @@ const GenresSection = () => {
         <div className="mt-9">
             <div className="flex items-center justify-between mb-4">
                 <h5 className="text-white 3xl:text-2.5xl md:text-1.5xl text-xl font-medium">Our Genres</h5>
-                <SlidePagination currentIndex={currentIndex} onNext={handleNext} onPrev={handlePrev} total={categories ? categories.length : 0} />
+                <SlidePagination onNext={handleNext} onPrev={handlePrev} currentIndex={currentIndex} total={movies ? movies.length : 0} />
             </div>
 
             <div
                 ref={scrollContainerRef}
                 className="flex lg:gap-8 md:gap-4 gap-2.5 flex-nowrap overflow-x-auto pb-2.5 custom-scrollbar custom-scrollbar-sm"
             >
-                {loading || categories?.length === 0
+                <MovieCardSkeleton />
+                <MovieCard />
+                {/* {loading || movies?.length === 0
                     ? Array.from({ length: 5 }).map((_, index) => <MultipleCardSkeleton key={index} />)
                     : Object.entries(categories).map(([category, images], index) => (
                         <MultipleCard key={index} title={category} images={images} />
-                    ))}
+                    ))} */}
             </div>
         </div>
     );
 }
 
-export default GenresSection;
+export default TrendingSection;
