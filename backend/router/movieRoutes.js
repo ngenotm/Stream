@@ -3,6 +3,8 @@ const { allMovies, singleMovie, createMovie, updateMovie, deleteMovie, movieCate
 const ValidateObjectId = require('../middleware/ValidateObjectId');
 const Authorize = require('../middleware/Authorize');
 const Authenticate = require('../middleware/Authenticate');
+const Movie = require('../model/movieModel');
+const { model } = require('mongoose');
 
 const router = Router();
 
@@ -21,7 +23,6 @@ router.get("/trending-movies", trendingMovies)
 //     const movies = await Movie.find({ category: category });
 //     res.status(200).json({ movies });
 // });
-
 
 router.route("/:id", ValidateObjectId)
     .get(singleMovie)

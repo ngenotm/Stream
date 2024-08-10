@@ -16,7 +16,7 @@ const movieModel = mongoose.Schema({
         ref: 'Directors',
         required: [true, 'Director is required'],
     },
-    releaseDate: {
+    release_date: {
         type: String,
         required: [true, 'Release Date is required'],
     },
@@ -76,19 +76,19 @@ const movieModel = mongoose.Schema({
         type: String,
         required: [true, 'Language is required']
     },
-    productionCompany: {
+    production_company: {
         type: String,
         required: [false, 'Production Company is required']
     },
-    ageRating: {
+    age_rating: {
         type: String,
         required: [true, 'Age Rating is required']
     },
-    rottenRating: {
+    rotten_rating: {
         type: Number,
         required: [true, 'Rotten Rating is required']
     },
-    imdbRating: {
+    imdb_rating: {
         type: Number,
         required: [true, 'IMDB Rating is required']
     },
@@ -145,7 +145,7 @@ const movieModel = mongoose.Schema({
             required: true
         }
     }],
-    releaseStatus: {
+    release_status: {
         type: String,
         enum: ['coming soon', 'now showing'],
         required: [true, 'Release Status is required']

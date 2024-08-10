@@ -36,7 +36,7 @@ const TrendingSection = () => {
     const handleNext = () => {
         if (scrollContainerRef.current) {
             scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-            setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, categories.length - 1));
+            setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, movies.length - 1));
         }
     };
 

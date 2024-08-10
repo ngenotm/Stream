@@ -23,6 +23,7 @@ exports.singleMovie = async (req, res) => {
             return res.status(404).json({ message: "Movie not found" });
         }
         movie.views += 1;
+        console.log(movie)
         await movie.save();
         res.status(200).json({ status: 200, movie, message: "Movie fetch successfully" });
     } catch (error) {
