@@ -33,3 +33,23 @@ export const getTrendingSeries = async () => {
         return [];
     }
 }
+
+export const getNewReleasedSeries = async () => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/new-released`);
+        const data = await response.json();
+        return data.series;
+    } catch (error) {
+        console.error("Error fetching trending series:", error);
+    }
+}
+
+export const getPopularSeries = async () => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/popular-series`);
+        const data = await response.json();
+        return data.series;
+    } catch (error) {
+        console.error("Error fetching trending series:", error);
+    }
+}

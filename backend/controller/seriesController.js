@@ -259,8 +259,6 @@ exports.popularSeries = async (req, res) => {
             }
         ]);
 
-        console.log(popularSeries);
-
         res.status(200).send({ status: 200, message: "Popular series fetched successfully", series: popularSeries });
     } catch (error) {
         console.error("Error fetching popular series:", error);

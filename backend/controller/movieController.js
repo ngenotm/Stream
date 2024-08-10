@@ -234,8 +234,6 @@ exports.popularMovies = async (req, res) => {
             }
         ]);
 
-        console.log(popularMovies)
-
         res.status(200).send({ status: 200, message: "Popular movies fetched successfully", movies: popularMovies });
     } catch (error) {
         console.error("Error fetching popular movies:", error);

@@ -1,82 +1,29 @@
-import GenresCard from "@/components/MultipleCard";
-import SlidePagination from "@/components/SlidePagination";
 import Carousel from "@/components/carousel/Carousel";
-import ArticleSection from "./ArticleSection";
-import MovieCategorySection from "./movies/GenresSection";
-import TopMovieSection from "./movies/TopMovieSection";
-import TrendingMoviesSection from "./movies/TrendingSection";
-import NewReleasedSection from "./movies/NewReleasedSection";
-import PopularMoviesSection from "./movies/PopularMoviesSection";
 
-import SeriesCategorySection from "./series/GenresSection";
-import TopSeriesSection from "./series/TopSeriesSection";
-import TrendingSeriesSection from "./series/TrendingSection"
+
+
+import SubscriptionBox from "@/components/subscription/SubscriptionBox";
+import MovieArticle from "./movies/MovieArticle";
+import SeriesArticle from "./series/SeriesArticle";
+
 
 const ExplorePage = () => {
     return (
         <main className="container mt-6 mb-40">
 
-            {/*//! START Carousel */}
             <Carousel />
 
-            {/*//! START Main Section */}
-            <section className="mt-32 space-y-32">
+            <section className="mt-32 space-y-32 mb-20">
 
-                {/*//! START Movie article */}
-                <article
-                    className="relative border border-c-black-15 rounded-xl xl:pt-6 xl:pb-10 pt-3 pb-10 lg:px-8 md:px-6 px-4 space-y-16"
-                >
+                <MovieArticle />
 
-                    <span className="inline-flex absolute top-[-20px] text-super-sm items-center bg-c-red-45 text-white rounded-md px-4 h-[40px]">
-                        Movies
-                    </span>
-
-                    <MovieCategorySection />
-
-                    <TopMovieSection />
-
-                    <TrendingMoviesSection />
-
-                    <NewReleasedSection />
-
-                    <PopularMoviesSection />
-
-                </article>
-
-
-                {/*//! START Series article */}
-                <article
-                    className="relative border border-c-black-15 rounded-xl xl:pt-6 xl:pb-10 pt-3 pb-10 lg:px-8 md:px-6 px-4 space-y-16"
-                >
-
-                    <span className="inline-flex absolute top-[-20px] text-super-sm items-center bg-c-red-45 text-white rounded-md px-4 h-[40px]">
-                        Series
-                    </span>
-
-                    <SeriesCategorySection />
-
-                    <TopSeriesSection />
-
-                    <TrendingSeriesSection />
-
-
-                </article>
-                {/*//? END Series article */}
+                <SeriesArticle />
 
             </section>
-            {/*//? END Main Section */}
-
+            <SubscriptionBox />
 
         </main>
     );
 }
-{/*//! Trending Article */ }
-<ArticleSection title="Trending Series Now" />
-
-{/*//! New Released Article */ }
-<ArticleSection title="New Releases Series" />
-
-{/*//! Most Popular Article */ }
-<ArticleSection title="Most Popular Series" />
 
 export default ExplorePage;
