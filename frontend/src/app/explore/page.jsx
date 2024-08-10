@@ -2,11 +2,13 @@ import GenresCard from "@/components/MultipleCard";
 import SlidePagination from "@/components/SlidePagination";
 import Carousel from "@/components/carousel/Carousel";
 import ArticleSection from "./ArticleSection";
-import GenresSection from "./movies/GenresSection";
+import MovieCategorySection from "./movies/GenresSection";
 import TopMovieSection from "./movies/TopMovieSection";
 import TrendingSection from "./movies/TrendingSection";
 import NewReleasedSection from "./movies/NewReleasedSection";
 import PopularMoviesSection from "./movies/PopularMoviesSection";
+
+import SeriesCategorySection from "./series/GenresSection";
 
 const ExplorePage = () => {
     return (
@@ -27,7 +29,7 @@ const ExplorePage = () => {
                         Movies
                     </span>
 
-                    <GenresSection />
+                    <MovieCategorySection />
 
                     <TopMovieSection />
 
@@ -50,7 +52,7 @@ const ExplorePage = () => {
                     </span>
 
                     {/*//! START Our Genres Article */}
-                    <div className="mt-9">
+                    {/* <div className="mt-9">
                         <div className="flex items-center justify-between mb-4">
                             <h5 className="text-white 3xl:text-2.5xl md:text-1.5xl text-xl font-medium">
                                 Our Genres
@@ -65,7 +67,8 @@ const ExplorePage = () => {
                             <GenresCard />
 
                         </div>
-                    </div>
+                    </div> */}
+                    <SeriesCategorySection />
 
 
                 </article>

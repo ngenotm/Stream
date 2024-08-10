@@ -13,7 +13,7 @@ router
     .post([Authenticate, Authorize(["admin"])], createSeries);
 
 router.get("/categories", seriesCategories);
-// router.get("/top-rated", topRatedMovies);
+router.get("/top-rated", topRatedSeries);
 // router.get("/trending-movies", trendingMovies);
 // router.get("/new-released", newReleased);
 // router.get("/popular-movies", popularMovies);

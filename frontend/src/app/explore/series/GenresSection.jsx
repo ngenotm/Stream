@@ -2,8 +2,8 @@
 import MultipleCard from "@/components/MultipleCard";
 import SlidePagination from "@/components/SlidePagination";
 import { useEffect, useRef, useState } from "react";
-import { fetchMovieCategories } from "../../../services/MovieService";
 import MultipleCardSkeleton from "@/components/MultipleCardSkeleton";
+import { fetchSeriesCategories } from "../../../services/SeriesService";
 
 const GenresSection = () => {
     const [categories, setCategories] = useState([]);
@@ -13,7 +13,7 @@ const GenresSection = () => {
 
     useEffect(() => {
         const getCategories = async () => {
-            const data = await fetchMovieCategories();
+            const data = await fetchSeriesCategories();
             setCategories(data);
             setLoading(false);
         };

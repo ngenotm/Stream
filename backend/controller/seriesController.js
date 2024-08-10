@@ -62,17 +62,15 @@ exports.getSeries = async (req, res) => {
 
 exports.seriesCategories = async (req, res) => {
     try {
+
         const categories = await Series.distinct('category');
 
         const categoryImages = {};
 
         for (const category of categories) {
-            const series = await Series
-                .find({ category })
-                .select('thumbnail title')
-                .limit(4);
-
-            categoryImages[category] = series;
+            const series = await Series.find({ category }).limit(4);
+            const images = series.map(series => series.thumbnail).slice(0, 4);
+            categoryImages[category] = images;
         }
 
         res.status(200).json({ status: 200, message: "series categories fetch successfully", categories: categoryImages });
@@ -81,18 +79,13 @@ exports.seriesCategories = async (req, res) => {
     }
 }
 
-
 exports.topRatedSeries = async (req, res) => {
+    const { limit } = req.query;
     try {
-        // Fetch distinct categories from the Series model
         const categories = await Series.distinct('category');
-
-        // Initialize an object to store top-rated series for each category
         const topRatedSeries = {};
 
-        // Loop through each category
         for (const category of categories) {
-            // Aggregate reviews to calculate the average rating for each series in the current category
             const series = await Review.aggregate([
                 {
                     $lookup: {
@@ -112,18 +105,20 @@ exports.topRatedSeries = async (req, res) => {
                     }
                 },
                 { $sort: { averageRating: -1 } },
-                { $limit: 10 }
+                { $limit: parseInt(limit) || 10 }
             ]);
-
-            // Store the top-rated series in the object
-            topRatedSeries[category] = series.map(serie => ({
-                title: serie.seriesDetails.title,
-                averageRating: serie.averageRating,
-                thumbnail: serie.seriesDetails.thumbnail
-            }));
+            // topRatedSeries[category] = series.map(series => ({
+            //     title: series.seriesDetails.title,
+            //     averageRating: series.averageRating,
+            //     thumbnail: series.seriesDetails.thumbnail
+            // }));
+            topRatedSeries[category] = series.map(series => {
+                if (limit) return series.seriesDetails.thumbnail;
+                return { title: series.seriesDetails.title, averageRating: series.averageRating, thumbnail: series.seriesDetails.thumbnail }
+            });
         }
 
-        res.status(200).json(topRatedSeries);
+        res.status(200).json({ status: 200, message: "Top rated series fetched successfully", series: topRatedSeries });
     } catch (error) {
         console.error('Error fetching top-rated series:', error);
         res.status(500).json({ message: 'Internal server error' });

@@ -16,7 +16,6 @@ const NewReleasedSection = () => {
     useEffect(() => {
         const getMovies = async () => {
             const data = await getNewReleasedMovies();
-            console.log(data)
             setMovies(data);
             setLoading(false);
         };
