@@ -3,19 +3,29 @@ import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 import SlidePagination from "@/components/SlidePagination";
 import { useEffect, useRef, useState } from "react";
-import { getTrendingMovies } from "../../services/MovieService";
 
 
 
-const TrendingSection = () => {
+const NewReleasedSection = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollContainerRef = useRef(null);
 
+    const getNewReleasedMovies = async () => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/new-released`);
+            const data = await response.json();
+            return data.movies;
+        } catch (error) {
+            console.error("Error fetching trending movies:", error);
+        }
+    }
+
     useEffect(() => {
         const getMovies = async () => {
-            const data = await getTrendingMovies();
+            const data = await getNewReleasedMovies();
+            console.log(data)
             setMovies(data);
             setLoading(false);
         };
@@ -41,7 +51,7 @@ const TrendingSection = () => {
         <div className="mt-9">
             <div className="flex items-center justify-between mb-4">
                 <h5 className="text-white 3xl:text-2.5xl md:text-1.5xl text-xl font-medium">
-                    Trending Now
+                    New Released
                 </h5>
                 <SlidePagination onNext={handleNext} onPrev={handlePrev} currentIndex={currentIndex} total={movies ? movies.length : 0} />
             </div>
@@ -60,4 +70,4 @@ const TrendingSection = () => {
     );
 }
 
-export default TrendingSection;
+export default NewReleasedSection;
