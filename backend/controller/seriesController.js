@@ -60,6 +60,27 @@ exports.getSeries = async (req, res) => {
     }
 };
 
+exports.seriesCategories = async (req, res) => {
+    try {
+        const categories = await Series.distinct('category');
+
+        const categoryImages = {};
+
+        for (const category of categories) {
+            const series = await Series
+                .find({ category })
+                .select('thumbnail title')
+                .limit(4);
+
+            categoryImages[category] = series;
+        }
+
+        res.status(200).json({ status: 200, message: "series categories fetch successfully", categories: categoryImages });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: error.message });
+    }
+}
+
 
 exports.topRatedSeries = async (req, res) => {
     try {
