@@ -146,6 +146,18 @@ exports.trendingMovies = async (req, res) => {
 };
 
 
+exports.newReleased = async (req, res) => {
+    try {
+        const movies = await Movie.find().sort({ publish_date: -1 }).limit(12);
+
+        res.status(200).send({ status: 200, message: "New released movie fetched successfully", movies });
+    } catch (error) {
+        console.error("Error fetching recent movies:", error);
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+}
+
+
 
 //! Post Request
 exports.createMovie = [movieUploader, createMovieValidation, async (req, res) => {

@@ -50,7 +50,9 @@ const TrendingSection = () => {
     return (
         <div className="mt-9">
             <div className="flex items-center justify-between mb-4">
-                <h5 className="text-white 3xl:text-2.5xl md:text-1.5xl text-xl font-medium">Our Genres</h5>
+                <h5 className="text-white 3xl:text-2.5xl md:text-1.5xl text-xl font-medium">
+                    Trending Now
+                </h5>
                 <SlidePagination onNext={handleNext} onPrev={handlePrev} currentIndex={currentIndex} total={movies ? movies.length : 0} />
             </div>
 
