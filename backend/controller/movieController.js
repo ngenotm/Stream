@@ -146,17 +146,109 @@ exports.trendingMovies = async (req, res) => {
 };
 
 
+// exports.newReleased = async (req, res) => {
+//     try {
+//         const currentDate = new Date();
+
+
+
+//         res.status(200).send({ status: 200, message: "New released movie fetched successfully", movies });
+//     } catch (error) {
+//         console.error("Error fetching recent movies:", error);
+//         res.status(500).send({ message: "Internal Server Error" });
+//     }
+// }
+
 exports.newReleased = async (req, res) => {
     try {
-        const movies = await Movie.find().sort({ publish_date: -1 }).limit(12);
+        const currentDate = new Date();
 
-        res.status(200).send({ status: 200, message: "New released movie fetched successfully", movies });
+        const newReleasedMovies = await Movie.aggregate([
+            {
+                $match: {
+                    publish_date: { $lte: currentDate }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    averageRating: { $avg: '$reviews.rating' }
+                }
+            },
+            {
+                $sort: { publish_date: -1 }
+            },
+            {
+                $limit: 12
+            },
+            {
+                $project: {
+                    title: 1,
+                    views: 1,
+                    duration: 1,
+                    averageRating: 1,
+                    thumbnail: 1,
+                    publish_date: 1
+                }
+            }
+        ]);
+
+        res.status(200).send({ status: 200, message: "New released movies fetched successfully", movies: newReleasedMovies });
     } catch (error) {
-        console.error("Error fetching recent movies:", error);
+        console.error("Error fetching new released movies:", error);
         res.status(500).send({ message: "Internal Server Error" });
     }
-}
+};
 
+exports.popularMovies = async (req, res) => {
+    try {
+        const popularMovies = await Movie.aggregate([
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    averageRating: { $avg: '$reviews.rating' }
+                }
+            },
+            {
+                $sort: { averageRating: -1 }
+            },
+            {
+                $limit: 12
+            },
+            {
+                $project: {
+                    title: 1,
+                    views: 1,
+                    duration: 1,
+                    averageRating: 1,
+                    thumbnail: 1,
+                    publish_date: 1
+                }
+            }
+        ]);
+
+        console.log(popularMovies)
+
+        res.status(200).send({ status: 200, message: "Popular movies fetched successfully", movies: popularMovies });
+    } catch (error) {
+        console.error("Error fetching popular movies:", error);
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+};
 
 
 //! Post Request
