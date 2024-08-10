@@ -3,8 +3,6 @@ const { allMovies, singleMovie, createMovie, updateMovie, deleteMovie, movieCate
 const ValidateObjectId = require('../middleware/ValidateObjectId');
 const Authorize = require('../middleware/Authorize');
 const Authenticate = require('../middleware/Authenticate');
-const Movie = require('../model/movieModel');
-const { model } = require('mongoose');
 
 const router = Router();
 
@@ -12,9 +10,7 @@ router.route("/")
     .get(allMovies)
     .post([Authenticate, Authorize(["admin"])], createMovie);
 
-router.route("/categories")
-    .get(movieCategories);
-
+router.get("/categories", movieCategories);
 router.get("/top-rated", topRatedMovies);
 router.get("/trending-movies", trendingMovies)
 router.get("/new-released", newReleased);

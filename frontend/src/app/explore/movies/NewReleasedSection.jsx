@@ -3,11 +3,11 @@ import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 import SlidePagination from "@/components/SlidePagination";
 import { useEffect, useRef, useState } from "react";
-import { getPopularMovies } from "../../services/MovieService";
+import { getNewReleasedMovies } from "../../../services/MovieService";
 
 
 
-const PopularMoviesSection = () => {
+const NewReleasedSection = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,7 +15,7 @@ const PopularMoviesSection = () => {
 
     useEffect(() => {
         const getMovies = async () => {
-            const data = await getPopularMovies();
+            const data = await getNewReleasedMovies();
             console.log(data)
             setMovies(data);
             setLoading(false);
@@ -42,7 +42,7 @@ const PopularMoviesSection = () => {
         <div className="mt-9">
             <div className="flex items-center justify-between mb-4">
                 <h5 className="text-white 3xl:text-2.5xl md:text-1.5xl text-xl font-medium">
-                    Most Popular
+                    New Released
                 </h5>
                 <SlidePagination onNext={handleNext} onPrev={handlePrev} currentIndex={currentIndex} total={movies ? movies.length : 0} />
             </div>
@@ -61,4 +61,4 @@ const PopularMoviesSection = () => {
     );
 }
 
-export default PopularMoviesSection;
+export default NewReleasedSection;

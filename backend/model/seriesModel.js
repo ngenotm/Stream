@@ -15,7 +15,7 @@ const seriesModel = mongoose.Schema({
         default: "",
         require: false
     },
-    releaseDate: {
+    release_date: {
         type: String,
         required: [true, 'Release Date is required'],
     },
@@ -75,22 +75,22 @@ const seriesModel = mongoose.Schema({
         type: String,
         required: [true, 'Language is required']
     },
-    ageRating: {
-        type: String,
-        default: null
-        // required: [true, 'Age Rating is required']
-    },
     //! Must change
-    productionCompany: {
+    production_company: {
         type: String,
         default: null
         // required: [true, 'Production Company is required']
     },
-    rottenRating: {
+    age_rating: {
+        type: String,
+        default: null
+        // required: [true, 'Age Rating is required']
+    },
+    rotten_rating: {
         type: Number,
         required: [true, 'Rotten Rating is required']
     },
-    imdbRating: {
+    imdb_rating: {
         type: Number,
         required: [true, 'IMDB Rating is required']
     },
@@ -136,7 +136,7 @@ const seriesModel = mongoose.Schema({
         type: String,
         required: [true, 'Trailer is required']
     },
-    releaseStatus: {
+    release_status: {
         type: String,
         enum: ['now showing', 'coming soon', 'expired'],
         // required: [true, 'Release Status is required']

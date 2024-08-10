@@ -18,5 +18,11 @@ router
     .put(ValidateObjectId, updateSeries)
     .delete(ValidateObjectId, deleteSeries);
 
+// router.get("/categories", movieCategories);
+// router.get("/top-rated", topRatedMovies);
+// router.get("/trending-movies", trendingMovies);
+// router.get("/new-released", newReleased);
+// router.get("/popular-movies", popularMovies);
+
 
 module.exports = router;

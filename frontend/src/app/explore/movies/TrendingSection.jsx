@@ -3,7 +3,7 @@ import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 import SlidePagination from "@/components/SlidePagination";
 import { useEffect, useRef, useState } from "react";
-import { getTrendingMovies } from "../../services/MovieService";
+import { getTrendingMovies } from "../../../services/MovieService";
 
 
 

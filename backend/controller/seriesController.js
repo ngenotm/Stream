@@ -21,6 +21,22 @@ exports.getAllSeries = async (req, res) => {
     }
 };
 
+exports.singleSeries = async (req, res) => {
+    const seriesId = req.params.id;
+
+    try {
+        const series = await Series.findById(seriesId).populate("director actors").populate({ path: 'seasons', model: 'Seasons', populate: { path: 'episodes', model: 'Episodes' } });
+        if (!series) return res.status(404).json({ message: "Series not found" });
+
+        series.views += 1;
+        await series.save();
+
+        res.status(200).json({ status: 200, series, message: "Series fetch successfully" });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: error.message });
+    }
+}
+
 exports.getSeries = async (req, res) => {
     try {
         const series = await Series.findById(req.params.id).populate("director actors").populate({
