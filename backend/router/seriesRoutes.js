@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllSeries, createSeries, getSeries, updateSeries, deleteSeries, topRatedSeries, trendingSeries, seriesCategories } = require('../controller/seriesController');
+const { getAllSeries, createSeries, getSeries, updateSeries, deleteSeries, topRatedSeries, trendingSeries, seriesCategories, newReleasedSeries } = require('../controller/seriesController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
 const Authenticate = require('../middleware/Authenticate');
 const Authorize = require('../middleware/Authorize');
@@ -15,7 +15,7 @@ router
 router.get("/categories", seriesCategories);
 router.get("/top-rated", topRatedSeries);
 router.get("/trending-series", trendingSeries);
-// router.get("/new-released", newReleased);
+router.get("/new-released", newReleasedSeries);
 // router.get("/popular-movies", popularMovies);
 
 router
