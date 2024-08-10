@@ -6,6 +6,7 @@ import GenresSection from "./GenresSection";
 import TopMovieSection from "./TopMovieSection";
 import TrendingSection from "./TrendingSection";
 import NewReleasedSection from "./NewReleasedSection";
+import PopularMoviesSection from "./PopularMoviesSection";
 
 const ExplorePage = () => {
     return (
@@ -36,6 +37,8 @@ const ExplorePage = () => {
                     <TrendingSection />
 
                     <NewReleasedSection />
+
+                    <PopularMoviesSection />
                     {/* 
                     <ArticleSection title="New Releases" />
 

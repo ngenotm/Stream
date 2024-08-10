@@ -11,7 +11,7 @@ const TopMovieSection = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollContainerRef = useRef(null);
 
-  
+
 
     useEffect(() => {
         const getCategories = async () => {
