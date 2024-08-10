@@ -3,9 +3,7 @@ import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 import SlidePagination from "@/components/SlidePagination";
 import { useEffect, useRef, useState } from "react";
-import { getTrendingMovies } from "../../../services/MovieService";
-
-
+import { getTrendingSeries } from "../../../services/SeriesService";
 
 const TrendingMoviesSection = () => {
     const [movies, setMovies] = useState([]);
@@ -15,7 +13,7 @@ const TrendingMoviesSection = () => {
 
     useEffect(() => {
         const getMovies = async () => {
-            const data = await getTrendingMovies();
+            const data = await getTrendingSeries();
             setMovies(data);
             setLoading(false);
         };

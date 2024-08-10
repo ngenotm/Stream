@@ -7,7 +7,7 @@ export const fetchSeriesCategories = async () => {
         const data = await response.json();
         return data.categories;
     } catch (error) {
-        console.error('Error fetching movie categories:', error);
+        console.error('Error fetching series categories:', error);
         return [];
     }
 };
@@ -20,4 +20,16 @@ export const fetchTopRatedCategories = async () => {
     }
     const data = await response.json();
     return data.series;
+}
+
+
+export const getTrendingSeries = async () => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/trending-series`);
+        const data = await response.json();
+        return data.series;
+    } catch (error) {
+        console.error("Error fetching trending series:", error);
+        return [];
+    }
 }

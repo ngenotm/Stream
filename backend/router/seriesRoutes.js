@@ -14,7 +14,7 @@ router
 
 router.get("/categories", seriesCategories);
 router.get("/top-rated", topRatedSeries);
-// router.get("/trending-movies", trendingMovies);
+router.get("/trending-series", trendingSeries);
 // router.get("/new-released", newReleased);
 // router.get("/popular-movies", popularMovies);
 

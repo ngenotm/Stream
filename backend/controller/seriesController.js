@@ -5,7 +5,6 @@ const { createSeriesValidation } = require('../validation/seriesValidation');
 
 
 exports.getAllSeries = async (req, res) => {
-    console.log("first")
     try {
         const series = await Series.find().populate('director seasons actors');
         res.status(200).json({
@@ -38,6 +37,7 @@ exports.singleSeries = async (req, res) => {
 }
 
 exports.getSeries = async (req, res) => {
+    console.log("test")
     try {
         const series = await Series.findById(req.params.id).populate("director actors").populate({
             path: 'seasons',
@@ -48,8 +48,13 @@ exports.getSeries = async (req, res) => {
             }
         });
         if (!series) return res.status(404).json({ message: "Series not found" });
+
+        series.views += 1;
+        await series.save();
+
         res.status(200).json({
-            status: 'success',
+            status: 200,
+            message: "Series fetched successfully",
             series
         });
     } catch (err) {
@@ -125,14 +130,51 @@ exports.topRatedSeries = async (req, res) => {
     }
 };
 
-exports.trendingSeries = async () => {
-    const currentDate = new Date();
-    const recentSeries = await Series.find({
-        publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
-    }).sort({ views: -1 })
-        .limit(12);
+exports.trendingSeries = async (req, res) => {
+    try {
+        const currentDate = new Date();
 
-    return recentSeries;
+        const recentSeries = await Series.aggregate([
+            {
+                $match: {
+                    publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    averageRating: { $avg: '$reviews.rating' }
+                }
+            },
+            {
+                $sort: { views: -1 }
+            },
+            {
+                $limit: 12
+            },
+            {
+                $project: {
+                    title: 1,
+                    views: 1,
+                    duration: 1,
+                    averageRating: 1,
+                    thumbnail: 1
+                }
+            }
+        ]);
+
+        res.status(200).send({ status: 200, message: "Trending series fetched successfully", series: recentSeries });
+    } catch (error) {
+        console.error("Error fetching recent series:", error);
+        res.status(500).send({ message: "Internal Server Error" });
+    }
 };
 
 

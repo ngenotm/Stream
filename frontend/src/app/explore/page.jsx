@@ -4,12 +4,13 @@ import Carousel from "@/components/carousel/Carousel";
 import ArticleSection from "./ArticleSection";
 import MovieCategorySection from "./movies/GenresSection";
 import TopMovieSection from "./movies/TopMovieSection";
-import TrendingSection from "./movies/TrendingSection";
+import TrendingMoviesSection from "./movies/TrendingSection";
 import NewReleasedSection from "./movies/NewReleasedSection";
 import PopularMoviesSection from "./movies/PopularMoviesSection";
 
 import SeriesCategorySection from "./series/GenresSection";
 import TopSeriesSection from "./series/TopSeriesSection";
+import TrendingSeriesSection from "./series/TrendingSection"
 
 const ExplorePage = () => {
     return (
@@ -34,7 +35,7 @@ const ExplorePage = () => {
 
                     <TopMovieSection />
 
-                    <TrendingSection />
+                    <TrendingMoviesSection />
 
                     <NewReleasedSection />
 
@@ -55,6 +56,8 @@ const ExplorePage = () => {
                     <SeriesCategorySection />
 
                     <TopSeriesSection />
+
+                    <TrendingSeriesSection />
 
 
                 </article>
