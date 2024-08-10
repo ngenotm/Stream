@@ -32,19 +32,13 @@ exports.singleMovie = async (req, res) => {
 
 exports.movieCategories = async (req, res) => {
     try {
-        // Fetch distinct categories from the Movie model
         const categories = await Movie.distinct('category');
 
-        // Initialize an object to store images for each category
         const categoryImages = {};
 
-        // Loop through each category
         for (const category of categories) {
-            // Fetch movies for the current category
             const movies = await Movie.find({ category }).limit(4);
-            // Select four images from the fetched movies
             const images = movies.map(movie => movie.thumbnail).slice(0, 4);
-            // Store the selected images in the object
             categoryImages[category] = images;
         }
 

@@ -9,6 +9,7 @@ import NewReleasedSection from "./movies/NewReleasedSection";
 import PopularMoviesSection from "./movies/PopularMoviesSection";
 
 import SeriesCategorySection from "./series/GenresSection";
+import TopSeriesSection from "./series/TopSeriesSection";
 
 const ExplorePage = () => {
     return (
@@ -51,24 +52,9 @@ const ExplorePage = () => {
                         Series
                     </span>
 
-                    {/*//! START Our Genres Article */}
-                    {/* <div className="mt-9">
-                        <div className="flex items-center justify-between mb-4">
-                            <h5 className="text-white 3xl:text-2.5xl md:text-1.5xl text-xl font-medium">
-                                Our Genres
-                            </h5>
-                            <SlidePagination />
-                        </div>
-
-                        <div
-                            className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 lg:gap-8 md:gap-4 gap-2.5 flex-nowrap max-lg:overflow-x-auto"
-                        >
-
-                            <GenresCard />
-
-                        </div>
-                    </div> */}
                     <SeriesCategorySection />
+
+                    <TopSeriesSection />
 
 
                 </article>
