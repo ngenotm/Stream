@@ -225,6 +225,48 @@ exports.newReleasedSeries = async (req, res) => {
     }
 };
 
+exports.popularSeries = async (req, res) => {
+    try {
+        const popularSeries = await Series.aggregate([
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    averageRating: { $avg: '$reviews.rating' }
+                }
+            },
+            {
+                $sort: { averageRating: -1 }
+            },
+            {
+                $limit: 12
+            },
+            {
+                $project: {
+                    title: 1,
+                    views: 1,
+                    duration: 1,
+                    averageRating: 1,
+                    thumbnail: 1,
+                    publish_date: 1
+                }
+            }
+        ]);
+
+        console.log(popularSeries);
+
+        res.status(200).send({ status: 200, message: "Popular series fetched successfully", series: popularSeries });
+    } catch (error) {
+        console.error("Error fetching popular series:", error);
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+};
 
 //! Post Request
 exports.createSeries = [seriesUploader, createSeriesValidation, async (req, res) => {
