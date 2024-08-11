@@ -160,10 +160,23 @@ exports.trendingSeries = async (req, res) => {
                 $limit: 12
             },
             {
+                $lookup: {
+                    from: 'seasons',
+                    localField: '_id',
+                    foreignField: 'series',
+                    as: 'seasons'
+                }
+            },
+            {
+                $addFields: {
+                    totalEpisodes: { $sum: { $map: { input: '$seasons', as: 'season', in: { $size: '$$season.episodes' } } } }
+                }
+            },
+            {
                 $project: {
                     title: 1,
                     views: 1,
-                    duration: 1,
+                    totalEpisodes: 1,
                     averageRating: 1,
                     thumbnail: 1
                 }
@@ -176,7 +189,6 @@ exports.trendingSeries = async (req, res) => {
         res.status(500).send({ message: "Internal Server Error" });
     }
 };
-
 exports.newReleasedSeries = async (req, res) => {
     try {
         const currentDate = new Date();
@@ -207,10 +219,23 @@ exports.newReleasedSeries = async (req, res) => {
                 $limit: 12
             },
             {
+                $lookup: {
+                    from: 'seasons',
+                    localField: '_id',
+                    foreignField: 'series',
+                    as: 'seasons'
+                }
+            },
+            {
+                $addFields: {
+                    totalEpisodes: { $sum: { $map: { input: '$seasons', as: 'season', in: { $size: '$$season.episodes' } } } }
+                }
+            },
+            {
                 $project: {
                     title: 1,
                     views: 1,
-                    duration: 1,
+                    totalEpisodes: 1,
                     averageRating: 1,
                     thumbnail: 1,
                     publish_date: 1
@@ -248,10 +273,23 @@ exports.popularSeries = async (req, res) => {
                 $limit: 12
             },
             {
+                $lookup: {
+                    from: 'seasons',
+                    localField: '_id',
+                    foreignField: 'series',
+                    as: 'seasons'
+                }
+            },
+            {
+                $addFields: {
+                    totalEpisodes: { $sum: { $map: { input: '$seasons', as: 'season', in: { $size: '$$season.episodes' } } } }
+                }
+            },
+            {
                 $project: {
                     title: 1,
                     views: 1,
-                    duration: 1,
+                    totalEpisodes: 1,
                     averageRating: 1,
                     thumbnail: 1,
                     publish_date: 1

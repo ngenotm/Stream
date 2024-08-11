@@ -1,7 +1,4 @@
 import Carousel from "@/components/carousel/Carousel";
-
-
-
 import SubscriptionBox from "@/components/subscription/SubscriptionBox";
 import MovieArticle from "./movies/MovieArticle";
 import SeriesArticle from "./series/SeriesArticle";

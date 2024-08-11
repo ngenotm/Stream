@@ -48,7 +48,7 @@ const TrendingMoviesSection = () => {
 
             <div
                 ref={scrollContainerRef}
-                className="flex lg:gap-8 md:gap-4 gap-2.5 flex-nowrap overflow-x-auto pb-2.5 custom-scrollbar custom-scrollbar-sm"
+                className="flex lg:gap-8 gap-4 flex-nowrap overflow-x-auto pb-2.5 custom-scrollbar custom-scrollbar-sm"
             >
                 {loading || movies?.length === 0
                     ? Array.from({ length: 5 }).map((_, index) => <MovieCardSkeleton key={index} />)

@@ -14,7 +14,6 @@ const GenresSection = () => {
     useEffect(() => {
         const getCategories = async () => {
             const data = await fetchMovieCategories();
-            console.log(data)
             setCategories(data);
             setLoading(false);
         };
@@ -45,7 +44,7 @@ const GenresSection = () => {
 
             <div
                 ref={scrollContainerRef}
-                className="flex lg:gap-8 md:gap-4 gap-2.5 flex-nowrap overflow-x-auto pb-2.5 custom-scrollbar custom-scrollbar-sm"
+                className="flex lg:gap-8 gap-4 flex-nowrap overflow-x-auto pb-2.5 custom-scrollbar custom-scrollbar-sm"
             >
                 {loading || categories?.length === 0
                     ? Array.from({ length: 5 }).map((_, index) => <MultipleCardSkeleton key={index} />)
