@@ -3,7 +3,7 @@ import HeaderCallToAction from "./HeaderCallToAction";
 
 const TopHeader = () => {
     return (
-        <div className=" relative w-full xl:h-[80vh] md:h-[60vh] h-[50vh] -z-10">
+        <div className=" relative w-full xl:h-[80vh] md:h-[60vh] h-[50vh]">
             <img src="/images/series-banner.jpg" alt="series" className="w-full h-full object-cover object-center rounded-xl" />
 
             <div className="w-full absolute bottom-0 md:mb-10 mb-8 text-center md:px-20 px-4">
