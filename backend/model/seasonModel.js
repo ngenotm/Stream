@@ -12,9 +12,9 @@ const seasonModel = mongoose.Schema({
         required: [true, 'Season number is required'],
     },
     episodes: [{
-        // type: mongoose.Schema.Types.ObjectId,
-        // ref: 'Episodes'
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Episodes'
+        // type: String
     }]
 });
 

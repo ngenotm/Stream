@@ -8,7 +8,7 @@ const router = express.Router();
 router.route('/')
     .post(createSeasonValidation, createSeason);
 
-router.route('/series/:seriesId')
+router.route('/seasons/:seriesId')
     .get(getSeasonsBySeries);
 
 router.route('/:id')

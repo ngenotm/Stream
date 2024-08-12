@@ -1,5 +1,6 @@
 const Review = require('../model/reviewModel');
 const Series = require('../model/seriesModel');
+const Episodes = require('../model/episodeModel');
 const { seriesUploader } = require('../utils/videoUploader');
 const { createSeriesValidation } = require('../validation/seriesValidation');
 
@@ -37,17 +38,33 @@ exports.singleSeries = async (req, res) => {
 }
 
 exports.getSeries = async (req, res) => {
-    console.log("test")
     try {
-        const series = await Series.findById(req.params.id).populate("director actors").populate({
-            path: 'seasons',
-            model: 'Seasons',
-            populate: {
-                path: 'episodes',
-                model: 'Episodes'
-            }
-        });
+        const series = await Series.findById(req.params.id)
+            .populate({
+                path: 'director',
+                select: 'fullName birthPlace directorId profile'
+            })
+            .populate({
+                path: 'actors',
+                select: 'name age actorId profile'
+            });
+
         if (!series) return res.status(404).json({ message: "Series not found" });
+
+        // Fetch episodes where the series field matches the series' ObjectId
+        const episodes = await Episodes.find({ series: req.params.id }).select('seasonNumber episodeNumber pictures');
+
+        // Group pictures by season and episode number
+        const groupedPictures = episodes.reduce((acc, episode) => {
+            if (!acc[episode.seasonNumber]) {
+                acc[episode.seasonNumber] = {};
+            }
+            if (!acc[episode.seasonNumber][episode.episodeNumber]) {
+                acc[episode.seasonNumber][episode.episodeNumber] = [];
+            }
+            acc[episode.seasonNumber][episode.episodeNumber].push(...episode.pictures);
+            return acc;
+        }, {});
 
         series.views += 1;
         await series.save();
@@ -55,7 +72,8 @@ exports.getSeries = async (req, res) => {
         res.status(200).json({
             status: 200,
             message: "Series fetched successfully",
-            series
+            series,
+            episodes: groupedPictures // Include the grouped pictures of the episodes
         });
     } catch (err) {
         res.status(500).json({
@@ -64,6 +82,7 @@ exports.getSeries = async (req, res) => {
         });
     }
 };
+
 
 exports.seriesCategories = async (req, res) => {
     try {
