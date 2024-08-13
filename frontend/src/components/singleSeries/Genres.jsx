@@ -1,8 +1,8 @@
-const { LanguageIcon } = require("@/assets/Svgs");
+const { LanguageIcon, CameraIcon, EpisodeIcon } = require("@/assets/Svgs");
 
 const Genres = ({ genres }) => (
     <div>
-        <p className="text-c-grey-60"><LanguageIcon className="w-4 mr-1.5" /> Available Languages</p>
+        <p className="text-c-grey-60"><EpisodeIcon className="w-4 mr-1.5 inline" /> Genres</p>
         <div className="flex flex-wrap gap-2.5 mt-2.5">
             {genres.map((genre, index) => (
                 <span

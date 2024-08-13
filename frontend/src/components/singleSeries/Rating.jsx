@@ -1,4 +1,5 @@
-import { OutlineStarIcon, StarIcon } from "@/assets/Svgs";
+import { OutlineStarIcon } from "@/assets/Svgs";
+import StarRating from "../common/StarRating";
 
 const Rating = ({ ratings }) => {
     return (
@@ -9,7 +10,7 @@ const Rating = ({ ratings }) => {
                     <div className="bg-c-black-08 border border-c-black-15 rounded-lg py-3.5 px-4 text-white" key={index}>
                         <p className="text-super-sm">{rating.source}</p>
                         <div>
-                            {Array(rating.score).fill(<StarIcon className="w-4" />)} {rating.score}
+                            <StarRating rating={rating.score} />
                         </div>
                     </div>
                 ))}

@@ -2,10 +2,12 @@ import TopHeader from "@/components/singleSeries/TopHeader";
 import Sidebar from "./Sidebar";
 import SubscriptionBox from "@/components/subscription/SubscriptionBox";
 
-const SinglePageLayout = ({ children }) => {
+const SinglePageLayout = ({ children, data }) => {
+    const { _id: id, title, description, cover, language, genres, director, release_date, imdb_rating, rotten_rating } = data;
+
     return (
         <main className="container py-6">
-            <TopHeader />
+            <TopHeader id={id} title={title} description={description} cover={cover} />
 
             <section className="grid grid-cols-12 xl:gap-8 lg:gap-4 gap-6 xl:mt-24 md:mt-16 mt-10 mb-12 min-h-screen">
 
@@ -17,7 +19,13 @@ const SinglePageLayout = ({ children }) => {
 
                 </article>
 
-                <Sidebar />
+                <Sidebar
+                    releaseDate={release_date}
+                    language={language}
+                    rating={[{ source: 'IMDb', score: imdb_rating }, { source: 'Rotten Tomatoes', score: rotten_rating }]}
+                    director={director}
+                    genres={genres}
+                />
 
             </section>
 

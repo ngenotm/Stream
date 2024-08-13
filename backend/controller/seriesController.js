@@ -73,7 +73,7 @@ exports.getSeries = async (req, res) => {
             status: 200,
             message: "Series fetched successfully",
             series,
-            episodes: groupedPictures // Include the grouped pictures of the episodes
+            pictures: groupedPictures // Include the grouped pictures of the episodes
         });
     } catch (err) {
         res.status(500).json({
