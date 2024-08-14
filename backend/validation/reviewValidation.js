@@ -3,7 +3,8 @@ const joi = require('joi');
 
 exports.createReviewValidation = (req, res, next) => {
     const schema = joi.object({
-        user: joi.string().required(),
+        fullName: joi.string().required(),
+        email: joi.string().required(),
         text: joi.string().required(),
         rating: joi.number().required(),
         media: joi.string().required()

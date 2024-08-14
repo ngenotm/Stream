@@ -1,11 +1,14 @@
 import { LeftArrowSvg, PlusSvg } from "@/assets/Svgs";
 
-const PreviewSectionTitle = ({ prev, next }) => {
+const PreviewSectionTitle = ({ setIsOpen, prev, next }) => {
     return (
         <div className="flex items-center justify-between mb-6">
             <h4 className="text-c-grey-60 text-lg font-medium">Previews</h4>
             <div className="flex items-center gap-10">
-                <button className="btn-black-08 border border-c-black-15 rounded-lg py-2 px-3 max-md:text-super-sm text-white/90">
+                <button
+                    className="btn-black-08 border border-c-black-15 rounded-lg py-2 px-3 max-md:text-super-sm text-white/90"
+                    onClick={() => setIsOpen(true)}
+                >
                     <PlusSvg className="inline mr-1" /> Add Your Review
                 </button>
                 <div className="flex gap-2.5">

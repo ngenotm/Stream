@@ -69,14 +69,12 @@ exports.getSeries = async (req, res) => {
         series.views += 1;
         await series.save();
 
-        setTimeout(() => {
-            res.status(200).json({
-                status: 200,
-                message: "Series fetched successfully",
-                series,
-                pictures: groupedPictures // Include the grouped pictures of the episodes
-            });
-        }, 2000);
+        res.status(200).json({
+            status: 200,
+            message: "Series fetched successfully",
+            series,
+            pictures: groupedPictures // Include the grouped pictures of the episodes
+        });
     } catch (err) {
         res.status(500).json({
             status: '500',

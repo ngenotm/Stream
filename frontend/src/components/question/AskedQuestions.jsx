@@ -7,11 +7,14 @@ import QuestionItem from './QuestionItem';
 import { questions } from '../../constants/questions';
 import DialogModal from '../DialogModal';
 import QuestionForm from './QuestionForm';
+import useUserStore from '@/stores/useUserStore';
 
 
 const AskedQuestions = () => {
     const [openId, setOpenId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
+    const user = useUserStore((state) => state.user);
+
 
     const handleClick = (id) => {
         setOpenId(openId === id ? null : id);
@@ -32,7 +35,7 @@ const AskedQuestions = () => {
                     />
                 ))}
             </div>
-            <DialogModal isOpen={isOpen} setIsOpen={setIsOpen} title={"Ask a New Question"} >
+            <DialogModal user={user} isOpen={isOpen} setIsOpen={setIsOpen} title={"Ask a New Question"} >
                 <QuestionForm />
             </DialogModal>
         </section>

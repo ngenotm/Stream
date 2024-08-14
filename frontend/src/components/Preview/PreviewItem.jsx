@@ -7,7 +7,7 @@ const PreviewItem = ({ fullName, text, rating }) => (
     >
         <div className="flex items-center justify-between">
             <div>
-                <p className="text-white font-medium">{fullName}</p>
+                <p className="text-white font-medium capitalize">{fullName}</p>
                 {/* <p className="text-c-grey-60 text-sm">{reviewerLocation}</p> */}
             </div>
             <div

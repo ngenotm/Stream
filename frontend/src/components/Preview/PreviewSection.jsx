@@ -4,18 +4,18 @@ import PreviewItem from "./PreviewItem";
 import PreviewItemSkeleton from "./PreviewItemSkeleton";
 import { useEffect, useRef, useState } from "react";
 import PreviewSectionTitle from "./PreviewSectionTitle";
+import DialogModal from "../DialogModal";
+import AddPreviewForm from "./AddPreviewForm";
+import { fetchPreviews } from "../../services/ReviewService";
+import useUserStore from "@/stores/useUserStore";
 
-const fetchPreviews = async (id) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/review/${id}`);
-    const data = await response.json();
-    console.log(data.reviews)
-    return data.reviews;
-}
 
 const PreviewsSection = ({ id }) => {
     const [previews, setPreviews] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const scrollContainerRef = useRef(null);
+    const user = useUserStore((state) => state.user);
 
     useEffect(() => {
         const getPreviews = async () => {
@@ -41,7 +41,7 @@ const PreviewsSection = ({ id }) => {
 
     return (
         <div className="bg-c-black-10 border border-c-black-15 rounded-2xl xl:py-7 xl:px-7 md:px-6 md:py-6 px-5 py-5">
-            <PreviewSectionTitle prev={handlePrev} next={handleNext} />
+            <PreviewSectionTitle setIsOpen={setIsOpen} prev={handlePrev} next={handleNext} />
             <div
                 ref={scrollContainerRef}
                 className="flex 3xl:gap-6 lg:gap-[2%] gap-4 flex-nowrap overflow-x-auto custom-scrollbar custom-scrollbar-sm pb-2.5"
@@ -61,6 +61,11 @@ const PreviewsSection = ({ id }) => {
                 )}
 
             </div>
+
+            <DialogModal user={user} isOpen={isOpen} setIsOpen={setIsOpen} title={"Add Your Review"}>
+                <AddPreviewForm mediaId={id} user={user} setIsOpen={setIsOpen} />
+            </DialogModal>
+
         </div>
     )
 };

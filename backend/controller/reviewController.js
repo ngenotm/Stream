@@ -29,6 +29,7 @@ exports.getMovieReview = async (req, res) => {
         const reviews = await Review.find({ media: req.params.id })
             .skip(skip)
             .limit(limit)
+            .select("-email")
         res.status(200).json({
             status: 200,
             message: "fetch data successfully",
@@ -73,14 +74,6 @@ exports.createReview = async (req, res) => {
     //! must send review category in the request body => [movie or series]
 
     try {
-        const user = await User.findById(req.body.user).select("_id fullName email");
-        if (!user) return res.status(404).json({
-            status: 404,
-            message: "User not found"
-        });
-        req.body.fullName = user.fullName;
-        req.body.email = user.email;
-
         const newReview = await Review.create(req.body);
         res.status(201).json({
             status: 201,

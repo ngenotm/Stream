@@ -24,8 +24,6 @@ const SingleSeries = async ({ params }) => {
 
     const { _id: id, title, description, actors } = seriesData;
 
-    // console.log(seriesData)
-
     return (
         <Suspense fallback={<SinglePageSkeleton />}>
             <SinglePageLayout
