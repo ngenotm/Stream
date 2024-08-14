@@ -9,10 +9,8 @@ import SinglePageSkeleton from "@/components/layout/singlePage/SinglePageSkeleto
 
 
 const fetchSingleSeries = async (slug) => {
-    // await new Promise(resolve => setTimeout(resolve, 2000));
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/${slug}`);
     const data = await res.json();
-    console.log(data)
     return data;
 }
 
@@ -24,8 +22,7 @@ const SingleSeries = async ({ params }) => {
 
     if (!seriesData || !pictures) return <SinglePageSkeleton />;
 
-    // const { _id: id, title, cover, language, director, release_date, description, country, rotten_rating, imdb_rating, actors, awards } = seriesData;
-
+    const { _id: id, title, description } = seriesData;
 
     return (
         <Suspense fallback={<SinglePageSkeleton />}>
@@ -33,10 +30,10 @@ const SingleSeries = async ({ params }) => {
                 data={seriesData}
             >
                 {/*//! Seasons List Section */}
-                <SeasonsSection />
+                <SeasonsSection id={id} seriesTitle={title} />
 
                 {/*//! Description Section */}
-                <Description description={seriesData.description} />
+                <Description description={description} />
 
                 {/*//! Cast Section */}
                 <CastSection />

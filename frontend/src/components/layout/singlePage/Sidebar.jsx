@@ -6,7 +6,6 @@ import Rating from "@/components/singleSeries/Rating";
 import ReleasedMovie from "@/components/singleSeries/ReleasedMovie";
 
 const Sidebar = ({ releaseDate, language, rating, genres, director, musician }) => {
-    console.log(director)
     return (
         <article
             className="lg:col-span-4 col-span-12 bg-c-black-10 border border-c-black-15 rounded-2xl

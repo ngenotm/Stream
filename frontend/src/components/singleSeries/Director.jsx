@@ -1,6 +1,5 @@
 const Director = ({ director }) => {
     const { id, fullName, birthPlace, profile } = director;
-    console.log(profile)
     return (
         <div>
             <p className="text-c-grey-60">Director</p>
