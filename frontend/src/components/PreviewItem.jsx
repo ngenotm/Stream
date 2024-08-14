@@ -1,3 +1,5 @@
+import StarRating from "./common/StarRating";
+
 const { StarIcon } = require("@/assets/Svgs");
 
 const PreviewItem = ({ reviewerName, reviewerLocation, reviewText, rating }) => (
@@ -13,9 +15,7 @@ const PreviewItem = ({ reviewerName, reviewerLocation, reviewText, rating }) => 
             <div
                 className="rounded-full bg-c-black-08 border border-c-black-15 px-4 pb-1.5 pt-0.5"
             >
-                {/* Render StarIcon based on rating */}
-                {[...Array(rating)].map((_, i) => <StarIcon key={i} />)}
-                <span className="text-c-grey-60 text-lg ml-2">{rating}</span>
+                <StarRating rating={rating} />
             </div>
         </div>
         <p className="mt-4 text-c-grey-60 lg:text-base text-sm">

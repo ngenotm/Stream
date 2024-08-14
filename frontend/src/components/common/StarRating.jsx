@@ -16,7 +16,7 @@ const StarRating = ({ rating }) => {
             {emptyStars.map((_, index) => (
                 <OutlineStarIcon key={index} className="3xl:w-5 w-3.5 3xl:h-5 h-3.5 fill-c-grey-60" />
             ))}
-            <span>{rating}</span>
+            <span className="text-c-grey-60">{rating}</span>
         </div>
     );
 };
