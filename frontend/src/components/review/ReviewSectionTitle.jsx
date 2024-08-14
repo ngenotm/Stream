@@ -1,9 +1,9 @@
 import { LeftArrowSvg, PlusSvg } from "@/assets/Svgs";
 
-const PreviewSectionTitle = ({ setIsOpen, prev, next }) => {
+const ReviewSectionTitle = ({ setIsOpen, prev, next }) => {
     return (
         <div className="flex items-center justify-between mb-6">
-            <h4 className="text-c-grey-60 text-lg font-medium">Previews</h4>
+            <h4 className="text-c-grey-60 text-lg font-medium">Reviews</h4>
             <div className="flex items-center gap-10">
                 <button
                     className="btn-black-08 border border-c-black-15 rounded-lg py-2 px-3 max-md:text-super-sm text-white/90"
@@ -32,4 +32,4 @@ const PreviewSectionTitle = ({ setIsOpen, prev, next }) => {
     );
 }
 
-export default PreviewSectionTitle;
+export default ReviewSectionTitle;

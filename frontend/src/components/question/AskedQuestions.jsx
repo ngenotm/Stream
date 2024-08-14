@@ -5,7 +5,7 @@ import { useState } from 'react';
 import QuestionTitle from "./QuestionTitle";
 import QuestionItem from './QuestionItem';
 import { questions } from '../../constants/questions';
-import DialogModal from '../DialogModal';
+import DialogModal from '../modal/DialogModal';
 import QuestionForm from './QuestionForm';
 import useUserStore from '@/stores/useUserStore';
 

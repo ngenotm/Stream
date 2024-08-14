@@ -1,37 +1,22 @@
+import { useState } from "react";
+
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-
-import TextAreaField from "../TextAreaField";
-import useUserStore from "@/stores/useUserStore";
 import Rating from "react-rating";
+
 import { OutlineStarIcon, StarIcon } from "@/assets/Svgs";
-import { useEffect, useState } from "react";
+import TextAreaField from "../TextAreaField";
+import { addNewReview } from "../../services/ReviewService";
 
 
-const addPreview = async (data) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/review/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-        throw new Error(response.status === 500
-            ? "Server error! Please try again later."
-            : "Failed to Add Preview! Please try again later.");
-    }
-}
-
-const AddPreviewForm = ({ mediaId, user, setIsOpen }) => {
-    const { register, handleSubmit, formState: { errors }, setError, reset } = useForm();
+const AddReviewForm = ({ mediaId, user, setIsOpen }) => {
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [rating, setRating] = useState(1);
 
     const onSubmit = async (data) => {
         const { text } = data;
         try {
-            await addPreview({
+            await addNewReview({
                 fullName: user.fullName,
                 email: user.email,
                 text,
@@ -86,4 +71,4 @@ const AddPreviewForm = ({ mediaId, user, setIsOpen }) => {
     );
 }
 
-export default AddPreviewForm;
+export default AddReviewForm;

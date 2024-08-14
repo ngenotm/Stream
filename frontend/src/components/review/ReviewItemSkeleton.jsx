@@ -1,4 +1,4 @@
-const PreviewItemSkeleton = () => {
+const ReviewItemSkeleton = () => {
     return (
         <div className="py-4 px-4 bg-c-black-06 border border-c-black-15 rounded-lg lg:basis-[49%] flex-shrink-0 flex-grow-0 basis-full animate-pulse">
             <div className="flex items-center justify-between">
@@ -13,4 +13,4 @@ const PreviewItemSkeleton = () => {
     );
 }
 
-export default PreviewItemSkeleton;
+export default ReviewItemSkeleton;

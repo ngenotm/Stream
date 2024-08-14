@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import PreviewsSection from "@/components/Preview/PreviewSection";
+import ReviewSection from "@/components/review/ReviewSection";
 import CastSection from "@/components/singleSeries/CastSection";
 import Description from "@/components/singleSeries/Description";
 import SeasonsSection from "@/components/singleSeries/SeasonsSection";
@@ -39,7 +39,7 @@ const SingleSeries = async ({ params }) => {
                 <CastSection actors={actors} />
 
                 {/*//! Previews Section */}
-                <PreviewsSection id={id} />
+                <ReviewSection id={id} />
             </SinglePageLayout>
         </Suspense>
     );

@@ -1,16 +1,16 @@
 "use client";
 
-import PreviewItem from "./PreviewItem";
-import PreviewItemSkeleton from "./PreviewItemSkeleton";
+import ReviewItem from "./ReviewItem";
+import ReviewItemSkeleton from "./ReviewItemSkeleton";
 import { useEffect, useRef, useState } from "react";
-import PreviewSectionTitle from "./PreviewSectionTitle";
-import DialogModal from "../DialogModal";
-import AddPreviewForm from "./AddPreviewForm";
+import ReviewSectionTitle from "./ReviewSectionTitle";
+import DialogModal from "../modal/DialogModal";
+import AddReviewForm from "./AddReviewForm";
 import { fetchPreviews } from "../../services/ReviewService";
 import useUserStore from "@/stores/useUserStore";
 
 
-const PreviewsSection = ({ id }) => {
+const ReviewSection = ({ id }) => {
     const [previews, setPreviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
@@ -41,17 +41,17 @@ const PreviewsSection = ({ id }) => {
 
     return (
         <div className="bg-c-black-10 border border-c-black-15 rounded-2xl xl:py-7 xl:px-7 md:px-6 md:py-6 px-5 py-5">
-            <PreviewSectionTitle setIsOpen={setIsOpen} prev={handlePrev} next={handleNext} />
+            <ReviewSectionTitle setIsOpen={setIsOpen} prev={handlePrev} next={handleNext} />
             <div
                 ref={scrollContainerRef}
                 className="flex 3xl:gap-6 lg:gap-[2%] gap-4 flex-nowrap overflow-x-auto custom-scrollbar custom-scrollbar-sm pb-2.5"
             >
 
                 {loading || previews?.length === 0 ? (
-                    Array.from({ length: 3 }).map((_, index) => <PreviewItemSkeleton key={index} />)
+                    Array.from({ length: 3 }).map((_, index) => <ReviewItemSkeleton key={index} />)
                 ) : (
                     previews.map(({ fullName, rating, text }, index) => (
-                        <PreviewItem
+                        <ReviewItem
                             key={index}
                             fullName={fullName}
                             text={text}
@@ -63,11 +63,11 @@ const PreviewsSection = ({ id }) => {
             </div>
 
             <DialogModal user={user} isOpen={isOpen} setIsOpen={setIsOpen} title={"Add Your Review"}>
-                <AddPreviewForm mediaId={id} user={user} setIsOpen={setIsOpen} />
+                <AddReviewForm mediaId={id} user={user} setIsOpen={setIsOpen} />
             </DialogModal>
 
         </div>
     )
 };
 
-export default PreviewsSection;
+export default ReviewSection;
