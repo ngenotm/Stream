@@ -3,8 +3,8 @@ const joi = require('joi');
 
 exports.createActorValidation = (req, res, next) => {
     const schema = joi.object({
-        actorId: joi.string()
-            .required(),
+        // actorId: joi.string()
+        //     .required(),
         fullName: joi.string()
             .min(3)
             .max(50)
@@ -12,9 +12,9 @@ exports.createActorValidation = (req, res, next) => {
         birthDate: joi.string()
             .required(),
         birthPlace: joi.string()
-            .required(),
+            .default(""),
         country: joi.string()
-            .required(),
+            .default(""),
         bio: joi.string()
             .default(""),
         gender: joi.string()

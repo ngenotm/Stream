@@ -74,6 +74,9 @@ module.exports = {
         "550": "550px",
         "600": "600px",
         "650": "650px",
+      },
+      transitionDuration: {
+        "400": "400ms",
       }
     },
   },

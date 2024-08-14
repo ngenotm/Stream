@@ -46,7 +46,7 @@ exports.getSeries = async (req, res) => {
             })
             .populate({
                 path: 'actors',
-                select: 'name age actorId profile'
+                select: 'actorId profile fullName'
             });
 
         if (!series) return res.status(404).json({ message: "Series not found" });

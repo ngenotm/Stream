@@ -22,7 +22,9 @@ const SingleSeries = async ({ params }) => {
 
     if (!seriesData || !pictures) return <SinglePageSkeleton />;
 
-    const { _id: id, title, description } = seriesData;
+    const { _id: id, title, description, actors } = seriesData;
+
+    console.log(seriesData)
 
     return (
         <Suspense fallback={<SinglePageSkeleton />}>
@@ -36,7 +38,7 @@ const SingleSeries = async ({ params }) => {
                 <Description description={description} />
 
                 {/*//! Cast Section */}
-                <CastSection />
+                <CastSection actors={actors} />
 
                 {/*//! Previews Section */}
                 <PreviewsSection />

@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const shortid = require('shortid');
 
 const actorModel = mongoose.Schema({
     actorId: {
         type: String,
-        required: [true, 'Actor ID is required'],
+        default: shortid.generate,
+        // required: [true, 'Actor ID is required'],
     },
     fullName: {
         type: String,
@@ -15,7 +17,8 @@ const actorModel = mongoose.Schema({
     },
     birthPlace: {
         type: String,
-        required: [true, 'Place of Birth is required'],
+        default: "",
+        // required: [true, 'Place of Birth is required'],
     },
     bio: {
         type: String,
@@ -28,7 +31,8 @@ const actorModel = mongoose.Schema({
     },
     country: {
         type: String,
-        required: [true, 'Country is required']
+        default: "",
+        // required: [true, 'Country is required']
     },
     profile: {
         type: String,
