@@ -1,16 +1,14 @@
-import StarRating from "./common/StarRating";
+import StarRating from "../common/StarRating";
 
-const { StarIcon } = require("@/assets/Svgs");
-
-const PreviewItem = ({ reviewerName, reviewerLocation, reviewText, rating }) => (
+const PreviewItem = ({ fullName, text, rating }) => (
     <div
         className="py-4 px-4 bg-c-black-06 border border-c-black-15 rounded-lg
-      lg:basis-[49%] flex-shrink-0 flex-grow-0 basis-full"
+      lg:basis-[49%] flex-shrink-0 flex-grow-0 basis-full "
     >
         <div className="flex items-center justify-between">
             <div>
-                <p className="text-white font-medium">{reviewerName}</p>
-                <p className="text-c-grey-60 text-sm">{reviewerLocation}</p>
+                <p className="text-white font-medium">{fullName}</p>
+                {/* <p className="text-c-grey-60 text-sm">{reviewerLocation}</p> */}
             </div>
             <div
                 className="rounded-full bg-c-black-08 border border-c-black-15 px-4 pb-1.5 pt-0.5"
@@ -19,7 +17,7 @@ const PreviewItem = ({ reviewerName, reviewerLocation, reviewText, rating }) => 
             </div>
         </div>
         <p className="mt-4 text-c-grey-60 lg:text-base text-sm">
-            {reviewText}
+            {text}
         </p>
     </div>
 );

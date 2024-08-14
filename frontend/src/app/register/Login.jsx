@@ -15,8 +15,6 @@ const LoginPage = ({ page, setPage }) => {
     const handleLogin = async (data) => {
         const { email, password, remember } = data;
 
-        console.log(email, password, remember);
-
         try {
             const loginResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
                 method: 'POST',
@@ -52,8 +50,6 @@ const LoginPage = ({ page, setPage }) => {
             if (status === 401) {
                 return setError("password", { type: "manual", message: "Incorrect password!" });
             }
-
-            console.log(err)
 
             toast.error("Login failed! Please try again.");
         }

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import PreviewsSection from "@/components/PreviewSection";
+import PreviewsSection from "@/components/Preview/PreviewSection";
 import CastSection from "@/components/singleSeries/CastSection";
 import Description from "@/components/singleSeries/Description";
 import SeasonsSection from "@/components/singleSeries/SeasonsSection";
@@ -24,7 +24,7 @@ const SingleSeries = async ({ params }) => {
 
     const { _id: id, title, description, actors } = seriesData;
 
-    console.log(seriesData)
+    // console.log(seriesData)
 
     return (
         <Suspense fallback={<SinglePageSkeleton />}>
@@ -41,7 +41,7 @@ const SingleSeries = async ({ params }) => {
                 <CastSection actors={actors} />
 
                 {/*//! Previews Section */}
-                <PreviewsSection />
+                <PreviewsSection id={id} />
             </SinglePageLayout>
         </Suspense>
     );

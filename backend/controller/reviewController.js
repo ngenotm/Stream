@@ -27,9 +27,8 @@ exports.getMovieReview = async (req, res) => {
 
     try {
         const reviews = await Review.find({ media: req.params.id })
-            // .populate("fullName", "email")
             .skip(skip)
-            .limit(limit);
+            .limit(limit)
         res.status(200).json({
             status: 200,
             message: "fetch data successfully",
