@@ -1,4 +1,4 @@
-import { CirclePlayIcon, WatchSvg } from "@/assets/Svgs";
+import { CirclePlayIcon, DownloadIcon, WatchSvg } from "@/assets/Svgs";
 
 const EpisodeItem = ({ seriesTitle, episodeNumber, seasonNumber, title, runtime, description, thumbnail }) => {
     return (
@@ -19,14 +19,22 @@ const EpisodeItem = ({ seriesTitle, episodeNumber, seasonNumber, title, runtime,
                     </button>
                 </div>
                 <div className="flex-1 flex flex-col justify-between py-2">
-                    <div className="flex xl:flex-row flex-col xl:items-center items-start max-xl:gap-3 max-md:gap-1.5 max-xl:mb-2 max-md:mb-0 justify-between">
+                    <div className="flex xl:flex-row flex-col items-start max-xl:gap-3 max-md:gap-1.5 max-xl:mb-2 max-md:mb-0 justify-between">
                         <h4 className="text-white max-md:text-sm line-clamp-2">{title}</h4>
-                        <span
-                            className="bg-c-black-08 border border-c-black-15 rounded-md text-c-grey-60
+                        <div className="flex flex-col items-end gap-2.5">
+                            <span
+                                className="bg-c-black-08 border border-c-black-15 rounded-md text-c-grey-60
                 md:py-1.5 py-1 md:px-3.5 px-2.5 lg:text-super-sm md:text-sm text-super-xs flex items-center gap-1"
-                        >
-                            <WatchSvg className="md:w-[20px] md:h-[20px] w-[16px] h-[16px]" /> {runtime} min
-                        </span>
+                            >
+                                <WatchSvg className="md:w-[20px] md:h-[20px] w-[16px] h-[16px]" /> {runtime} min
+                            </span>
+                            <button
+                                className="rounded-full flex items-center justify-center bg-c-black-08 
+                                border border-c-black-15 p-2"
+                            >
+                                <DownloadIcon className="w-5 h-5" />
+                            </button>
+                        </div>
                     </div>
                     <p className="text-c-grey-60 text-sm max-md:hidden lg:line-clamp-3 line-clamp-2">
                         {!description || description === "" ? "No description available yet!" : description}
@@ -34,19 +42,6 @@ const EpisodeItem = ({ seriesTitle, episodeNumber, seasonNumber, title, runtime,
                 </div>
             </div>
         </div>
-        // <div className="flex items-center lg:py-6 py-4 2xl:gap-6 gap-3 border-b border-b-c-black-15 last:border-b-0 animate-pulse">
-        //     <span className="xl:text-2xl text-1.5xl text-c-grey-60 font-semibold bg-gray-300 h-8 w-8 rounded"></span>
-        //     <div className="flex-1 flex 2xl:gap-4 md:gap-2.5 md:flex-row flex-col">
-        //         <div className="relative rounded-2xl overflow-hidden lg:w-52 md:w-56 border border-c-black-15 bg-gray-300 h-32"></div>
-        //         <div className="flex-1 flex flex-col justify-between py-2">
-        //             <div className="flex xl:flex-row flex-col xl:items-center items-start max-xl:gap-3 max-md:gap-1.5 max-xl:mb-2 max-md:mb-0 justify-between">
-        //                 <div className="bg-gray-300 h-6 w-3/4 rounded"></div>
-        //                 <div className="bg-gray-300 h-6 w-20 rounded"></div>
-        //             </div>
-        //             <div className="bg-gray-300 h-12 mt-2 w-full rounded"></div>
-        //         </div>
-        //     </div>
-        // </div>
     )
 };
 
