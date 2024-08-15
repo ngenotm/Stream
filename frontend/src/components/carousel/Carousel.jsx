@@ -1,4 +1,3 @@
-import { LeftArrowSvg, LikeSvg, PlaySvg, PlusSvg, SoundSvg } from "@/assets/Svgs";
 import CarouselPagination from "./CarouselPagination";
 import CarouselCallToAction from "./CarouselCallToAction";
 import CarouselInfo from "./CarouselInfo";

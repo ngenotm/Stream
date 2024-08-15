@@ -1,4 +1,4 @@
-import { LikeSvg, PlaySvg, PlusSvg, SoundSvg } from "@/assets/Svgs";
+import { LikeOutlineIcon,  PlaySvg, PlusSvg, SoundSvg } from "@/assets/Svgs";
 
 const CarouselCallToAction = () => {
     return (
@@ -15,7 +15,7 @@ const CarouselCallToAction = () => {
                 <button
                     className="xl:h-11 h-11 xl:w-11 w-11 p-2.5 bg-c-black-06 border border-c-black-15 rounded-md flex items-center justify-center"
                 >
-                    <LikeSvg />
+                    <LikeOutlineIcon />
                 </button>
                 <button
                     className="xl:h-11 h-11 xl:w-11 w-11 p-2.5 bg-c-black-06 border border-c-black-15 rounded-md flex items-center justify-center"

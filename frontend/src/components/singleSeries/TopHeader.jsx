@@ -21,7 +21,7 @@ const TopHeader = ({ id, title, description, cover }) => {
                 >
                     {!description || description === "" ? "No description available yet!" : description}
                 </p>
-                <HeaderCallToAction />
+                <HeaderCallToAction mediaId={id} />
             </div>
 
         </div>
