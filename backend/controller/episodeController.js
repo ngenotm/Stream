@@ -1,10 +1,11 @@
+const { isValidObjectId } = require('mongoose');
 const Episode = require('../model/episodeModel');
 const Season = require('../model/seasonModel');
 const { episodeUploader } = require('../utils/videoUploader');
 const { createEpisodeValidation } = require('../validation/episodeValidation');
 
 //! Single Episode
-exports.getEpisode = async (req, res) => {
+exports.getEpisodeById = async (req, res) => {
     try {
         const episode = await Episode.findById(req.params.id);
         if (!episode) return res.status(404).json({ status: 404, message: "Episode not found" });
@@ -23,26 +24,50 @@ exports.getEpisode = async (req, res) => {
     }
 };
 
-exports.getEpisodesBySeason = async (req, res) => {
-    const { seasonId } = req.params;
 
-    if (!isValidObjectId(seasonId)) return res.status(400).json({ status: 400, message: "Invalid ID" });
+exports.getEpisodeByEpisodeNumber = async (req, res) => {
+    const { series, season, episodeNumber } = req.params;
+
+    if (!isValidObjectId(series)) {
+        return res.status(400).json({ status: 400, message: "Invalid series ID" });
+    }
+
+    if (isNaN(season) || isNaN(episodeNumber)) {
+        return res.status(400).json({ status: 400, message: "Season number and episode number must be valid numbers" });
+    }
 
     try {
-        const episodes = await Episode.find({ season: seasonId });
+        const episode = await Episode.findOne({
+            series,
+            seasonNumber: parseInt(season, 10),
+            episodeNumber: parseInt(episodeNumber, 10)
+        })
+            .populate(
+                {
+                    path: "series", select: "title director genres rotten_rating imdb_rating actors",
+                    populate: { path: "director", select: "directorId fullName profile" },
+                    populate: { path: "actors", select: "actorId fullName profile" }
+                })
+            .select("title files");
+
+        if (!episode) {
+            return res.status(404).json({ status: 404, message: "Episode not found" });
+        }
+
         res.status(200).json({
             status: 200,
-            message: "fetch data successfully",
-            episodes
+            message: "Episode fetched successfully",
+            episode
         });
     } catch (err) {
-        res.status(404).json({
-            status: 404,
-            message: "fail",
-            message: err
+        res.status(500).json({
+            status: 500,
+            message: "An error occurred while fetching the episode",
+            error: err.message
         });
     }
-}
+};
+
 
 exports.createEpisode = [episodeUploader, createEpisodeValidation, async (req, res) => {
     //! must send seriesTitle in the body

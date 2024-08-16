@@ -1,6 +1,7 @@
 import { CirclePlayIcon, DownloadIcon, WatchSvg } from "@/assets/Svgs";
+import Link from "next/link";
 
-const EpisodeItem = ({ seriesTitle, episodeNumber, seasonNumber, title, runtime, description, thumbnail }) => {
+const EpisodeItem = ({ seriesId, seriesTitle, episodeNumber, seasonNumber, title, runtime, description, thumbnail }) => {
     return (
         <div className="flex items-center lg:py-6 py-4 2xl:gap-6 gap-3 border-b border-b-c-black-15 last:border-b-0">
             <span className="xl:text-2xl text-1.5xl text-c-grey-60 font-semibold">
@@ -28,12 +29,14 @@ const EpisodeItem = ({ seriesTitle, episodeNumber, seasonNumber, title, runtime,
                             >
                                 <WatchSvg className="md:w-[20px] md:h-[20px] w-[16px] h-[16px]" /> {runtime} min
                             </span>
-                            <button
-                                className="rounded-full flex items-center justify-center bg-c-black-08 
+                            <Link href={`/series/${seriesId}/${seasonNumber}/${episodeNumber}`}>
+                                <button
+                                    className="rounded-full flex items-center justify-center bg-c-black-08 
                                 border border-c-black-15 p-2"
-                            >
-                                <DownloadIcon className="w-5 h-5" />
-                            </button>
+                                >
+                                    <DownloadIcon className="w-5 h-5" />
+                                </button>
+                            </Link>
                         </div>
                     </div>
                     <p className="text-c-grey-60 text-sm max-md:hidden lg:line-clamp-3 line-clamp-2">

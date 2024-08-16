@@ -9,7 +9,7 @@ const Genres = ({ genres }) => (
             {genres.map((genre, index) => (
                 <Link
                     key={index} href={`/genres/${genre.toLowerCase()}`}
-                    className="bg-c-black-08 hover:bg-c-black-10 border border-c-black-15 rounded-md px-4 py-1 text-white text-super-sm"
+                    className="bg-c-black-08 hover:bg-c-black-10 border border-c-black-15 rounded-md px-4 py-1 text-white text-super-sm capitalize"
                 >
                     {genre}
                 </Link>

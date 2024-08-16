@@ -30,6 +30,7 @@ const SeasonsSection = async ({ id, seriesTitle }) => {
                         {season.episodes.map((episode, index) => (
                             <EpisodeItem
                                 key={episode._id}
+                                seriesId={id}
                                 seriesTitle={seriesTitle}
                                 episodeNumber={episode.episodeNumber}
                                 seasonNumber={season.seasonNumber}
