@@ -44,11 +44,10 @@ exports.getEpisodeByEpisodeNumber = async (req, res) => {
         })
             .populate(
                 {
-                    path: "series", select: "title director genres rotten_rating imdb_rating actors",
-                    populate: { path: "director", select: "directorId fullName profile" },
-                    populate: { path: "actors", select: "actorId fullName profile" }
+                    path: "series", select: "title director release_date genres rotten_rating imdb_rating actors",
+                    populate: { path: "director actors", select: "directorId actorId fullName profile birthPlace" },
                 })
-            .select("title files");
+            .select("title files pictures");
 
         if (!episode) {
             return res.status(404).json({ status: 404, message: "Episode not found" });
