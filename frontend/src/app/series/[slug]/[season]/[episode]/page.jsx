@@ -73,7 +73,7 @@ const SingleEpisodePage = async ({ params }) => {
 
                     <CastSection actors={actors} />
 
-                    <DownloadSection files={files} />
+                    <DownloadSection files={files} seriesTitle={seriesTitle} season={season} episode={episode} />
 
                     <ReviewSection id={seriesId} />
 

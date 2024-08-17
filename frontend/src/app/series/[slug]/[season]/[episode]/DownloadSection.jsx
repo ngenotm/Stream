@@ -1,6 +1,6 @@
 import DownloadItem from "./DownloadItem";
 
-const DownloadSection = ({ files }) => {
+const DownloadSection = ({ files, seriesTitle, season, episode }) => {
     return (
         <section
             className="bg-c-black-10 border border-c-black-15 xl:p-9 md:px-5 md:py-5 px-3.5 py-3.5 rounded-2.5xl"
@@ -12,7 +12,7 @@ const DownloadSection = ({ files }) => {
             </h4>
 
             {files.map((file, index) => (
-                <DownloadItem key={index} quality={file.quality} size={'1.2 GB'} url={file.url} />
+                <DownloadItem key={index} quality={file.quality} size={'1.2 GB'} url={file.url} seriesTitle={seriesTitle} season={season} episode={episode} />
             ))}
 
         </section>

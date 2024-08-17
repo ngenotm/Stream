@@ -3,7 +3,49 @@ import { DownloadIcon } from "@/assets/Svgs";
 import axios from "axios";
 import { useState } from "react";
 
-const DownloadItem = ({ quality, size, url }) => {
+const handleDownloadApi = async (url) => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/episode/download`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url }),
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to download file: ${response.statusText}`);
+        }
+        return response;
+    } catch (error) {
+        console.error('Download error:', error);
+    }
+};
+
+
+const DownloadItem = ({ quality, size, url, seriesTitle, season, episode }) => {
+    const [isDownloading, setIsDownloading] = useState(false);
+
+    const handleDownload = async () => {
+        setIsDownloading(true);
+
+        try {
+            const response = await handleDownloadApi(url);
+
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            const formattedTitle = seriesTitle.replace(/\s+/g, '-');
+            link.download = `${formattedTitle}-S${season}E${episode}-${quality}.mp4`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Download error:', error);
+        } finally {
+            setIsDownloading(false);
+        }
+    };
 
     return (
         <div
