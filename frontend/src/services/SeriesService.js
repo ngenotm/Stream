@@ -53,3 +53,14 @@ export const getPopularSeries = async () => {
         console.error("Error fetching trending series:", error);
     }
 }
+
+
+export const fetchSingleEpisode = async (series, season, episode) => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/episode/${series}/${season}/${episode}`);
+        const data = await res.json();
+        return data.episode;
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -1,5 +1,5 @@
 const express = require('express');
-const { createEpisode, getEpisodeById, updateEpisode, deleteEpisode, getEpisodeByEpisodeNumber, } = require('../controller/episodeController');
+const { createEpisode, getEpisodeById, updateEpisode, deleteEpisode, getEpisodeByEpisodeNumber, downloadEpisode, } = require('../controller/episodeController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
 
 const router = express.Router();
@@ -15,5 +15,6 @@ router
     .delete(ValidateObjectId, deleteEpisode);
 
 router.get("/:series/:season/:episodeNumber", getEpisodeByEpisodeNumber);
+router.post("/download", downloadEpisode);
 
 module.exports = router;

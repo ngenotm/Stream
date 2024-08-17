@@ -1,4 +1,4 @@
-import { LeftArrowSvg, OutlineStarIcon } from "@/assets/Svgs";
+import { DownloadIcon, LeftArrowSvg, OutlineStarIcon } from "@/assets/Svgs";
 import Link from "next/link";
 
 const EpisodePageSkeleton = () => {
@@ -80,7 +80,7 @@ const EpisodePageSkeleton = () => {
 
                 </section>
 
-                <div className="bg-c-black-10 border border-c-black-15 rounded-2xl xl:py-7 xl:px-7 md:px-6 md:py-6 px-5 py-5">
+                <section className="bg-c-black-10 border border-c-black-15 rounded-2xl xl:py-7 xl:px-7 md:px-6 md:py-6 px-5 py-5">
                     {/* Header Placeholder */}
                     <div className="flex items-center justify-between lg:mb-5 mb-4">
                         <div className="h-6 bg-c-black-20 animate-pulse rounded w-1/4" />
@@ -108,7 +108,44 @@ const EpisodePageSkeleton = () => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </section>
+
+                <section className="bg-c-black-10 border border-c-black-15 xl:p-9 md:px-5 md:py-5 px-3.5 py-3.5 rounded-2.5xl">
+                    {/* Header Placeholder */}
+                    <div className="h-6 bg-c-black-20 animate-pulse rounded w-1/4 mb-8" />
+
+                    <div className="bg-c-black-08 border border-c-black-15 rounded-lg mt-4 px-6 py-4 grid grid-cols-5 gap-10">
+                        <div className="col-span-2">
+                            <div className="h-4 bg-c-black-20 animate-pulse rounded mb-1 w-3/4" />
+                            <div className="h-4 bg-c-black-12 animate-pulse rounded w-1/2" />
+                        </div>
+                        <div className="col-span-2">
+                            <div className="h-4 bg-c-black-20 animate-pulse rounded mb-1 w-3/4" />
+                            <div className="h-4 bg-c-black-12 animate-pulse rounded w-1/2" />
+                        </div>
+                        <div className="flex items-center justify-end">
+                            <div className="bg-c-black-10 border border-c-black-15 rounded-lg py-2 px-6 max-md:text-super-sm text-c-grey-70 flex items-center animate-pulse">
+                                <div className="h-5 bg-c-black-10 animate-pulse rounded w-24" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bg-c-black-08 border border-c-black-15 rounded-lg mt-4 px-6 py-4 grid grid-cols-5 gap-10">
+                        <div className="col-span-2">
+                            <div className="h-4 bg-c-black-20 animate-pulse rounded mb-1 w-3/4" />
+                            <div className="h-4 bg-c-black-12 animate-pulse rounded w-1/2" />
+                        </div>
+                        <div className="col-span-2">
+                            <div className="h-4 bg-c-black-20 animate-pulse rounded mb-1 w-3/4" />
+                            <div className="h-4 bg-c-black-12 animate-pulse rounded w-1/2" />
+                        </div>
+                        <div className="flex items-center justify-end">
+                            <div className="bg-c-black-10 border border-c-black-15 rounded-lg py-2 px-6 max-md:text-super-sm text-c-grey-70 flex items-center animate-pulse">
+                                <div className="h-5 bg-c-black-10 animate-pulse rounded w-24" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
             </div>
         </main>

@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import ReviewSection from "@/components/review/ReviewSection";
 import CastSection from "@/components/singleSeries/CastSection";
 import Director from "@/components/singleSeries/Director";
@@ -7,17 +9,8 @@ import Rating from "@/components/singleSeries/Rating";
 import ReleasedMovie from "@/components/singleSeries/ReleasedMovie";
 import DownloadSection from "./DownloadSection";
 import EpisodePageSkeleton from "./EpisodePageSkeleton";
-import { Suspense } from "react";
+import { fetchSingleEpisode } from "@/services/SeriesService";
 
-const fetchSingleEpisode = async (series, season, episode) => {
-    try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/episode/${series}/${season}/${episode}`);
-        const data = await res.json();
-        return data.episode;
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 const SingleEpisodePage = async ({ params }) => {
     const { slug: seriesId, season, episode } = params;
