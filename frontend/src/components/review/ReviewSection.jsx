@@ -8,6 +8,7 @@ import DialogModal from "../modal/DialogModal";
 import AddReviewForm from "./AddReviewForm";
 import { fetchPreviews } from "../../services/ReviewService";
 import useUserStore from "@/stores/useUserStore";
+import { LeftArrowSvg } from "@/assets/Svgs";
 
 
 const ReviewSection = ({ id }) => {
@@ -60,6 +61,22 @@ const ReviewSection = ({ id }) => {
                     ))
                 )}
 
+            </div>
+            <div className="flex gap-2.5 justify-center mt-3">
+                <button
+                    className="bg-c-black-08 border border-c-black-15 rounded-full flex items-center justify-center
+                    md:w-11 md:h-11 w-[2.9rem] h-[2.9rem]"
+                    onClick={handlePrev}
+                >
+                    <LeftArrowSvg className="stroke-c-grey-60 w-[17px] h-[17px]" />
+                </button>
+                <button
+                    className="bg-c-black-08 border border-c-black-15 rounded-full flex items-center justify-center
+                    md:w-11 md:h-11 w-[2.9rem] h-[2.9rem]"
+                    onClick={handleNext}
+                >
+                    <LeftArrowSvg className="stroke-c-grey-60 w-[17px] h-[17px] rotate-180" />
+                </button>
             </div>
 
             <DialogModal user={user} isOpen={isOpen} setIsOpen={setIsOpen} title={"Add Your Review"}>

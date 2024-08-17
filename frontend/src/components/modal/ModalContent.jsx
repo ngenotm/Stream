@@ -1,15 +1,15 @@
 import { XmarkIcon } from "@/assets/Svgs";
 
-const ModalContent = ({ user, title,isOpen, setIsOpen, children }) => {
+const ModalContent = ({ user, title, isOpen, setIsOpen, children }) => {
     return (
         <div
-            className={`bg-c-black-06 border border-c-black-15 rounded-xl xl:min-w-600  
-        transition-transform duration-300 transform ${isOpen ? 'scale-100' : 'scale-95'} px-8
-        ${user === null || user === undefined ? "py-12" : "py-7"}`}
+            className={`bg-c-black-06 border border-c-black-15 rounded-xl lg:min-w-600 md:min-w-500 min-w-[90%] 
+        transition-transform duration-300 transform ${isOpen ? 'scale-100' : 'scale-95'} lg:px-8 md:px-6 px-4
+        ${user === null || user === undefined ? "md:py-12 py-9" : "md:py-7 py-5"}`}
             onClick={(e) => e.stopPropagation()}
         >
             <div className={`${user === null || user === undefined ? "hidden" : "flex"} items-center justify-between gap-3 mb-5`}>
-                <h6 className="text-white font-semibold text-xl">{title}</h6>
+                <h6 className="text-white font-semibold lg:text-xl md:text-lg text-base">{title}</h6>
                 <button className="p-1.5" onClick={() => setIsOpen(false)}>
                     <XmarkIcon />
                 </button>

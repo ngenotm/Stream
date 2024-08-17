@@ -64,3 +64,22 @@ export const fetchSingleEpisode = async (series, season, episode) => {
         console.log(error);
     }
 }
+
+
+export const downloadEpisodeApi = async (url) => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/episode/download`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url }),
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to download file: ${response.statusText}`);
+        }
+        return response;
+    } catch (error) {
+        console.error('Download error:', error);
+    }
+};

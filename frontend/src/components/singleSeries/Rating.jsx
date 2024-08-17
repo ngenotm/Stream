@@ -4,8 +4,8 @@ import StarRating from "../common/StarRating";
 const Rating = ({ custom, ratings }) => {
     return (
         <div>
-            <p className={`text-c-grey-60 ${custom && "text-super-base"}`}>
-                <OutlineStarIcon className={`${custom ? "w-5" : "w-4"} mr-1.5`} />
+            <p className={`text-c-grey-60 ${custom && "md:text-super-base"}`}>
+                <OutlineStarIcon className={`${custom ? "md:w-5 w-4" : "w-4"} mr-1.5`} />
                 Ratings
             </p>
             <div

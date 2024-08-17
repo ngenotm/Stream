@@ -3,7 +3,7 @@ import StarRating from "../common/StarRating";
 const ReviewItem = ({ fullName, text, rating }) => (
     <div
         className="py-4 px-4 bg-c-black-06 border border-c-black-15 rounded-lg
-      3xl:basis-[450px] lg:basis-[377px] flex-shrink-0 flex-grow-0 basis-full "
+      3xl:basis-[450px] md:basis-[377px] flex-shrink-0 flex-grow-0 basis-full "
     >
         <div className="flex items-center justify-between">
             <div>

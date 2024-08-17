@@ -55,13 +55,13 @@ const AddReviewForm = ({ mediaId, user, setIsOpen }) => {
             <Rating
                 initialRating={rating}
                 onChange={(rate) => setRating(rate)}
-                emptySymbol={<OutlineStarIcon className="w-6 h-6 mr-3" />}
-                fullSymbol={<StarIcon className="w-6 h-6 mr-3" />}
-                className="mt-4"
+                emptySymbol={<OutlineStarIcon className="xl:w-6 xl:h-6 w-5 h-5 mr-3" />}
+                fullSymbol={<StarIcon className="xl:w-6 xl:h-6 w-5 h-5 mr-3" />}
+                className="md:mt-4 mt-2"
             />
 
             <button
-                className="bg-c-red-45 text-white py-2 px-4 rounded 3xl:text-lg text-super-sm block mt-14"
+                className="bg-c-red-45 text-white py-2 px-4 rounded 3xl:text-lg text-super-sm block md:mt-14 mt-10"
                 type="submit"
             >
                 Submit Review
