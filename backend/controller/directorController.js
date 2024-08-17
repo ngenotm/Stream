@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const Director = require('../model/directorModel');
+const Movie = require('../model/movieModel');
+const Series = require('../model/seriesModel');
 const uploadImage = require('../utils/upload');
 const { createDirectorValidation, editDirectorValidation } = require('../validation/directorValidation');
-
 
 
 //! config uploader
@@ -40,10 +41,17 @@ exports.getAllDirectors = async (req, res) => {
 exports.getDirector = async (req, res) => {
     try {
         const director = await Director.findById(req.params.id);
+        if (!director) return res.status(404).json({ status: 404, message: "Director not found" });
+
+        const movies = await Movie.find({ director: director._id }).limit(12);
+        const series = await Series.find({ director: director._id }).limit(12);
+
         res.status(200).json({
             status: 200,
             message: "fetch data successfully",
-            director
+            director,
+            movies,
+            series
         });
     } catch (err) {
         res.status(500).json({

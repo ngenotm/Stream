@@ -48,14 +48,6 @@ const actorModel = mongoose.Schema({
             required: true
         },
     }],
-    movies: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Movies"
-    }],
-    series: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Series"
-    }],
     deathDate: {
         type: Date,
         required: false

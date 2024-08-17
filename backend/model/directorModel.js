@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const shortid = require('shortid');
 
 const directorSchema = new mongoose.Schema({
     directorId: {
         type: String,
-        required: [true, 'director id is required'],
+        default: shortid.generate,
     },
     fullName: {
         type: String,
@@ -43,14 +44,6 @@ const directorSchema = new mongoose.Schema({
             type: Number,
             required: true
         },
-    }],
-    movies: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Movies"
-    }],
-    series: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Series"
     }],
     deathDate: {
         type: Date,
