@@ -11,14 +11,14 @@ const Biography = ({ bio }) => {
             className="bg-c-black-10 border border-c-black-15 rounded-2.5xl xl:px-8 xl:py-6 md:px-5 md:py-5 px-3.5 py-3.5"
         >
             <h4
-                className="text-white md:text-lg text-super-base font-medium lg:mb-6 md:mb-5 mb-3.5"
+                className="text-white 3xl:text-xl lg:text-lg md:text-super-base text-super-base font-medium lg:mb-4 md:mb-5 mb-3.5"
             >
                 Biography
             </h4>
             <div
                 className={`relative ${showMore ? "max-h-screen pb-10" : "max-h-24"} overflow-hidden transition-all duration-1000`}
             >
-                <p className="text-c-grey-75 xl:text-super-sm text-sm tracking-wide leading-7">
+                <p className="text-c-grey-75 3xl:text-base xl:text-super-sm text-sm tracking-wide leading-7">
                     {!bio || bio === "" ? <span className="pb-10">No biography available yet</span> : bio}
                 </p>
                 <div

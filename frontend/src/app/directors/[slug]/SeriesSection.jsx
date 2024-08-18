@@ -1,17 +1,18 @@
 "use client";
 
+import { LeftArrowSvg } from "@/assets/Svgs";
 import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 import SlidePagination from "@/components/SlidePagination";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useRef, useState } from "react";
 
 
-const SeriesSection = ({ fullName, seriesData }) => {
+const SeriesSection = ({ slug, fullName, seriesData }) => {
     const [series, setSeries] = useState(seriesData || []);
     const [loading, setLoading] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollContainerRef = useRef(null);
-
 
     const handleNext = () => {
         if (scrollContainerRef.current) {
@@ -27,13 +28,19 @@ const SeriesSection = ({ fullName, seriesData }) => {
         }
     };
 
-
     return (
         <div className="mt-9">
             <div className="flex items-center justify-between mb-4">
-                <h5 className="text-white 3xl:text-2.5xl md:text-1.5xl text-xl font-medium">
-                    {`${fullName}'s series`}
-                </h5>
+                <div className="flex items-center max-md:w-full max-md:justify-between">
+                    <h5 className="text-white 3xl:text-2.5xl xl:text-1.5xl md:text-xl text-lg font-medium">
+                        {`${fullName}'s series`}
+                    </h5>
+                    <span className="text-c-grey-90 ml-16 3xl:text-base xl:text-super-sm md:text-sm text-super-xs">
+                        <Link href={`/directors/${slug}/series`}>
+                            See more <LeftArrowSvg className="inline stroke-c-grey-90 rotate-180 ml-1.5 md:w-[18px] w-4" />
+                        </Link>
+                    </span>
+                </div>
                 <SlidePagination onNext={handleNext} onPrev={handlePrev} currentIndex={currentIndex} total={series ? series.length : 0} />
             </div>
 
@@ -43,11 +50,12 @@ const SeriesSection = ({ fullName, seriesData }) => {
             >
                 {loading ?
                     Array.from({ length: 5 }).map((_, index) => <MovieCardSkeleton key={index} />)
-                    : series.map(({ _id, title, totalEpisodes, thumbnail, views, rate }, index) => (
-                        <MovieCard series id={_id} title={title} image={thumbnail} episodes={totalEpisodes} view={views} rate={rate} />
-                    ))}
+                    : series?.length == 0 ? <span className="3xl:text-super-base xl:text-super-sm max-md:text-sm text-c-grey-60">No series available for this director at the moment.</span>
+                        : series.map(({ _id, title, totalEpisodes, thumbnail, views, rate }, index) => (
+                            <MovieCard series id={_id} title={title} image={thumbnail} episodes={totalEpisodes} view={views} rate={rate} />
+                        ))}
             </div>
-        </div>
+        </div >
     );
 }
 
