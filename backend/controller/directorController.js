@@ -43,8 +43,81 @@ exports.getDirector = async (req, res) => {
         const director = await Director.findById(req.params.id);
         if (!director) return res.status(404).json({ status: 404, message: "Director not found" });
 
-        const movies = await Movie.find({ director: director._id }).limit(12);
-        const series = await Series.find({ director: director._id }).limit(12);
+        // const movies = await Movie.find({ director: director._id })
+        //     .limit(12)
+        //     .select("title thumbnail views duration ");
+        // const series = await Series.find({ director: director._id })
+        //     .limit(12)
+        //     .select("title thumbnail views duration ");
+
+        const movies = await Movie.aggregate([
+            { $match: { director: director._id } },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    rate: { $avg: '$reviews.rating' }
+                }
+            },
+            { $sort: { release_date: -1 } },
+            { $limit: 12 },
+            {
+                $project: {
+                    title: 1,
+                    thumbnail: 1,
+                    views: 1,
+                    duration: 1,
+                    rate: 1
+                }
+            }
+        ]);
+
+        const series = await Series.aggregate([
+            { $match: { director: director._id } },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    rate: { $avg: '$reviews.rating' }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'seasons',
+                    localField: '_id',
+                    foreignField: 'series',
+                    as: 'seasons'
+                }
+            },
+            {
+                $addFields: {
+                    totalEpisodes: { $sum: { $map: { input: '$seasons', as: 'season', in: { $size: '$$season.episodes' } } } }
+                }
+            },
+            { $sort: { release_date: -1 } },
+            { $limit: 12 },
+            {
+                $project: {
+                    title: 1,
+                    thumbnail: 1,
+                    views: 1,
+                    totalEpisodes: 1,
+                    rate: 1,
+                }
+            }
+        ]);
 
         res.status(200).json({
             status: 200,

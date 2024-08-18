@@ -5,6 +5,9 @@ const StarRating = ({ rating }) => {
     const halfStar = rating % 1 !== 0 ? ['half'] : [];
     const emptyStars = Array(5 - Math.floor(rating) - halfStar.length).fill('empty');
 
+    const safeRating = rating == null || isNaN(rating) ? 0 : parseFloat(rating);
+    const formattedRating = Number.isInteger(safeRating) ? safeRating : parseFloat(safeRating.toFixed(1));
+
     return (
         <div className="flex items-center 3xl:gap-1 gap-0.5">
             {filledStars.map((_, index) => (
@@ -16,7 +19,7 @@ const StarRating = ({ rating }) => {
             {emptyStars.map((_, index) => (
                 <OutlineStarIcon key={index} className="3xl:w-5 md:w-3.5 w-3 3xl:h-5 md:h-3.5 h-3 fill-c-grey-60" />
             ))}
-            <span className="text-c-grey-60">{rating}</span>
+            <span className="text-c-grey-60">{formattedRating}</span>
         </div>
     );
 };
