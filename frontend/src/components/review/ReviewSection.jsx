@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import ReviewSectionTitle from "./ReviewSectionTitle";
 import DialogModal from "../modal/DialogModal";
 import AddReviewForm from "./AddReviewForm";
-import { fetchPreviews } from "../../services/ReviewService";
+import { fetchReviews } from "../../services/ReviewService";
 import useUserStore from "@/stores/useUserStore";
 import { LeftArrowSvg } from "@/assets/Svgs";
 
@@ -19,12 +19,12 @@ const ReviewSection = ({ id }) => {
     const user = useUserStore((state) => state.user);
 
     useEffect(() => {
-        const getPreviews = async () => {
-            const data = await fetchPreviews(id);
+        const getReviews = async () => {
+            const data = await fetchReviews(id);
             setPreviews(data);
             setLoading(false);
         };
-        getPreviews();
+        getReviews();
     }, []);
 
 
