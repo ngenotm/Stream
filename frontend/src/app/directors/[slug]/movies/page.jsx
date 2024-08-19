@@ -3,28 +3,28 @@
 import { SpinnerSvg } from "@/assets/Svgs";
 import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
-import { fetchDirectorSeries } from "@/services/DirectorService";
+import { fetchDirectorMovies } from "@/services/DirectorService";
 import { useEffect, useRef, useState } from "react";
 
 
-const DirectorSeriesPage = ({ params: { slug: directorId } }) => {
+const DirectorMoviesPage = ({ params: { slug: directorId } }) => {
     const [director, setDirector] = useState(null);
-    const [series, setSeries] = useState([]);
+    const [movies, setMovies] = useState([]);
     const [page, setPage] = useState(1);
     const [hasNextPage, setHasNextPage] = useState(true);
     const [loading, setLoading] = useState(false);
 
     const effectRan = useRef(false);
 
-    const fetchSeries = async (currentPage) => {
+    const fetchMovies = async (currentPage) => {
         setLoading(true);
         try {
-            const data = await fetchDirectorSeries(directorId, currentPage, page);
-            setSeries(prevSeries => [...prevSeries, ...data.series]);
+            const data = await fetchDirectorMovies(directorId, currentPage, page);
+            setMovies(prevMovies => [...prevMovies, ...data.movies]);
             setHasNextPage(data.pagination.hasNextPage);
             setDirector(data.director.fullName);
         } catch (error) {
-            console.error("Error fetching series:", error);
+            console.error("Error fetching movies:", error);
         } finally {
             setLoading(false);
         }
@@ -32,7 +32,7 @@ const DirectorSeriesPage = ({ params: { slug: directorId } }) => {
 
     useEffect(() => {
         if (effectRan.current === false) {
-            fetchSeries();
+            fetchMovies();
             return () => {
                 effectRan.current = true;
             }
@@ -41,20 +41,20 @@ const DirectorSeriesPage = ({ params: { slug: directorId } }) => {
 
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);
-        fetchSeries(page + 1);
+        fetchMovies(page + 1);
     };
 
     return (
         <main className="container md:pt-14 pt-5 md:pb-20 pb-10">
 
             <h1 className="text-white text-2xl font-medium">
-                Series Directed by <span className="capitalize">{director}</span>
+                Movies Directed by <span className="capitalize">{director}</span>
             </h1>
 
             <div className="grid grid-cols-5 gap-8 mt-10">
 
-                {!loading && series.map(({ _id, title, totalEpisodes, thumbnail, views, rate }) => (
-                    <MovieCard key={_id} series id={_id} title={title} image={thumbnail} episodes={totalEpisodes} view={views} rate={rate} />
+                {!loading && movies.map(({ _id, title, duration, thumbnail, views, rate }) => (
+                    <MovieCard key={_id} id={_id} title={title} image={thumbnail} duration={duration} view={views} rate={rate} />
                 ))}
                 {loading && Array.from({ length: 12 }).map((_, index) => (
                     <MovieCardSkeleton key={index} />
@@ -82,4 +82,4 @@ const DirectorSeriesPage = ({ params: { slug: directorId } }) => {
     );
 }
 
-export default DirectorSeriesPage;
+export default DirectorMoviesPage;
