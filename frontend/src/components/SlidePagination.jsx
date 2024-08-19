@@ -3,7 +3,7 @@ import React from 'react'
 const { LeftArrowSvg } = require("@/assets/Svgs");
 
 
-const SlidePagination = ({ currentIndex, total, onNext, onPrev }) => {
+const SlidePagination = ({ mobile, currentIndex, total, onNext, onPrev }) => {
     return (
         <div className="rounded-xl bg-c-black-06 border border-c-black-12 p-2 lg:flex items-center hidden">
             <div className="flex items-center gap-2">

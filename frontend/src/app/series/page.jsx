@@ -1,14 +1,23 @@
-import Link from 'next/link';
+import GenresSection from "../explore/series/GenresSection";
+import NewReleasedSection from "../explore/series/NewReleasedSection";
+import PopularSeriesSection from "../explore/series/PopularSeriesSection";
+import TopSeriesSection from "../explore/series/TopSeriesSection";
+import TrendingSeriesSection from "../explore/series/TrendingSection";
 
 const SeriesPage = () => {
     return (
-        <main className="container py-20">
-            <h1 className="text-3xl text-white font-semibold">Series Page</h1>
-            <Link href="/series/1">
-                <button className="py-2.5 px-6 rounded bg-c-red-45 text-white mt-3 outline-none border-none">
-                    Single Series
-                </button>
-            </Link>
+        <main className="container md:pt-16 pt-5 md:pb-20 pb-10 space-y-16">
+
+            <GenresSection />
+
+            <TopSeriesSection />
+
+            <TrendingSeriesSection />
+
+            <NewReleasedSection />
+
+            <PopularSeriesSection />
+
         </main>
     );
 }
