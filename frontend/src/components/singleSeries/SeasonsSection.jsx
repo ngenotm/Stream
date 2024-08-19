@@ -9,8 +9,6 @@ const fetchSeasons = async (id) => {
 
 const SeasonsSection = async ({ id, seriesTitle }) => {
     const seasons = await fetchSeasons(id);
-
-
     return (
         <div
             className="bg-c-black-10 border border-c-black-15 rounded-2xl flex flex-col
@@ -21,7 +19,7 @@ const SeasonsSection = async ({ id, seriesTitle }) => {
             </h4>
 
             <div className="flex flex-col gap-4">
-                {seasons.map((season) => (
+                {seasons?.length > 0 ? seasons.map((season) => (
                     <SeasonItem
                         key={season._id}
                         seasonNumber={season.seasonNumber}
@@ -41,7 +39,11 @@ const SeasonsSection = async ({ id, seriesTitle }) => {
                             />
                         ))}
                     </SeasonItem>
-                ))}
+                )) :
+                    <p className="text-white 2xl:text-base xl:text-super-sm md:text-sm text-super-xs">
+                        This series currently has no episodes.
+                    </p>
+                }
             </div>
         </div>
     );

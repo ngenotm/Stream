@@ -6,7 +6,7 @@ const ReviewSectionTitle = ({ setIsOpen, prev, next }) => {
             <h4 className="text-c-grey-60 text-lg font-medium">Reviews</h4>
             <div className="flex items-center gap-10">
                 <button
-                    className="btn-black-08 border border-c-black-15 rounded-lg py-2 px-3 max-md:text-super-xs text-white/90"
+                    className="btn-black-08 border border-c-black-15 rounded-lg py-2 px-3 3xl:text-base md:text-super-sm max-md:text-super-xs text-white/90"
                     onClick={() => setIsOpen(true)}
                 >
                     <PlusSvg className="inline mr-1 max-md:w-5" /> Add Your Review

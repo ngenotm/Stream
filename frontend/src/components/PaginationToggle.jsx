@@ -12,6 +12,8 @@ const PaginationToggle = ({ containerRef }) => {
             containerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
         }
     };
+
+    
     return (
         <div className="flex gap-2.5">
             <button

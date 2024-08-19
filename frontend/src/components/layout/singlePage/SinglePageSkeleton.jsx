@@ -9,23 +9,23 @@ const SinglePageSkeleton = () => {
                     {/* Skeleton for the title */}
                     <div className="bg-c-black-20 animate-pulse rounded w-3/4 h-8 mx-auto mb-4"></div>
                     {/* Skeleton for the description */}
-                    <div className="bg-c-black-20 animate-pulse rounded w-1/2 h-4 mx-auto mb-6"></div>
+                    <div className="bg-c-black-15 animate-pulse rounded w-1/2 h-4 mx-auto mb-6"></div>
 
                     {/* Skeleton for buttons */}
                     <div className="flex md:flex-row flex-col items-center justify-center gap-3.5">
-                        <button className="bg-c-black-20 animate-pulse text-transparent font-medium xl:h-12 h-11 px-6 flex items-center gap-1.5 rounded-md border-0 outline-none max-md:mt-3">
-                            <div className="bg-c-black-15 w-[28px] h-[28px] rounded-full"></div>
-                        </button>
+                        <button
+                            className="bg-c-black-15 animate-pulse text-transparent font-medium xl:h-12 h-11 px-6 flex items-center gap-1.5 rounded-md border-0 outline-none max-md:mt-3"
+                        />
                         <div className="flex items-center gap-2.5">
-                            <button className="bg-c-black-20 animate-pulse xl:h-12 h-11 xl:w-12 w-11 rounded-md flex items-center justify-center">
-                                <div className="bg-c-black-15 w-[24px] h-[24px] rounded-full"></div>
-                            </button>
-                            <button className="bg-c-black-20 animate-pulse xl:h-12 h-11 xl:w-12 w-11 rounded-md flex items-center justify-center">
-                                <div className="bg-c-black-15 w-[24px] h-[24px] rounded-full"></div>
-                            </button>
-                            <button className="bg-c-black-20 animate-pulse xl:h-12 h-11 xl:w-12 w-11 rounded-md flex items-center justify-center">
-                                <div className="bg-c-black-15 w-[24px] h-[24px] rounded-full"></div>
-                            </button>
+                            <button
+                                className="bg-c-black-15 animate-pulse xl:h-12 h-11 xl:w-12 w-11 rounded-md flex items-center justify-center"
+                            />
+                            <button
+                                className="bg-c-black-15 animate-pulse xl:h-12 h-11 xl:w-12 w-11 rounded-md flex items-center justify-center"
+                            />
+                            <button
+                                className="bg-c-black-15 animate-pulse xl:h-12 h-11 xl:w-12 w-11 rounded-md flex items-center justify-center"
+                            />
                         </div>
                     </div>
                 </div>
@@ -33,6 +33,7 @@ const SinglePageSkeleton = () => {
 
             <section className="grid grid-cols-12 xl:gap-8 lg:gap-4 gap-6 xl:mt-24 md:mt-16 mt-10 mb-12 min-h-screen">
                 <article className="lg:col-span-8 col-span-12 space-y-6 max-lg:order-2">
+
                     <div className="bg-c-black-10 border border-c-black-15 rounded-2xl flex flex-col gap-4 xl:py-7 xl:px-7 md:px-5 md:py-5 px-3.5 py-3.5">
                         <div className="bg-c-black-20 animate-pulse rounded w-3/4 h-6 mb-4"></div>
                         <div className="flex flex-col gap-4">
@@ -48,12 +49,23 @@ const SinglePageSkeleton = () => {
                                     </button>
                                 </div>
                             </div>
+
                         </div>
                     </div>
+
+                    <div className="bg-c-black-10 border border-c-black-15 rounded-2xl h-40 flex flex-col gap-4 xl:py-7 xl:px-7 md:px-5 md:py-5 px-3.5 py-3.5" >
+                        <div className="bg-c-black-20 animate-pulse rounded w-3/4 h-6 mb-4"></div>
+
+                    </div>
+                    <div className="bg-c-black-10 border border-c-black-15 rounded-2xl h-40 flex flex-col gap-4 xl:py-7 xl:px-7 md:px-5 md:py-5 px-3.5 py-3.5" >
+                        <div className="bg-c-black-20 animate-pulse rounded w-3/4 h-6 mb-4"></div>
+
+                    </div>
+
                 </article>
 
                 {/* Sidebar Skeleton */}
-                <article className="lg:col-span-4 col-span-12 bg-c-black-10 border border-c-black-15 rounded-2xl xl:py-7 xl:px-7 md:px-5 md:py-5 px-3.5 py-3.5 lg:space-y-7 space-y-5 h-fit">
+                <article className="lg:col-span-4 col-span-12 bg-c-black-10 border border-c-black-15 rounded-2xl xl:py-7 xl:px-7 md:px-5 md:py-5 px-3.5 py-3.5 lg:space-y-7 space-y-5 h-[700px]">
                     <div className="bg-c-black-20 animate-pulse rounded w-full h-6 mb-4"></div>
                     <div className="bg-c-black-20 animate-pulse rounded w-full h-6 mb-4"></div>
                 </article>

@@ -22,7 +22,7 @@ const CastSection = ({ actors }) => {
                     actors.map(({ actorId, fullName, profile }) => (
                         <ActorItem key={actorId} id={actorId} fullName={fullName} profile={profile} />
                     )) :
-                    <span className="text-c-grey-60">No actors found</span>
+                    <p className="text-white 2xl:text-base xl:text-super-sm md:text-sm text-super-xs">No actors found</p>
                 }
             </div>
         </div>

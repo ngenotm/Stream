@@ -48,21 +48,26 @@ const ReviewSection = ({ id }) => {
                 className="flex 3xl:gap-6 lg:gap-[2%] gap-4 flex-nowrap overflow-x-auto custom-scrollbar custom-scrollbar-sm pb-2.5"
             >
 
-                {loading || previews?.length === 0 ? (
+                {loading ? (
                     Array.from({ length: 3 }).map((_, index) => <ReviewItemSkeleton key={index} />)
-                ) : (
-                    previews.map(({ fullName, rating, text }, index) => (
-                        <ReviewItem
-                            key={index}
-                            fullName={fullName}
-                            text={text}
-                            rating={rating}
-                        />
-                    ))
-                )}
+                ) : previews?.length === 0 ? (
+                    <p className="text-white 2xl:text-base xl:text-super-sm md:text-sm text-super-xs">
+                        No reviews posted yet. Your feedback helps!
+                    </p>
+                ) :
+                    (
+                        previews.map(({ fullName, rating, text }, index) => (
+                            <ReviewItem
+                                key={index}
+                                fullName={fullName}
+                                text={text}
+                                rating={rating}
+                            />
+                        ))
+                    )}
 
             </div>
-            <div className="flex gap-2.5 justify-center mt-3">
+            <div className="flex md:hidden gap-2.5 justify-center mt-3">
                 <button
                     className="bg-c-black-08 border border-c-black-15 rounded-full flex items-center justify-center
                     md:w-11 md:h-11 w-[2.9rem] h-[2.9rem]"
