@@ -4,7 +4,7 @@ import CarouselInfo from "./CarouselInfo";
 
 const Carousel = () => {
     return (
-        <header className="w-full h-[80vh] rounded-xl overflow-hidden flex items-center">
+        <header className="w-full xl:h-[80vh] md:h-[65vh] h-[450px] rounded-xl overflow-hidden flex items-center">
 
 
             {/*//! Single Carousel Item */}

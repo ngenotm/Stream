@@ -3,7 +3,6 @@ import Link from "next/link";
 
 
 const NavbarNav = ({ pathname }) => {
-
     return (
         <nav>
 
@@ -19,7 +18,7 @@ const NavbarNav = ({ pathname }) => {
                     </li>
                     <li
                         className={`3xl:px-6 3xl:py-3 lg:px-4 px-2.5 py-2 ${pathname === "/movies" && "bg-c-black-10 rounded font-medium"}`}>
-                        <Link href="/">Movies</Link>
+                        <Link href="/movies">Movies</Link>
                     </li>
                     <li
                         className={`3xl:px-6 3xl:py-3 lg:px-4 px-2.5 py-2 ${pathname === "/series" && "bg-c-black-10 rounded font-medium"}`}>

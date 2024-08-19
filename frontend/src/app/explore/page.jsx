@@ -10,7 +10,7 @@ const ExplorePage = () => {
 
             <Carousel />
 
-            <section className="mt-32 space-y-32 mb-20">
+            <section className="xl:mt-32 md:mt-28 mt-16 space-y-32 mb-20">
 
                 <MovieArticle />
 

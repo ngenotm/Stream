@@ -36,7 +36,7 @@ const GenresSection = () => {
     };
 
     return (
-        <div className="mt-9">
+        <div className="md:mt-9 mt-5">
             <div className="flex items-center justify-between mb-4">
                 <h5 className="text-white 3xl:text-2.5xl md:text-1.5xl text-xl font-medium">Our Genres</h5>
                 <SlidePagination currentIndex={currentIndex} onNext={handleNext} onPrev={handlePrev} total={categories ? categories.length : 0} />
