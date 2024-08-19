@@ -26,7 +26,7 @@ exports.singleSeries = async (req, res) => {
 
     try {
         const series = await Series.findById(seriesId).populate("director actors").populate({ path: 'seasons', model: 'Seasons', populate: { path: 'episodes', model: 'Episodes' } });
-        if (!series) return res.status(404).json({ message: "Series not found" });
+        if (!series) return res.status(404).json({ status: 404, message: "Series not found" });
 
         series.views += 1;
         await series.save();
@@ -49,7 +49,7 @@ exports.getSeries = async (req, res) => {
                 select: 'actorId profile fullName'
             });
 
-        if (!series) return res.status(404).json({ message: "Series not found" });
+        if (!series) return res.status(404).json({status:404, message: "Series not found" });
 
         // Fetch episodes where the series field matches the series' ObjectId
         const episodes = await Episodes.find({ series: req.params.id }).select('seasonNumber episodeNumber pictures');
@@ -363,7 +363,7 @@ exports.updateSeries = async (req, res) => {
 exports.deleteSeries = async (req, res) => {
     try {
         const series = await Series.findByIdAndDelete(req.params.id);
-        if (!series) return res.status(404).json({ message: "Series not found" });
+        if (!series) return res.status(404).json({status:404, message: "Series not found" });
 
         //! must delete all episodes and season in the series
 

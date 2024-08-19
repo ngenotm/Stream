@@ -6,11 +6,13 @@ import Description from "@/components/singlePage/Description";
 import SeasonsSection from "@/components/singleSeries/SeasonsSection";
 import SinglePageLayout from "@/components/layout/singlePage/SinglePageLayout";
 import SinglePageSkeleton from "@/components/layout/singlePage/SinglePageSkeleton";
+import { notFound } from "next/navigation";
 
 
 const fetchSingleSeries = async (slug) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/${slug}`);
     const data = await res.json();
+    if (data?.status === 404) return notFound();
     return data;
 }
 
