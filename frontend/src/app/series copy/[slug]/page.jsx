@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import ReviewSection from "@/components/review/ReviewSection";
-import CastSection from "@/components/singlePage/CastSection";
+import CastSection from "@/components/singleSeries/CastSection";
 import Description from "@/components/singlePage/Description";
 import SeasonsSection from "@/components/singleSeries/SeasonsSection";
 import SinglePageLayout from "@/components/layout/singlePage/SinglePageLayout";

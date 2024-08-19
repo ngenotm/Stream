@@ -1,9 +1,9 @@
-import Director from "@/components/singleSeries/Director";
-import Genres from "@/components/singleSeries/Genres";
-import Languages from "@/components/singleSeries/Languages";
-import Musician from "@/components/singleSeries/Musician";
-import Rating from "@/components/singleSeries/Rating";
-import ReleasedMovie from "@/components/singleSeries/ReleasedMovie";
+import Director from "@/components/singlePage/Director";
+import Genres from "@/components/singlePage/Genres";
+import Languages from "@/components/singlePage/Languages";
+import Musician from "@/components/singlePage/Musician";
+import Rating from "@/components/singlePage/Rating";
+import ReleasedMovie from "@/components/singlePage/ReleasedMovie";
 
 const Sidebar = ({ releaseDate, language, rating, genres, director, musician }) => {
     return (

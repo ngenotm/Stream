@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 
 import ReviewSection from "@/components/review/ReviewSection";
-import CastSection from "@/components/singlePage/CastSection";
+import CastSection from "@/components/singleSeries/CastSection";
 import Director from "@/components/singlePage/Director";
 import Genres from "@/components/singlePage/Genres";
 import Musician from "@/components/singlePage/Musician";
 import Rating from "@/components/singlePage/Rating";
-import ReleasedMovie from "@/components/singlePage/ReleasedMovie";
+import ReleasedMovie from "@/components/singleSeries/ReleasedMovie";
 import DownloadSection from "./DownloadSection";
 import EpisodePageSkeleton from "./EpisodePageSkeleton";
 import { fetchSingleEpisode } from "@/services/SeriesService";

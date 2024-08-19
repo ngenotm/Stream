@@ -1,4 +1,4 @@
-import TopHeader from "@/components/singleSeries/TopHeader";
+import TopHeader from "@/components/singlePage/TopHeader";
 import Sidebar from "./Sidebar";
 import SubscriptionBox from "@/components/subscription/SubscriptionBox";
 

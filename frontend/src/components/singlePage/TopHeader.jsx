@@ -1,4 +1,4 @@
-import HeaderCallToAction from "./HeaderCallToAction";
+import HeaderCallToAction from "../singlePage/HeaderCallToAction";
 
 
 const TopHeader = ({ id, title, description, cover }) => {
