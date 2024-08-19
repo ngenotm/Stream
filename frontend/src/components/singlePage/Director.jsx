@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const Director = ({ custom, director }) => {
-    const { directorId: id, fullName, birthPlace, profile } = director;
+    const { _id: id, fullName, birthPlace, profile } = director;
     return (
         <div>
             <p className={`text-c-grey-60 ${custom && "md:text-super-base"}`}>Director</p>

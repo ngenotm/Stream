@@ -7,7 +7,7 @@ import Genres from "@/components/singlePage/Genres";
 import Musician from "@/components/singlePage/Musician";
 import Rating from "@/components/singlePage/Rating";
 import ReleasedMovie from "@/components/singlePage/ReleasedMovie";
-import DownloadSection from "./DownloadSection";
+import DownloadSection from "../../../../../components/singlePage/DownloadSection";
 import EpisodePageSkeleton from "./EpisodePageSkeleton";
 import { fetchSingleEpisode } from "@/services/SeriesService";
 

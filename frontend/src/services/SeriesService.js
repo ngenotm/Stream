@@ -54,6 +54,11 @@ export const getPopularSeries = async () => {
     }
 }
 
+export const fetchSingleSeries = async (slug) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/${slug}`);
+    const data = await res.json();
+    return data;
+}
 
 export const fetchSingleEpisode = async (series, season, episode) => {
     try {

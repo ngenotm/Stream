@@ -1,3 +1,5 @@
+const path = require('path');
+
 const Movie = require("../model/movieModel");
 const Review = require("../model/reviewModel");
 const { createMovieValidation } = require("../validation/movieValidation");
@@ -252,7 +254,27 @@ exports.createMovie = [movieUploader, createMovieValidation, async (req, res) =>
     catch (error) {
         res.status(500).json({ status: 500, message: error.message });
     }
-}]
+}];
+
+exports.downloadMovie = async (req, res) => {
+    const { url } = req.body;
+
+    if (!url) {
+        return res.status(400).json({ status: 400, message: "URL is required" });
+    }
+
+    try {
+        const file = path.join(__dirname,"..", `public`,"videos", url);
+        console.log(file)
+        res.download(file)
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            message: "An error occurred while downloading the episode",
+            error: err.message
+        });
+    }
+};
 
 
 //! Put Request

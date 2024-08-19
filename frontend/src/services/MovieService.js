@@ -53,3 +53,27 @@ export const getPopularMovies = async () => {
         console.error("Error fetching trending movies:", error);
     }
 }
+
+export const fetchSingleMovies = async (slug) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/${slug}`);
+    const data = await res.json();
+    return data;
+}
+
+export const downloadMovieApi = async (url) => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/download`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url }),
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to download file: ${response.statusText}`);
+        }
+        return response;
+    } catch (error) {
+        console.error('Download error:', error);
+    }
+};

@@ -1,9 +1,12 @@
-const path = require('path');
 const { isValidObjectId } = require('mongoose');
+const path = require('path');
+
 const Episode = require('../model/episodeModel');
 const Season = require('../model/seasonModel');
 const { episodeUploader } = require('../utils/videoUploader');
 const { createEpisodeValidation } = require('../validation/episodeValidation');
+
+
 //! Single Episode
 exports.getEpisodeById = async (req, res) => {
     try {
@@ -149,30 +152,6 @@ exports.deleteEpisode = async (req, res) => {
     }
 };
 
-// exports.downloadEpisode = async (req, res) => {
-//     const { url } = req.body;
-
-//     if (!url) {
-//         return res.status(400).json({ status: 400, message: "URL is required" });
-//     }
-
-//     try {
-//         const response = await axios({
-//             method: 'get',
-//             url: `http://localhost:5000/public/${url}`,
-//             responseType: 'stream'
-//         });
-
-//         res.setHeader('Content-Disposition', `attachment; filename="episode.mp4"`);
-//         response.data.pipe(res);
-//     } catch (err) {
-//         res.status(500).json({
-//             status: 500,
-//             message: "An error occurred while downloading the episode",
-//             error: err.message
-//         });
-//     }
-// };
 exports.downloadEpisode = async (req, res) => {
     const { url } = req.body;
 
