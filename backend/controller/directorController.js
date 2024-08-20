@@ -186,8 +186,8 @@ exports.getDirectorMovies = async (req, res) => {
         const director = await Director.findById(req.params.id).select("fullName");
         if (!director) return res.status(404).json({ status: 404, message: "Director not found" });
 
-        var { page = 1, limit = 10 } = req.query;
-        page = parseInt(page);
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
 
         const movies = await Movie.aggregate([
             { $match: { director: director._id } },

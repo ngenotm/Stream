@@ -97,10 +97,14 @@ exports.trendingMovies = async (req, res) => {
     try {
         const currentDate = new Date();
 
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 12;
+        const skip = (page - 1) * limit;
+
         const recentMovies = await Movie.aggregate([
             {
                 $match: {
-                    publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
+                    publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 60)) }
                 }
             },
             {
@@ -120,7 +124,10 @@ exports.trendingMovies = async (req, res) => {
                 $sort: { views: -1 }
             },
             {
-                $limit: 12
+                $skip: skip
+            },
+            {
+                $limit: limit
             },
             {
                 $project: {
@@ -133,7 +140,21 @@ exports.trendingMovies = async (req, res) => {
             }
         ]);
 
-        res.status(200).send({ status: 200, message: "Trending movies fetched successfully", movies: recentMovies });
+        const totalMovies = await Movie.countDocuments({
+            publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
+        });
+        const totalPages = Math.ceil(totalMovies / limit);
+
+        res.status(200).json({
+            status: 200,
+            message: "Trending movies fetched successfully",
+            movies: recentMovies,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages
+            }
+        });
     } catch (error) {
         console.error("Error fetching recent movies:", error);
         res.status(500).send({ message: "Internal Server Error" });
@@ -141,22 +162,13 @@ exports.trendingMovies = async (req, res) => {
 };
 
 
-// exports.newReleased = async (req, res) => {
-//     try {
-//         const currentDate = new Date();
-
-
-
-//         res.status(200).send({ status: 200, message: "New released movie fetched successfully", movies });
-//     } catch (error) {
-//         console.error("Error fetching recent movies:", error);
-//         res.status(500).send({ message: "Internal Server Error" });
-//     }
-// }
-
 exports.newReleased = async (req, res) => {
     try {
         const currentDate = new Date();
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 12;
+        const skip = (page - 1) * limit;
 
         const newReleasedMovies = await Movie.aggregate([
             {
@@ -181,7 +193,10 @@ exports.newReleased = async (req, res) => {
                 $sort: { publish_date: -1 }
             },
             {
-                $limit: 12
+                $skip: skip
+            },
+            {
+                $limit: limit
             },
             {
                 $project: {
@@ -195,7 +210,21 @@ exports.newReleased = async (req, res) => {
             }
         ]);
 
-        res.status(200).send({ status: 200, message: "New released movies fetched successfully", movies: newReleasedMovies });
+        const totalMovies = await Movie.countDocuments({
+            publish_date: { $lte: currentDate }
+        });
+        const totalPages = Math.ceil(totalMovies / limit);
+
+        res.status(200).json({
+            status: 200,
+            message: "New released movies fetched successfully",
+            movies: newReleasedMovies,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages
+            }
+        });
     } catch (error) {
         console.error("Error fetching new released movies:", error);
         res.status(500).send({ message: "Internal Server Error" });
@@ -204,6 +233,10 @@ exports.newReleased = async (req, res) => {
 
 exports.popularMovies = async (req, res) => {
     try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 12;
+        const skip = (page - 1) * limit;
+
         const popularMovies = await Movie.aggregate([
             {
                 $lookup: {
@@ -222,7 +255,10 @@ exports.popularMovies = async (req, res) => {
                 $sort: { averageRating: -1 }
             },
             {
-                $limit: 12
+                $skip: skip
+            },
+            {
+                $limit: limit
             },
             {
                 $project: {
@@ -236,7 +272,19 @@ exports.popularMovies = async (req, res) => {
             }
         ]);
 
-        res.status(200).send({ status: 200, message: "Popular movies fetched successfully", movies: popularMovies });
+        const totalMovies = await Movie.countDocuments();
+        const totalPages = Math.ceil(totalMovies / limit);
+
+        res.status(200).json({
+            status: 200,
+            message: "Popular movies fetched successfully",
+            movies: popularMovies,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages
+            }
+        });
     } catch (error) {
         console.error("Error fetching popular movies:", error);
         res.status(500).send({ message: "Internal Server Error" });
@@ -264,7 +312,7 @@ exports.downloadMovie = async (req, res) => {
     }
 
     try {
-        const file = path.join(__dirname,"..", `public`,"videos", url);
+        const file = path.join(__dirname, "..", `public`, "videos", url);
         console.log(file)
         res.download(file)
     } catch (err) {

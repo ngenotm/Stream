@@ -49,7 +49,7 @@ exports.getSeries = async (req, res) => {
                 select: 'actorId profile fullName'
             });
 
-        if (!series) return res.status(404).json({status:404, message: "Series not found" });
+        if (!series) return res.status(404).json({ status: 404, message: "Series not found" });
 
         // Fetch episodes where the series field matches the series' ObjectId
         const episodes = await Episodes.find({ series: req.params.id }).select('seasonNumber episodeNumber pictures');
@@ -153,6 +153,10 @@ exports.trendingSeries = async (req, res) => {
     try {
         const currentDate = new Date();
 
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 12;
+        const skip = (page - 1) * limit;
+
         const recentSeries = await Series.aggregate([
             {
                 $match: {
@@ -176,7 +180,10 @@ exports.trendingSeries = async (req, res) => {
                 $sort: { views: -1 }
             },
             {
-                $limit: 12
+                $skip: skip
+            },
+            {
+                $limit: limit
             },
             {
                 $lookup: {
@@ -202,15 +209,35 @@ exports.trendingSeries = async (req, res) => {
             }
         ]);
 
-        res.status(200).send({ status: 200, message: "Trending series fetched successfully", series: recentSeries });
+        const totalSeries = await Series.countDocuments({
+            publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
+        });
+        const totalPages = Math.ceil(totalSeries / limit);
+
+        res.status(200).json({
+            status: 200,
+            message: "Trending series fetched successfully",
+            series: recentSeries,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages
+            }
+        });
     } catch (error) {
         console.error("Error fetching recent series:", error);
         res.status(500).send({ message: "Internal Server Error" });
     }
 };
+
+
 exports.newReleasedSeries = async (req, res) => {
     try {
         const currentDate = new Date();
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 12;
+        const skip = (page - 1) * limit;
 
         const newReleasedSeries = await Series.aggregate([
             {
@@ -235,7 +262,10 @@ exports.newReleasedSeries = async (req, res) => {
                 $sort: { publish_date: -1 }
             },
             {
-                $limit: 12
+                $skip: skip
+            },
+            {
+                $limit: limit
             },
             {
                 $lookup: {
@@ -262,7 +292,21 @@ exports.newReleasedSeries = async (req, res) => {
             }
         ]);
 
-        res.status(200).send({ status: 200, message: "New released series fetched successfully", series: newReleasedSeries });
+        const totalSeries = await Series.countDocuments({
+            publish_date: { $lte: currentDate }
+        });
+        const totalPages = Math.ceil(totalSeries / limit);
+
+        res.status(200).json({
+            status: 200,
+            message: "New released series fetched successfully",
+            series: newReleasedSeries,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages
+            }
+        });
     } catch (error) {
         console.error("Error fetching new released series:", error);
         res.status(500).send({ message: "Internal Server Error" });
@@ -271,6 +315,10 @@ exports.newReleasedSeries = async (req, res) => {
 
 exports.popularSeries = async (req, res) => {
     try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 12;
+        const skip = (page - 1) * limit;
+
         const popularSeries = await Series.aggregate([
             {
                 $lookup: {
@@ -289,7 +337,10 @@ exports.popularSeries = async (req, res) => {
                 $sort: { averageRating: -1 }
             },
             {
-                $limit: 12
+                $skip: skip
+            },
+            {
+                $limit: limit
             },
             {
                 $lookup: {
@@ -316,7 +367,19 @@ exports.popularSeries = async (req, res) => {
             }
         ]);
 
-        res.status(200).send({ status: 200, message: "Popular series fetched successfully", series: popularSeries });
+        const totalSeries = await Series.countDocuments();
+        const totalPages = Math.ceil(totalSeries / limit);
+
+        res.status(200).json({
+            status: 200,
+            message: "Popular series fetched successfully",
+            series: popularSeries,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages
+            }
+        });
     } catch (error) {
         console.error("Error fetching popular series:", error);
         res.status(500).send({ message: "Internal Server Error" });
@@ -363,7 +426,7 @@ exports.updateSeries = async (req, res) => {
 exports.deleteSeries = async (req, res) => {
     try {
         const series = await Series.findByIdAndDelete(req.params.id);
-        if (!series) return res.status(404).json({status:404, message: "Series not found" });
+        if (!series) return res.status(404).json({ status: 404, message: "Series not found" });
 
         //! must delete all episodes and season in the series
 
