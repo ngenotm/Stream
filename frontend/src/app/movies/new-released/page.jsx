@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { SpinnerSvg } from "@/assets/Svgs";
-import { getTrendingMovies } from "@/services/MovieService";
+import { getNewReleasedMovies } from "@/services/MovieService";
 import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 
@@ -19,7 +19,7 @@ const TrendingMoviePage = () => {
     const fetchMovies = async (currentPage) => {
         setLoading(true);
         try {
-            const data = await getTrendingMovies(currentPage, page);
+            const data = await getNewReleasedMovies(currentPage, page);
             setMovies(prevMovies => [...prevMovies, ...data.movies]);
             setHasNextPage(data.pagination.hasNextPage);
         } catch (error) {
@@ -51,7 +51,7 @@ const TrendingMoviePage = () => {
                     className="inline-flex absolute md:top-[-22.5px] top-[-19px] 3xl:text-super-base xl:text-base font-medium
                      text-super-sm items-center tracking-wide bg-c-red-45 text-white rounded-md px-6 md:h-[45px] h-[38px]"
                 >
-                    Trending Movies Now
+                    New Released Movies
                 </h1>
 
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-8 mt-10">
