@@ -17,8 +17,8 @@ const TrendingMoviesSection = () => {
 
     useEffect(() => {
         const getMovies = async () => {
-            const data = await getTrendingMovies();
-            setMovies(data);
+            const data = await getTrendingMovies() || [];
+            setMovies(data.movies);
             setLoading(false);
         };
         getMovies();
@@ -59,11 +59,12 @@ const TrendingMoviesSection = () => {
                 ref={scrollContainerRef}
                 className="flex lg:gap-8 gap-4 flex-nowrap overflow-x-auto pb-2.5 custom-scrollbar custom-scrollbar-sm"
             >
-                {loading || movies?.length === 0
-                    ? Array.from({ length: 5 }).map((_, index) => <MovieCardSkeleton key={index} />)
-                    : movies.map(({ _id, title, duration, thumbnail, views, averageRating }, index) => (
-                        <MovieCard id={_id} title={title} image={thumbnail} duration={duration} view={views} rate={averageRating} />
-                    ))}
+                {loading
+                    ? Array.from({ length: 5 }).map((_, index) => <MovieCardSkeleton key={index} />) :
+                    movies?.length === 0 ? <span className="3xl:text-super-base xl:text-super-sm max-md:text-sm text-c-grey-60">No movies available for this director at the moment.</span>
+                        : movies.map(({ _id, title, duration, thumbnail, views, averageRating }, index) => (
+                            <MovieCard id={_id} title={title} image={thumbnail} duration={duration} view={views} rate={averageRating} />
+                        ))}
 
             </div>
         </div>

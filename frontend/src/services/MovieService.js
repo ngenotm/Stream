@@ -23,11 +23,11 @@ export const fetchTopRatedCategories = async () => {
 }
 
 
-export const getTrendingMovies = async () => {
+export const getTrendingMovies = async (currentPage, page) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/trending-movies`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/trending-movies?page=${currentPage || page || 1}`);
         const data = await response.json();
-        return data.movies;
+        return data;
     } catch (error) {
         console.error("Error fetching trending movies:", error);
         return [];

@@ -1,6 +1,8 @@
-const MovieCardSkeleton = () => {
+const MovieCardSkeleton = ({ special }) => {
     return (
-        <div className="bg-c-black-10 border border-c-black-15 rounded-xl flex-shrink-0 3xl:w-72 md:w-60 w-44 md:px-4 px-2.5 md:py-4 py-2.5">
+        <div
+            className={`bg-c-black-10 border border-c-black-15 rounded-xl flex-shrink-0  ${special ? "max-md:w-full px-4 py-4" : "3xl:w-72 xl:w-60 md:w-52 w-44 px-2.5 py-2.5"} md:px-4 md:py-4`}
+        >
             <div className="bg-c-black-20 animate-pulse rounded-xl w-full aspect-thumbnail"></div>
 
             <div className="mt-4 mb-3">
