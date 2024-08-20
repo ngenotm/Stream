@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 
 import { SpinnerSvg } from "@/assets/Svgs";
-import { getNewReleasedMovies } from "@/services/MovieService";
+import { getPopularMovies } from "@/services/MovieService";
 import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 
 
-const NewReleasedMoviesPage = () => {
+const MostPopularMoviesPage = () => {
     const [movies, setMovies] = useState([]);
     const [page, setPage] = useState(1);
     const [hasNextPage, setHasNextPage] = useState(true);
@@ -19,7 +19,7 @@ const NewReleasedMoviesPage = () => {
     const fetchMovies = async (currentPage) => {
         setLoading(true);
         try {
-            const data = await getNewReleasedMovies(currentPage, page);
+            const data = await getPopularMovies(currentPage, page);
             setMovies(prevMovies => [...prevMovies, ...data.movies]);
             setHasNextPage(data.pagination.hasNextPage);
         } catch (error) {
@@ -51,7 +51,7 @@ const NewReleasedMoviesPage = () => {
                     className="inline-flex absolute md:top-[-22.5px] top-[-19px] 3xl:text-super-base xl:text-base font-medium
                      text-super-sm items-center tracking-wide bg-c-red-45 text-white rounded-md px-6 md:h-[45px] h-[38px]"
                 >
-                    New Released Movies
+                    Most Popular Movies
                 </h1>
 
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-8 mt-10">
@@ -62,7 +62,6 @@ const NewReleasedMoviesPage = () => {
                     {loading && Array.from({ length: 12 }).map((_, index) => (
                         <MovieCardSkeleton special key={index} />
                     ))}
-
 
                 </div>
 
@@ -86,4 +85,4 @@ const NewReleasedMoviesPage = () => {
     );
 }
 
-export default NewReleasedMoviesPage;
+export default MostPopularMoviesPage;

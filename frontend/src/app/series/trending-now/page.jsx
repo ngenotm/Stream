@@ -3,27 +3,27 @@
 import { useEffect, useRef, useState } from "react";
 
 import { SpinnerSvg } from "@/assets/Svgs";
-import { getNewReleasedMovies } from "@/services/MovieService";
 import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
+import { getTrendingSeries } from "@/services/SeriesService";
 
 
-const NewReleasedMoviesPage = () => {
-    const [movies, setMovies] = useState([]);
+const TrendingSeriesPage = () => {
+    const [series, setSeries] = useState([]);
     const [page, setPage] = useState(1);
     const [hasNextPage, setHasNextPage] = useState(true);
     const [loading, setLoading] = useState(false);
 
     const effectRan = useRef(false);
 
-    const fetchMovies = async (currentPage) => {
+    const fetchSeries = async (currentPage) => {
         setLoading(true);
         try {
-            const data = await getNewReleasedMovies(currentPage, page);
-            setMovies(prevMovies => [...prevMovies, ...data.movies]);
+            const data = await getTrendingSeries(currentPage, page);
+            setSeries(prevMovies => [...prevMovies, ...data.series]);
             setHasNextPage(data.pagination.hasNextPage);
         } catch (error) {
-            console.error("Error fetching movies:", error);
+            console.error("Error fetching series:", error);
         } finally {
             setLoading(false);
         }
@@ -31,7 +31,7 @@ const NewReleasedMoviesPage = () => {
 
     useEffect(() => {
         if (effectRan.current === false) {
-            fetchMovies();
+            fetchSeries();
             return () => {
                 effectRan.current = true;
             }
@@ -40,7 +40,7 @@ const NewReleasedMoviesPage = () => {
 
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);
-        fetchMovies(page + 1);
+        fetchSeries(page + 1);
     };
 
     return (
@@ -51,12 +51,12 @@ const NewReleasedMoviesPage = () => {
                     className="inline-flex absolute md:top-[-22.5px] top-[-19px] 3xl:text-super-base xl:text-base font-medium
                      text-super-sm items-center tracking-wide bg-c-red-45 text-white rounded-md px-6 md:h-[45px] h-[38px]"
                 >
-                    New Released Movies
+                    Trending Series Now
                 </h1>
 
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-8 mt-10">
 
-                    {!loading && movies.map(({ _id, title, duration, thumbnail, views, averageRating }) => (
+                    {!loading && series.map(({ _id, title, duration, thumbnail, views, averageRating }) => (
                         <MovieCard special key={_id} id={_id} title={title} image={thumbnail} duration={duration} view={views} rate={averageRating} />
                     ))}
                     {loading && Array.from({ length: 12 }).map((_, index) => (
@@ -86,4 +86,4 @@ const NewReleasedMoviesPage = () => {
     );
 }
 
-export default NewReleasedMoviesPage;
+export default TrendingSeriesPage;

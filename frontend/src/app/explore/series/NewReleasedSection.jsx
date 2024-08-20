@@ -3,7 +3,6 @@ import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 import SlidePagination from "@/components/SlidePagination";
 import { useEffect, useRef, useState } from "react";
-import { getNewReleasedMovies } from "../../../services/MovieService";
 import { getNewReleasedSeries } from "../../../services/SeriesService";
 import Link from "next/link";
 import { LeftArrowSvg } from "@/assets/Svgs";
@@ -18,8 +17,8 @@ const NewReleasedSection = () => {
 
     useEffect(() => {
         const getMovies = async () => {
-            const data = await getNewReleasedSeries();
-            setMovies(data);
+            const data = await getNewReleasedSeries() || [];
+            setMovies(data.series);
             setLoading(false);
         };
         getMovies();
@@ -48,7 +47,7 @@ const NewReleasedSection = () => {
                         New Released
                     </h5>
                     <span className="text-c-grey-90 ml-16 3xl:text-base xl:text-super-sm md:text-sm text-super-xs">
-                        <Link href={`/movies/new-released`}>
+                        <Link href={`/series/new-released`}>
                             See more <LeftArrowSvg className="inline stroke-c-grey-90 rotate-180 ml-1.5 md:w-[18px] w-4" />
                         </Link>
                     </span>
@@ -60,11 +59,12 @@ const NewReleasedSection = () => {
                 ref={scrollContainerRef}
                 className="flex lg:gap-8 gap-4 flex-nowrap overflow-x-auto pb-2.5 custom-scrollbar custom-scrollbar-sm"
             >
-                {loading || movies?.length === 0
-                    ? Array.from({ length: 5 }).map((_, index) => <MovieCardSkeleton key={index} />)
-                    : movies.map(({ _id, title, totalEpisodes, thumbnail, views, averageRating }, index) => (
-                        <MovieCard id={_id} series title={title} image={thumbnail} episodes={totalEpisodes} view={views} rate={averageRating} />
-                    ))}
+                {loading
+                    ? Array.from({ length: 5 }).map((_, index) => <MovieCardSkeleton key={index} />) :
+                    movies?.length === 0 ? <span className="3xl:text-super-base xl:text-super-sm max-md:text-sm text-c-grey-60">Sorry, no series available yet. Please visit us again later.</span>
+                        : movies.map(({ _id, title, totalEpisodes, thumbnail, views, averageRating }, index) => (
+                            <MovieCard id={_id} series title={title} image={thumbnail} episodes={totalEpisodes} view={views} rate={averageRating} />
+                        ))}
             </div>
         </div>
     );

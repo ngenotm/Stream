@@ -44,11 +44,11 @@ export const getNewReleasedMovies = async (currentPage, page) => {
     }
 }
 
-export const getPopularMovies = async () => {
+export const getPopularMovies = async (currentPage, page) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/popular-movies`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/popular-movies?page=${currentPage || page || 1}`);
         const data = await response.json();
-        return data.movies;
+        return data;
     } catch (error) {
         console.error("Error fetching trending movies:", error);
     }

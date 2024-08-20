@@ -23,32 +23,32 @@ export const fetchTopRatedCategories = async () => {
 }
 
 
-export const getTrendingSeries = async () => {
+export const getTrendingSeries = async (currentPage, page) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/trending-series`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/trending-series?page=${currentPage || page || 1}`);
         const data = await response.json();
-        return data.series;
+        return data;
     } catch (error) {
         console.error("Error fetching trending series:", error);
         return [];
     }
 }
 
-export const getNewReleasedSeries = async () => {
+export const getNewReleasedSeries = async (currentPage, page) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/new-released`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/new-released?page=${currentPage || page || 1}`);
         const data = await response.json();
-        return data.series;
+        return data;
     } catch (error) {
         console.error("Error fetching trending series:", error);
     }
 }
 
-export const getPopularSeries = async () => {
+export const getPopularSeries = async (currentPage, page) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/popular-series`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/popular-series?page=${currentPage || page || 1}`);
         const data = await response.json();
-        return data.series;
+        return data;
     } catch (error) {
         console.error("Error fetching trending series:", error);
     }
