@@ -1,17 +1,20 @@
 import { handleActivateSubscription } from "@/services/SubscriptionService";
+import useUserStore from "@/stores/useUserStore";
 import { toast } from "react-toastify";
 
 const FreeTrialModalContent = ({ id, setIsOpen }) => {
+    const fetchUser = useUserStore((state) => state.fetchUser);
 
     const handlePlan = async () => {
-        const data = await handleActivateSubscription(id, true).then((data) => {
+        try {
+            const data = await handleActivateSubscription(id, true);
             setIsOpen(false);
-            console.log(data)
-            toast("Free trial activated successfully.", { type: "success" });
-        }).catch((error) => {
-            console.log(error)
+            toast.success("Free trial activated successfully.");
+            await fetchUser();
+        } catch (error) {
+            console.log(error);
             toast.error("An error occurred. Please try again later.");
-        });
+        }
     }
 
     return (
