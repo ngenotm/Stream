@@ -31,7 +31,7 @@ router.get("/setCookie", (req, res) => {
 });
 
 //? Subscription Route
-router.post("/addSubscription/:id", [ValidateObjectId, addSubscriptionValidation], addSubscription);
+router.post("/addSubscription/:id", [Authenticate, ValidateObjectId, addSubscriptionValidation], addSubscription);
 
 
 module.exports = router;

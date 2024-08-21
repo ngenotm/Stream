@@ -2,11 +2,12 @@ import { planVariantMonthly, planVariantYearly } from "@/constants/PlansVariant"
 import SubscriptionPlanItem from "./SubscriptionPlanItem";
 import SubscriptionPlanSkeleton from "./SubscriptionPlanSkeleton";
 
+
 const SubscriptionPlanContent = ({ user, time }) => {
 
     return (
         <>
-            {time === "yearly" ? planVariantYearly.map(({ title, subtitle, price }, index) =>
+            {time === "yearly" ? planVariantYearly.map(({ title, subtitle, price, type }, index) =>
                 user === null ?
                     <SubscriptionPlanSkeleton key={index} /> :
                     <SubscriptionPlanItem
@@ -15,8 +16,9 @@ const SubscriptionPlanContent = ({ user, time }) => {
                         subtitle={subtitle}
                         price={price}
                         time={"year"}
+                        planType={type}
                     />
-            ) : planVariantMonthly.map(({ title, subtitle, price }, index) =>
+            ) : planVariantMonthly.map(({ title, subtitle, price, type }, index) =>
                 user === null ?
                     <SubscriptionPlanSkeleton key={index} /> :
                     <SubscriptionPlanItem
@@ -25,6 +27,7 @@ const SubscriptionPlanContent = ({ user, time }) => {
                         subtitle={subtitle}
                         price={price}
                         time={"month"}
+                        planType={type}
                     />
             )}
         </>
