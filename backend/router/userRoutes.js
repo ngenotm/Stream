@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const { singleUser, registerUser, login, deleteUser, allUser, getWatchList, logout, refreshToken } = require('../controller/userController');
+const { singleUser, registerUser, login, deleteUser, allUser, getWatchList, logout, refreshToken, freeTrial, addSubscription } = require('../controller/userController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
 const Authenticate = require('../middleware/Authenticate');
 const Authorize = require('../middleware/Authorize');
-const { registerValidation, loginValidation } = require('../validation/userValidation');
+const { registerValidation, loginValidation, addSubscriptionValidation } = require('../validation/userValidation');
 
 const router = Router();
 
@@ -29,5 +29,9 @@ router.get("/setCookie", (req, res) => {
         expires: new Date(Date.now() + 1000 * 40), //! 40 seconds
     }).send("Cookie set");
 });
+
+//? Subscription Route
+router.post("/addSubscription/:id", [ValidateObjectId, addSubscriptionValidation], addSubscription);
+
 
 module.exports = router;

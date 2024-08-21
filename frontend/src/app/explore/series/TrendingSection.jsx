@@ -8,25 +8,25 @@ import { LeftArrowSvg } from "@/assets/Svgs";
 import Link from "next/link";
 
 const TrendingSeriesSection = () => {
-    const [movies, setMovies] = useState([]);
+    const [series, setSeries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollContainerRef = useRef(null);
 
     useEffect(() => {
-        const getMovies = async () => {
+        const getSeries = async () => {
             const data = await getTrendingSeries() || [];
-            setMovies(data.series);
+            setSeries(data.series);
             setLoading(false);
         };
-        getMovies();
+        getSeries();
     }, []);
 
 
     const handleNext = () => {
         if (scrollContainerRef.current) {
             scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-            setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, movies.length - 1));
+            setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, series.length - 1));
         }
     };
 
@@ -50,7 +50,7 @@ const TrendingSeriesSection = () => {
                         </Link>
                     </span>
                 </div>
-                <SlidePagination onNext={handleNext} onPrev={handlePrev} currentIndex={currentIndex} total={movies ? movies.length : 0} />
+                <SlidePagination onNext={handleNext} onPrev={handlePrev} currentIndex={currentIndex} total={series ? series.length : 0} />
             </div>
 
             <div
@@ -59,8 +59,8 @@ const TrendingSeriesSection = () => {
             >
                 {loading
                     ? Array.from({ length: 5 }).map((_, index) => <MovieCardSkeleton key={index} />) :
-                    movies?.length === 0 ? <span className="3xl:text-super-base xl:text-super-sm max-md:text-sm text-c-grey-60">Sorry, no series available yet. Please visit us again later.</span>
-                        : movies.map(({ _id, title, totalEpisodes, thumbnail, views, averageRating }, index) => (
+                    series?.length === 0 ? <span className="3xl:text-super-base xl:text-super-sm max-md:text-sm text-c-grey-60">Sorry, no series available yet. Please visit us again later.</span>
+                        : series.map(({ _id, title, totalEpisodes, thumbnail, views, averageRating }, index) => (
                             <MovieCard id={_id} series title={title} image={thumbnail} episodes={totalEpisodes} view={views} rate={averageRating} />
                         ))}
             </div>

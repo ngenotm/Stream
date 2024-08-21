@@ -43,3 +43,27 @@ exports.loginValidation = (req, res, next) => {
 };
 
 //! must add edit user validation here
+
+//? Subscription Validation
+exports.addSubscriptionValidation = (req, res, next) => {
+    const schema = joi.object({
+        freeTrial: joi.boolean(),
+        plan: joi.string()
+            .valid('basic', 'standard', 'premium')
+            .when("freeTrial", {
+                is: true,
+                then: joi.optional(),
+                otherwise: joi.required(),
+            }),
+        time: joi.number()
+            .when("freeTrial", {
+                is: true,
+                then: joi.optional(),
+                otherwise: joi.required(),
+            }),
+    });
+    const { error } = schema.validate(req.body);
+    if (error) return res.status(400).json({ status: 400, message: error.details.map(d => d.message) });
+
+    next();
+}

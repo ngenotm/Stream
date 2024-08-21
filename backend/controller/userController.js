@@ -251,3 +251,82 @@ exports.deleteUser = async (req, res) => {
         res.status(500).json({ status: 500, message: error.message });
     }
 }
+
+
+
+
+//? Subscription Controller
+// exports.freeTrial = async (req, res) => {
+//     const userId = req.params.id;
+//     const startDate = new Date();
+//     const endDate = new Date();
+//     endDate.setDate(startDate.getDate() + 7);  // for a 7-day trial
+
+//     res.send({endDate, startDate});
+
+// try {
+//     const user = await userModel.findByIdAndUpdate(userId, {
+//         subscription: {
+//             status: 'active',
+//             startDate: startDate,
+//             endDate: endDate,
+//             plan: 'basic',  // replace with the actual plan
+//         },
+//     });
+
+//     if (!user) {
+//         return res.status(404).json({ status: 404, message: "User not found" });
+//     }
+
+//     res.status(200).json({ status: 200, message: "Free Trial activated" });
+// }
+// catch (error) {
+//     res.status(500).json({ status: 500, message: error.message });
+// }
+// }
+
+exports.addSubscription = async (req, res) => {
+    const userId = req.params.id;
+    try {
+        const { plan, time, freeTrial } = req.body;
+
+        const startDate = new Date();
+        if (freeTrial) {
+            const endDate = new Date();
+            endDate.setDate(startDate.getDate() + 7);  // for a 7 day trial
+
+            const user = await userModel.findByIdAndUpdate(userId, {
+                subscription: {
+                    status: 'active',
+                    startDate,
+                    endDate,
+                    plan: 'basic',
+                },
+                timeTrial: true
+            });
+            if (!user) {
+                return res.status(404).json({ status: 404, message: "User not found" });
+            }
+            return res.status(200).json({ status: 200, message: "Free Trial activated" });
+        }
+        const endDate = new Date();
+        endDate.setDate(startDate.getDate() + time);
+        const user = await userModel.findByIdAndUpdate(userId, {
+            subscription: {
+                status: 'active',
+                startDate,
+                endDate,
+                plan,
+            },
+        });
+
+        if (!user) {
+            return res.status(404).json({ status: 404, message: "User not found" });
+        }
+
+        res.status(200).json({ status: 200, message: "Subscription activated" });
+    }
+    catch (error) {
+        res.status(500).json({ status: 500, message: error.message });
+    }
+};

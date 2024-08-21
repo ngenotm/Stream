@@ -1,7 +1,7 @@
 "use client";
 import useUserStore from "@/stores/useUserStore";
 
-const SubscriptionPlanItem = ({ title, subtitle, price }) => {
+const SubscriptionPlanItem = ({time, title, subtitle, price }) => {
     const user = useUserStore(state => state.user);
 
     return (
@@ -14,7 +14,7 @@ const SubscriptionPlanItem = ({ title, subtitle, price }) => {
             <div>
                 <p className="">
                     <span className="text-white font-semibold 3xl:text-3xl text-xl">${price}</span>
-                    <span className="text-c-grey-60 3xl:text-xl text-sm">/month</span>
+                    <span className="text-c-grey-60 3xl:text-xl text-sm">/{time}</span>
                 </p>
 
                 <div

@@ -14,6 +14,7 @@ const SubscriptionPlanContent = ({ user, time }) => {
                         title={title}
                         subtitle={subtitle}
                         price={price}
+                        time={"year"}
                     />
             ) : planVariantMonthly.map(({ title, subtitle, price }, index) =>
                 user === null ?
@@ -23,6 +24,7 @@ const SubscriptionPlanContent = ({ user, time }) => {
                         title={title}
                         subtitle={subtitle}
                         price={price}
+                        time={"month"}
                     />
             )}
         </>
