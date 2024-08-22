@@ -13,7 +13,6 @@ const Navbar = () => {
 
     const user = useUserStore((state) => state.user);
     const loading = useUserStore((state) => state.loading);
-    console.log(user)
     const pathname = usePathname();
     return (
         <header className={`py-5 ${pathname === "/" && "absolute"} top-0 right-0 z-30 w-full ${pathname == "/register" && "hidden"}`}>

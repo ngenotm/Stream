@@ -79,9 +79,9 @@ export const downloadMovieApi = async (url) => {
 };
 
 
-export const fetchGenreMovies = async (genre) => {
+export const fetchGenreMovies = async (genre, currentPage, page) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/moviesByGenre/${genre}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/moviesByGenre/${genre}?page=${currentPage || page || 1}`);
         const data = await response.json();
         return data;
     } catch (error) {

@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 
 import { SpinnerSvg } from "@/assets/Svgs";
-import { getNewReleasedMovies } from "@/services/MovieService";
 import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
+import { fetchGenreSeries } from "@/services/SeriesService";
 
 
-const NewReleasedMoviesPage = () => {
-    const [movies, setMovies] = useState([]);
+const MovieGenrePage = ({ params: { genre } }) => {
+    const [series, setSeries] = useState([]);
     const [page, setPage] = useState(1);
     const [hasNextPage, setHasNextPage] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -19,11 +19,11 @@ const NewReleasedMoviesPage = () => {
     const fetchMovies = async (currentPage) => {
         setLoading(true);
         try {
-            const data = await getNewReleasedMovies(currentPage, page);
-            setMovies(prevMovies => [...prevMovies, ...data.movies]);
+            const data = await fetchGenreSeries(genre, currentPage, page);
+            setSeries(prevMovies => [...prevMovies, ...data.series]);
             setHasNextPage(data.pagination.hasNextPage);
         } catch (error) {
-            console.error("Error fetching movies:", error);
+            console.error("Error fetching series:", error);
         } finally {
             setLoading(false);
         }
@@ -49,21 +49,23 @@ const NewReleasedMoviesPage = () => {
 
                 <h1
                     className="inline-flex absolute md:top-[-22.5px] top-[-19px] 3xl:text-super-base xl:text-base font-medium
-                     text-super-sm items-center tracking-wide bg-c-red-45 text-white rounded-md px-6 md:h-[45px] h-[38px]"
+                     text-super-sm items-center tracking-wide bg-c-red-45 text-white rounded-md px-6 md:h-[45px] h-[38px] capitalize"
                 >
-                    New Released Movies
+                    {genre} Genre Series
                 </h1>
 
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-8 mt-10">
 
-                    {!loading && movies.map(({ _id, title, duration, thumbnail, views, averageRating }) => (
-                        <MovieCard special key={_id} id={_id} title={title} image={thumbnail} duration={duration} view={views} rate={averageRating} />
-                    ))}
+                    {!loading ? series.map(({ _id, title, duration, thumbnail, views, rate }) => (
+                        <MovieCard special key={_id} id={_id} title={title} image={thumbnail} duration={duration} view={views} rate={rate} />
+                    )) : !loading && series.length < 1 && (
+                        <div className="flex justify-center mt-10">
+                            <h1 className="text-white">No Series Found</h1>
+                        </div>
+                    )}
                     {loading && Array.from({ length: 12 }).map((_, index) => (
                         <MovieCardSkeleton special key={index} />
                     ))}
-
-
                 </div>
 
                 {hasNextPage && (
@@ -80,10 +82,11 @@ const NewReleasedMoviesPage = () => {
                             </div>
                         </button>
                     </div>
-                )};
+                )}
+
             </div>
         </main>
     );
 }
 
-export default NewReleasedMoviesPage;
+export default MovieGenrePage;

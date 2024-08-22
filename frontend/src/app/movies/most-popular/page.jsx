@@ -44,7 +44,7 @@ const MostPopularMoviesPage = () => {
     };
 
     return (
-        <main className="container py-20">
+        <main className="container lg:py-20 py-12">
             <div className="relative border border-c-black-15 rounded-xl xl:pt-8 xl:pb-10 pt-3 pb-10 lg:px-10 md:px-6 px-4">
 
                 <h1

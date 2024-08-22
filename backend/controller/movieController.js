@@ -334,7 +334,7 @@ exports.getMoviesByGenre = async (req, res) => {
             }
         ]);
 
-        const totalMovies = await Movie.countDocuments();
+        const totalMovies = await Movie.countDocuments({ category: genre });
         const totalPages = Math.ceil(totalMovies / limit);
 
         res.status(200).json({

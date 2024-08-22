@@ -51,7 +51,7 @@ const TopMovieSection = () => {
                 {loading || categories?.length === 0
                     ? Array.from({ length: 5 }).map((_, index) => <MultipleCardSkeleton key={index} />)
                     : Object.entries(categories).map(([category, thumbnail], index) => (
-                        <MultipleCard key={index} title={category} images={thumbnail} />
+                        <MultipleCard key={index} title={category} images={thumbnail} baseurl={"/movies/"} />
                     ))}
             </div>
         </div>

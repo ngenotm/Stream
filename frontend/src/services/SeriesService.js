@@ -89,9 +89,9 @@ export const downloadEpisodeApi = async (url) => {
     }
 };
 
-export const fetchGenreSeries = async (genre) => {
+export const fetchGenreSeries = async (genre, currentPage, page) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/seriesByGenre/${genre}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/seriesByGenre/${genre}?page=${currentPage || page || 1}`);
         const data = await response.json();
         return data;
     } catch (error) {

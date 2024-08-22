@@ -443,7 +443,7 @@ exports.getSeriesByGenre = async (req, res) => {
             }
         ]);
 
-        const totalSeries = await Series.countDocuments();
+        const totalSeries = await Series.countDocuments({ category: genre });
         const totalPages = Math.ceil(totalSeries / limit);
 
         res.status(200).json({

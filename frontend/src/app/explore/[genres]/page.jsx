@@ -9,7 +9,7 @@ const SingleGenresPage = async ({ params: { genres } }) => {
     const { series } = await fetchGenreSeries(genres);
 
     return (
-        <main className="container py-20 space-y-32">
+        <main className="container lg:py-20 py-12 space-y-32">
             <MovieGenreSection movies={movies} genres={genres} />
             <SeriesGenreSection series={series} genres={genres} />
         </main>
