@@ -88,3 +88,14 @@ export const downloadEpisodeApi = async (url) => {
         console.error('Download error:', error);
     }
 };
+
+export const fetchGenreSeries = async (genre) => {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/series/seriesByGenre/${genre}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching genre movies:", error);
+        return [];
+    }
+}
