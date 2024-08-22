@@ -11,8 +11,6 @@ const TopMovieSection = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollContainerRef = useRef(null);
 
-
-
     useEffect(() => {
         const getCategories = async () => {
             const data = await fetchTopRatedCategories();
@@ -51,7 +49,7 @@ const TopMovieSection = () => {
                 {loading || categories?.length === 0
                     ? Array.from({ length: 5 }).map((_, index) => <MultipleCardSkeleton key={index} />)
                     : Object.entries(categories).map(([category, thumbnail], index) => (
-                        <MultipleCard key={index} title={category} images={thumbnail} baseurl={"/movies/"} />
+                        <MultipleCard key={index} title={category} images={thumbnail} baseurl={"/movies/genres"} topRated />
                     ))}
             </div>
         </div>

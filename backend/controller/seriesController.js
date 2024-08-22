@@ -390,10 +390,13 @@ exports.popularSeries = async (req, res) => {
 
 exports.getSeriesByGenre = async (req, res) => {
     const { genre } = req.params;
+    const { topRated } = req.query;
+
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 12;
         const skip = (page - 1) * limit;
+        const sortCriteria = topRated === 'true' ? { rate: -1 } : { publish_date: -1 };
 
         const seriesByGenre = await Series.aggregate([
             { $match: { category: genre } },
@@ -424,7 +427,7 @@ exports.getSeriesByGenre = async (req, res) => {
                 }
             },
             {
-                $sort: { averageRating: -1 }
+                $sort: sortCriteria
             },
             {
                 $skip: skip

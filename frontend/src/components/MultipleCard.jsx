@@ -2,12 +2,12 @@ import { RightArrowSvg } from "@/assets/Svgs";
 import Link from "next/link";
 
 
-const MultipleCard = ({ title, images, baseurl }) => {
+const MultipleCard = ({ title, images, baseurl, topRated }) => {
     const placeholders = 4 - images?.length;
     const displayImages = images?.slice(0, 4);
 
     return (
-        <Link href={`${baseurl}/${title}`} className="flex-shrink-0 3xl:w-72 md:w-60 w-44">
+        <Link href={`${baseurl}/${title}${topRated ? "?topRated=true" : ""}`} className="flex-shrink-0 3xl:w-72 md:w-60 w-44">
             <div className="lg:px-5 md:px-4 md:py-4 p-3 bg-c-black-10 border border-c-black-15 rounded-xl relative  duration-300 cursor-pointer">
 
                 <div className="mb-9">

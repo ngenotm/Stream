@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from 'next/navigation';
 
 import { SpinnerSvg } from "@/assets/Svgs";
 import MovieCard from "@/components/MovieCard";
@@ -15,11 +16,12 @@ const MovieGenrePage = ({ params: { genre } }) => {
     const [loading, setLoading] = useState(false);
 
     const effectRan = useRef(false);
+    const topRated = useSearchParams().get('topRated');
 
     const fetchMovies = async (currentPage) => {
         setLoading(true);
         try {
-            const data = await fetchGenreMovies(genre, currentPage, page);
+            const data = await fetchGenreMovies(genre, currentPage, page, topRated||false);
             setMovies(prevMovies => [...prevMovies, ...data.movies]);
             setHasNextPage(data.pagination.hasNextPage);
         } catch (error) {
@@ -51,7 +53,7 @@ const MovieGenrePage = ({ params: { genre } }) => {
                     className="inline-flex absolute md:top-[-22.5px] top-[-19px] 3xl:text-super-base xl:text-base font-medium
                      text-super-sm items-center tracking-wide bg-c-red-45 text-white rounded-md px-6 md:h-[45px] h-[38px] capitalize"
                 >
-                    {genre} Genre Movies
+                    {topRated && "Top 10"} {genre} Genre Movies
                 </h1>
 
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-8 mt-10">
