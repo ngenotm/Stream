@@ -386,6 +386,84 @@ exports.popularSeries = async (req, res) => {
     }
 };
 
+
+
+exports.getSeriesByGenre = async (req, res) => {
+    const { genre } = req.params;
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 12;
+        const skip = (page - 1) * limit;
+
+        const seriesByGenre = await Series.aggregate([
+            { $match: { category: genre } },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    rate: { $avg: '$reviews.rating' }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'seasons',
+                    localField: '_id',
+                    foreignField: 'series',
+                    as: 'seasons'
+                }
+            },
+            {
+                $addFields: {
+                    totalEpisodes: { $sum: { $map: { input: '$seasons', as: 'season', in: { $size: '$$season.episodes' } } } }
+                }
+            },
+            {
+                $sort: { averageRating: -1 }
+            },
+            {
+                $skip: skip
+            },
+            {
+                $limit: limit
+            },
+            {
+                $project: {
+                    title: 1,
+                    totalEpisodes: 1,
+                    duration: 1,
+                    rate: 1,
+                    thumbnail: 1
+                }
+            }
+        ]);
+
+        const totalSeries = await Series.countDocuments();
+        const totalPages = Math.ceil(totalSeries / limit);
+
+        res.status(200).json({
+            status: 200,
+            message: "Series fetched successfully",
+            series: seriesByGenre,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages
+            }
+        });
+    } catch (error) {
+        console.error("Error fetching series by genre:", error);
+        res.status(500).send({ status: 500, message: "Internal Server Error" });
+    }
+};
+
+
+
 //! Post Request
 exports.createSeries = [seriesUploader, createSeriesValidation, async (req, res) => {
     try {

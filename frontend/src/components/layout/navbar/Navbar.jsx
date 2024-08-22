@@ -1,6 +1,6 @@
 "use client";
 
-import { MenuSvg, UserOIcon, UserPlusOIcon } from "@/assets/Svgs";
+import { MenuSvg, MultiStar, StarIcon, UserOIcon, UserPlusOIcon } from "@/assets/Svgs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NavbarNav from "./NavbarNav";
@@ -13,7 +13,7 @@ const Navbar = () => {
 
     const user = useUserStore((state) => state.user);
     const loading = useUserStore((state) => state.loading);
-
+    console.log(user)
     const pathname = usePathname();
     return (
         <header className={`py-5 ${pathname === "/" && "absolute"} top-0 right-0 z-30 w-full ${pathname == "/register" && "hidden"}`}>
@@ -30,11 +30,13 @@ const Navbar = () => {
 
                 <div className="flex items-center gap-2">
                     <Search />
-
                     {loading || !user ? <div className="3xl:w-[5rem] w-[4.1rem] h-1" ></div> : !loading && user ?
                         <>
-                            <Link href="/profile">
+                            <Link href="/profile" className="relative">
                                 <UserOIcon className="3xl:w-[2.4rem] 3xl:h-[2.4rem]" />
+                                {user?.subscription?.status == "active" &&
+                                    <MultiStar className="absolute -bottom-2.5 -left-2.5 w-[22px] h-[22px]" />
+                                }
                             </Link>
                             <NotificationButton />
                         </> :

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { allMovies, singleMovie, createMovie, updateMovie, deleteMovie, movieCategories, topRatedMovies, trendingMovies, newReleased, popularMovies, downloadMovie } = require('../controller/movieController');
+const { allMovies, singleMovie, createMovie, updateMovie, deleteMovie, movieCategories, topRatedMovies, trendingMovies, newReleased, popularMovies, downloadMovie, getMoviesByGenre } = require('../controller/movieController');
 const ValidateObjectId = require('../middleware/ValidateObjectId');
 const Authorize = require('../middleware/Authorize');
 const Authenticate = require('../middleware/Authenticate');
@@ -15,14 +15,9 @@ router.get("/top-rated", topRatedMovies);
 router.get("/trending-movies", trendingMovies)
 router.get("/new-released", newReleased);
 router.get("/popular-movies", popularMovies);
+router.get("/moviesByGenre/:genre", getMoviesByGenre);
 
 router.post("/download", downloadMovie);
-
-// router.route("/categories/:category", async (req, res) => {
-//     const category = req.params.category;
-//     const movies = await Movie.find({ category: category });
-//     res.status(200).json({ movies });
-// });
 
 router.route("/:id", ValidateObjectId)
     .get(singleMovie)
