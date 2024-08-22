@@ -45,6 +45,7 @@ app.use('/api/season', require('./router/seasonRoutes'));
 app.use('/api/episode', require('./router/episodeRoutes'));
 app.use("/api/support", require('./router/supportRoutes'));
 app.use("/api/like", require('./router/likeRoutes'));
+app.use("/api/search", require('./router/searchRoutes'));
 
 
 app.listen(process.env.PORT, err => {
