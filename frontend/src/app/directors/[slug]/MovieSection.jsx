@@ -53,7 +53,7 @@ const MovieSection = ({ slug, fullName, moviesData }) => {
                     Array.from({ length: 5 }).map((_, index) => <MovieCardSkeleton key={index} />)
                     : movies?.length == 0 ? <span className="3xl:text-super-base xl:text-super-sm max-md:text-sm text-c-grey-60">No movies available for this director at the moment.</span>
                         : movies.map(({ _id, title, duration, thumbnail, views, rate }) => (
-                            <MovieCard id={_id} title={title} image={thumbnail} duration={duration} view={views} rate={rate} />
+                            <MovieCard key={_id} id={_id} title={title} image={thumbnail} duration={duration} view={views} rate={rate} />
                         ))}
             </div>
         </div>

@@ -39,8 +39,7 @@ const SingleDirectorPage = async ({ params }) => {
                         <div
                             className="bg-c-black-10 border border-c-black-15 rounded-2.5xl xl:px-8 xl:py-6 md:px-5 md:py-5 px-3.5 py-3.5"
                         >
-                            <h1 className="text-white 3xl:text-2.5xl xl:text-2xl text-xl tracking-wide capitalize">{fullName}
-                            </h1>
+                            <h1 className="text-white 3xl:text-2.5xl xl:text-2xl text-xl tracking-wide capitalize">{fullName}</h1>
                             <div className="xl:mt-8 mt-5 space-y-5">
 
                                 <div className="tracking-wide">

@@ -192,10 +192,10 @@ const searchController = async (req, res) => {
                 { $limit: limit }
             ]),
             Actor.find({ fullName: { $regex: query, $options: 'i' } })
-                .select("fullName profile birthDate country birthPlace")
+                .select("fullName profile birthDate country birthPlace bio")
                 .limit(limit),
             Director.find({ fullName: { $regex: query, $options: 'i' } })
-                .select("fullName profile birthDate country birthPlace")
+                .select("fullName profile birthDate country birthPlace bio")
                 .limit(limit)
         ]);
 

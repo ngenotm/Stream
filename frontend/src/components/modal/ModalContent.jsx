@@ -1,4 +1,5 @@
 import { XmarkIcon } from "@/assets/Svgs";
+import Link from "next/link";
 
 const ModalContent = ({ user, title, isOpen, setIsOpen, children }) => {
     return (

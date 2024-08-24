@@ -12,7 +12,7 @@ const MovieCard = ({ id, special, series, image, title, view, duration, episodes
                 src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${image}`} alt={title}
                 className="rounded-xl w-full aspect-thumbnail object-cover object-top"
             />
-            <Link href={series ? `/series/${id}` : "/movies"}>
+            <Link href={series ? `/series/${id}` : `/movies/${id}`}>
                 <h3
                     className={`mt-3 3xl:mb-4 mb-2 3xl:leading-7 3xl:text-1.5xl text-base ${special && "max-md:text-xl max-md:font-medium"} text-white tracking-wide line-clamp-2 capitalize`}
                 >{title}</h3>
