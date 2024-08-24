@@ -11,7 +11,6 @@ const LikeButton = ({ userId, media }) => {
     useEffect(() => {
         if (userId && media) {
             likeStatusApi(userId, media).then((data) => {
-                console.log(data);
                 setLiked(data.liked);
                 setLoading(false);
             });

@@ -1,8 +1,11 @@
 const path = require('path');
-const Actor = require('../model/actorModel');
-const uploadImage = require('../utils/upload');
 const fs = require('fs');
+
 const { createActorValidation, editActorValidation } = require('../validation/actorValidation');
+const Actor = require('../model/actorModel');
+const Movie = require('../model/movieModel');
+const Series = require('../model/seriesModel');
+const uploadImage = require('../utils/upload');
 
 //! config uploader
 const upload = uploadImage({
@@ -25,20 +28,248 @@ exports.allActors = async (req, res) => {
     }
 };
 
-exports.singleActor = async (req, res) => {
-    const actorId = req.params.id;
+// exports.getActor = async (req, res) => {
+//     const actorId = req.params.id;
 
+//     try {
+//         const actor = await Actor.findById(actorId);
+//         if (!actor) {
+//             return res.status(404).json({ message: "Actor not found" });
+//         }
+//         res.status(200).json({ status: 200, actor, message: "Actor found" });
+//     } catch (error) {
+//         res.status(500).json({ status: 500, message: error.message });
+//     }
+// };
+
+exports.getActor = async (req, res) => {
     try {
-        const actor = await Actor.findById(actorId);
-        if (!actor) {
-            return res.status(404).json({ message: "Actor not found" });
-        }
-        res.status(200).json({ status: 200, actor, message: "Actor found" });
-    } catch (error) {
-        res.status(500).json({ status: 500, message: error.message });
+        const actor = await Actor.findById(req.params.id);
+        if (!actor) return res.status(404).json({ status: 404, message: "Director not found" });
+
+        const actorIdStr = actor._id.toString();
+
+        const movies = await Movie.aggregate([
+            { $match: { actors: actorIdStr } },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    rate: { $avg: '$reviews.rating' }
+                }
+            },
+            { $sort: { release_date: -1 } },
+            { $limit: 12 },
+            {
+                $project: {
+                    title: 1,
+                    thumbnail: 1,
+                    views: 1,
+                    duration: 1,
+                    rate: 1,
+                    actors: 1
+                }
+            }
+        ]);
+
+        const series = await Series.aggregate([
+            { $match: { actors: actorIdStr } },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    rate: { $avg: '$reviews.rating' }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'seasons',
+                    localField: '_id',
+                    foreignField: 'series',
+                    as: 'seasons'
+                }
+            },
+            {
+                $addFields: {
+                    totalEpisodes: { $sum: { $map: { input: '$seasons', as: 'season', in: { $size: '$$season.episodes' } } } }
+                }
+            },
+            { $sort: { release_date: -1 } },
+            { $limit: 12 },
+            {
+                $project: {
+                    title: 1,
+                    thumbnail: 1,
+                    views: 1,
+                    totalEpisodes: 1,
+                    rate: 1,
+                }
+            }
+        ]);
+
+        res.status(200).json({
+            status: 200,
+            message: "fetch data successfully",
+            actor,
+            movies,
+            series
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            message: err
+        });
     }
 };
 
+
+exports.getActorMovies = async (req, res) => {
+    try {
+        const actor = await Actor.findById(req.params.id).select("fullName");
+        if (!actor) return res.status(404).json({ status: 404, message: "Actor not found" });
+
+        const actorIdStr = actor._id.toString();
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+
+        const movies = await Movie.aggregate([
+            { $match: { actors: actorIdStr } },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    rate: { $avg: '$reviews.rating' }
+                }
+            },
+            { $sort: { release_date: -1 } },
+            { $skip: (page - 1) * limit },
+            { $limit: parseInt(limit) },
+            {
+                $project: {
+                    title: 1,
+                    thumbnail: 1,
+                    views: 1,
+                    duration: 1,
+                    rate: 1
+                }
+            }
+        ]);
+
+        const totalMovies = await Movie.countDocuments({ actors: actorIdStr });
+        const totalPages = Math.ceil(totalMovies / limit);
+
+        res.status(200).json({
+            status: 200,
+            message: "Fetch data successfully",
+            actor,
+            movies,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages
+            }
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            message: err.message
+        });
+    }
+};
+
+
+exports.getActorSeries = async (req, res) => {
+    try {
+        const actor = await Actor.findById(req.params.id).select("fullName");
+        if (!actor) return res.status(404).json({ status: 404, message: "Director not found" });
+
+        const actorIdStr = actor._id.toString();
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+
+        const series = await Series.aggregate([
+            { $match: { actors: actorIdStr } },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'media',
+                    as: 'reviews'
+                }
+            },
+            {
+                $addFields: {
+                    rate: { $avg: '$reviews.rating' }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'seasons',
+                    localField: '_id',
+                    foreignField: 'series',
+                    as: 'seasons'
+                }
+            },
+            {
+                $addFields: {
+                    totalEpisodes: { $sum: { $map: { input: '$seasons', as: 'season', in: { $size: '$$season.episodes' } } } }
+                }
+            },
+            { $sort: { release_date: -1 } },
+            { $skip: (page - 1) * limit },
+            { $limit: parseInt(limit) },
+            {
+                $project: {
+                    title: 1,
+                    thumbnail: 1,
+                    views: 1,
+                    totalEpisodes: 1,
+                    rate: 1
+                }
+            }
+        ]);
+
+        const totalSeries = await Series.countDocuments({ actors: actorIdStr });
+        const totalPages = Math.ceil(totalSeries / limit);
+
+        res.status(200).json({
+            status: 200,
+            message: "Fetch data successfully",
+            actor,
+            series,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                hasNextPage: page < totalPages
+            }
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            message: err.message
+        });
+    }
+};
 
 
 //! Post Request

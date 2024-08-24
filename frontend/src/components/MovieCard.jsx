@@ -35,9 +35,11 @@ const MovieCard = ({ id, special, series, image, title, view, duration, episodes
                     <StarRating special={special} rating={rate} />
                 </div>
             </div>
-            <button className="bg-c-red-45 w-full text-white 3xl:text-base md:text-super-xs text-sm font-medium rounded-lg py-1.5 mt-4">
-                Play Now <PlaySvg className="inline w-6 h-6" />
-            </button>
+            <Link href={series ? `/series/${id}` : `/movies/${id}`}>
+                <button className="bg-c-red-45 w-full text-white 3xl:text-base md:text-super-xs text-sm font-medium rounded-lg py-1.5 mt-4">
+                    Play Now <PlaySvg className="inline w-6 h-6" />
+                </button>
+            </Link>
         </div >
     );
 }
