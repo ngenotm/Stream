@@ -25,7 +25,7 @@ const ReviewSection = ({ id }) => {
             setLoading(false);
         };
         getReviews();
-    }, []);
+    }, [id]);
 
 
     const handleNext = () => {

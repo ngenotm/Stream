@@ -15,7 +15,7 @@ const SearchOverlay = ({ show, setShow, isOpen, children }) => {
         return () => {
             document.body.style.overflow = 'auto';
         };
-    }, [isOpen]);
+    }, [isOpen,setShow]);
     return (
         <div
             className={`fixed top-0 right-0 w-full h-screen overflow-hidden bg-c-black-06/85 flex justify-center 

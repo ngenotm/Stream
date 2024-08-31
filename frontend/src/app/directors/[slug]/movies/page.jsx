@@ -4,7 +4,7 @@ import { SpinnerSvg } from "@/assets/Svgs";
 import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 import { fetchDirectorMovies } from "@/services/DirectorService";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 
 const DirectorMoviesPage = ({ params: { slug: directorId } }) => {
@@ -16,7 +16,7 @@ const DirectorMoviesPage = ({ params: { slug: directorId } }) => {
 
     const effectRan = useRef(false);
 
-    const fetchMovies = async (currentPage) => {
+    const fetchMovies = useCallback(async (currentPage) => {
         setLoading(true);
         try {
             const data = await fetchDirectorMovies(directorId, currentPage, page);
@@ -28,7 +28,7 @@ const DirectorMoviesPage = ({ params: { slug: directorId } }) => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [directorId, page]);
 
     useEffect(() => {
         if (effectRan.current === false) {
@@ -37,7 +37,7 @@ const DirectorMoviesPage = ({ params: { slug: directorId } }) => {
                 effectRan.current = true;
             }
         }
-    }, [directorId, page]);
+    }, [fetchMovies, page]);
 
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);

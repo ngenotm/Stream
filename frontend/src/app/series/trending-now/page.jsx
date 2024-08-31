@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { SpinnerSvg } from "@/assets/Svgs";
 import MovieCard from "@/components/MovieCard";
@@ -16,7 +16,7 @@ const TrendingSeriesPage = () => {
 
     const effectRan = useRef(false);
 
-    const fetchSeries = async (currentPage) => {
+    const fetchSeries = useCallback(async (currentPage) => {
         setLoading(true);
         try {
             const data = await getTrendingSeries(currentPage, page);
@@ -27,16 +27,16 @@ const TrendingSeriesPage = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [page]);
 
     useEffect(() => {
         if (effectRan.current === false) {
-            fetchSeries();
+            fetchSeries(page);
             return () => {
                 effectRan.current = true;
             }
         }
-    }, [page]);
+    }, [fetchSeries, page]);
 
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);

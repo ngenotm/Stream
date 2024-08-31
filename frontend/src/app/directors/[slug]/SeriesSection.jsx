@@ -33,7 +33,7 @@ const SeriesSection = ({ slug, fullName, seriesData }) => {
             <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center max-md:w-full max-md:justify-between">
                     <h5 className="text-white 3xl:text-2.5xl xl:text-1.5xl md:text-xl text-lg font-medium">
-                        <span className="capitalize">{fullName}</span>'s series
+                        <span className="capitalize">{fullName}</span>{"'"}s series
                     </h5>
                     <span className="text-c-grey-90 ml-16 3xl:text-base xl:text-super-sm md:text-sm text-super-xs">
                         <Link href={`/directors/${slug}/series`}>

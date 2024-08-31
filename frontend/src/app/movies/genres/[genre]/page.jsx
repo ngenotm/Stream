@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from 'next/navigation';
 
 import { SpinnerSvg } from "@/assets/Svgs";
@@ -18,10 +18,10 @@ const MovieGenrePage = ({ params: { genre } }) => {
     const effectRan = useRef(false);
     const topRated = useSearchParams().get('topRated');
 
-    const fetchMovies = async (currentPage) => {
+    const fetchMovies = useCallback(async (currentPage) => {
         setLoading(true);
         try {
-            const data = await fetchGenreMovies(genre, currentPage, page, topRated||false);
+            const data = await fetchGenreMovies(genre, currentPage, page, topRated || false);
             setMovies(prevMovies => [...prevMovies, ...data.movies]);
             setHasNextPage(data.pagination.hasNextPage);
         } catch (error) {
@@ -29,7 +29,7 @@ const MovieGenrePage = ({ params: { genre } }) => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [page]);
 
     useEffect(() => {
         if (effectRan.current === false) {
@@ -38,7 +38,7 @@ const MovieGenrePage = ({ params: { genre } }) => {
                 effectRan.current = true;
             }
         }
-    }, [page]);
+    }, [fetchMovies, page]);
 
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);

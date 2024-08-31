@@ -5,7 +5,7 @@ import MovieCard from "@/components/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton";
 import { fetchActorSeries } from "@/services/ActorService";
 import { notFound } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 
 const ActorSeriesPage = ({ params: { slug: actorId } }) => {
@@ -17,7 +17,7 @@ const ActorSeriesPage = ({ params: { slug: actorId } }) => {
 
     const effectRan = useRef(false);
 
-    const fetchSeries = async (currentPage) => {
+    const fetchSeries = useCallback(async (currentPage) => {
         setLoading(true);
         try {
             const data = await fetchActorSeries(actorId, currentPage, page);
@@ -28,8 +28,8 @@ const ActorSeriesPage = ({ params: { slug: actorId } }) => {
             console.error("Error fetching series:", error);
         } finally {
             setLoading(false);
-        }
-    };
+        };
+    }, [actorId, page]);
 
     useEffect(() => {
         if (effectRan.current === false) {
@@ -38,7 +38,7 @@ const ActorSeriesPage = ({ params: { slug: actorId } }) => {
                 effectRan.current = true;
             }
         }
-    }, [actorId, page]);
+    }, [fetchSeries, page]);
 
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);

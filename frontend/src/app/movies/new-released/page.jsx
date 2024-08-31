@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { SpinnerSvg } from "@/assets/Svgs";
 import { getNewReleasedMovies } from "@/services/MovieService";
@@ -16,7 +16,7 @@ const NewReleasedMoviesPage = () => {
 
     const effectRan = useRef(false);
 
-    const fetchMovies = async (currentPage) => {
+    const fetchMovies = useCallback(async (currentPage) => {
         setLoading(true);
         try {
             const data = await getNewReleasedMovies(currentPage, page);
@@ -27,7 +27,7 @@ const NewReleasedMoviesPage = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [page]);
 
     useEffect(() => {
         if (effectRan.current === false) {
@@ -36,7 +36,7 @@ const NewReleasedMoviesPage = () => {
                 effectRan.current = true;
             }
         }
-    }, [page]);
+    }, [fetchMovies, page]);
 
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);
