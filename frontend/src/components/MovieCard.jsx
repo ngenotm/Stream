@@ -8,10 +8,12 @@ const MovieCard = ({ id, special, series, image, title, view, duration, episodes
             className={`bg-c-black-10 border border-c-black-15 rounded-xl flex-shrink-0
                  ${special ? "max-md:w-full px-4 py-4" : "3xl:w-72 xl:w-60 md:w-52 w-44 px-2.5 py-2.5"} md:px-4 md:py-4 `}
         >
-            <img
-                src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${image}`} alt={title}
-                className="rounded-xl w-full aspect-thumbnail object-cover object-top"
-            />
+            <Link href={series ? `/series/${id}` : `/movies/${id}`}>
+                <img
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${image}`} alt={title}
+                    className="rounded-xl w-full aspect-thumbnail object-cover object-top"
+                />
+            </Link>
             <Link href={series ? `/series/${id}` : `/movies/${id}`}>
                 <h3
                     className={`mt-3 3xl:mb-4 mb-2 3xl:leading-7 3xl:text-1.5xl text-base ${special && "max-md:text-xl max-md:font-medium"} text-white tracking-wide line-clamp-2 capitalize`}

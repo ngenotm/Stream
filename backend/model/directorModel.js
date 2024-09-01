@@ -45,7 +45,7 @@ const directorSchema = new mongoose.Schema({
             required: true
         },
     }],
-    deathDate: {
+    death_date: {
         type: Date,
         required: false
     },

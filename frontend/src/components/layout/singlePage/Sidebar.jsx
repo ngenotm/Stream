@@ -5,7 +5,7 @@ import Musician from "@/components/singlePage/Musician";
 import Rating from "@/components/singlePage/Rating";
 import ReleasedMovie from "@/components/singlePage/ReleasedMovie";
 
-const Sidebar = ({ releaseDate, language, rating, genres, director, musician }) => {
+const Sidebar = ({ releaseDate, language, rating, genres, director, musician, type }) => {
     return (
         <article
             className="lg:col-span-4 col-span-12 bg-c-black-10 border border-c-black-15 rounded-2xl
@@ -15,7 +15,7 @@ const Sidebar = ({ releaseDate, language, rating, genres, director, musician }) 
             <ReleasedMovie year={releaseDate} />
             <Languages languages={[language]} />
             <Rating ratings={rating} />
-            <Genres genres={genres} />
+            <Genres genres={genres} type={type} />
             <Director director={director} />
             <Musician musician={{ name: 'Kyle Dixon', country: 'USA', image: '/images/musician.jpg' }} />
 

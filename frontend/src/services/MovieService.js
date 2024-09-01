@@ -55,7 +55,15 @@ export const getPopularMovies = async (currentPage, page) => {
 }
 
 export const fetchSingleMovies = async (slug) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/${slug}`);
+    console.log(slug)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/movie/${slug}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    );
     const data = await res.json();
     return data;
 }

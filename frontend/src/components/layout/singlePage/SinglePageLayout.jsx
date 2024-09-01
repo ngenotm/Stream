@@ -2,7 +2,7 @@ import TopHeader from "@/components/singlePage/TopHeader";
 import Sidebar from "./Sidebar";
 import SubscriptionBox from "@/components/subscription/SubscriptionBox";
 
-const SinglePageLayout = ({ children, data }) => {
+const SinglePageLayout = ({ children, data, type }) => {
     const { _id: id, title, description, cover, language, genres, director, release_date, imdb_rating, rotten_rating } = data;
 
     return (
@@ -25,6 +25,7 @@ const SinglePageLayout = ({ children, data }) => {
                     rating={[{ source: 'IMDb', score: imdb_rating }, { source: 'Rotten Tomatoes', score: rotten_rating }]}
                     director={director}
                     genres={genres}
+                    type={type}
                 />
 
             </section>

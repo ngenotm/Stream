@@ -15,7 +15,7 @@ const SingleDirectorPage = async ({ params }) => {
 
     const { director } = data;
     const { movies, series } = data;
-    const { fullName, bio, country, birthDate, birthPlace, profile } = director;
+    const { fullName, bio, country, birthDate, birthPlace, profile, death_date } = director;
 
     return (
         <>
@@ -27,7 +27,7 @@ const SingleDirectorPage = async ({ params }) => {
                             <img
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${profile}`}
                                 alt={`${fullName} director`}
-                                className="aspect-square object-cover rounded-3xl "
+                                className={`aspect-square object-cover rounded-3xl ${death_date && "grayscale"}`}
                             />
                         </div>
                     </section>
@@ -39,7 +39,12 @@ const SingleDirectorPage = async ({ params }) => {
                         <div
                             className="bg-c-black-10 border border-c-black-15 rounded-2.5xl xl:px-8 xl:py-6 md:px-5 md:py-5 px-3.5 py-3.5"
                         >
-                            <h1 className="text-white 3xl:text-2.5xl xl:text-2xl text-xl tracking-wide capitalize">{fullName}</h1>
+                            <div className="flex justify-between items-center tracking-wide">
+                                <h1 className="text-white 3xl:text-2.5xl xl:text-2xl text-xl capitalize">{fullName}</h1>
+                                {death_date &&
+                                    <span className="text-super-base text-c-grey-60">Deceased</span>
+                                }
+                            </div>
                             <div className="xl:mt-8 mt-5 space-y-5">
 
                                 <div className="tracking-wide">
@@ -50,6 +55,16 @@ const SingleDirectorPage = async ({ params }) => {
                                         </span>
                                     </p>
                                 </div>
+                                {death_date &&
+                                    <div className="tracking-wide">
+                                        <p className="text-c-grey-60 3xl:text-lg xl:text-super-base text-super-sm mb-0.5">Date of Death:</p>
+                                        <p>
+                                            <span className="text-white 3xl:text-base xl:text-super-sm text-sm tracking-wide capitalize">
+                                                {death_date}
+                                            </span>
+                                        </p>
+                                    </div>
+                                }
                                 <div className="tracking-wide">
                                     <p className="text-c-grey-60 3xl:text-lg xl:text-super-base text-super-sm mb-0.5">Awards</p>
                                     <p>

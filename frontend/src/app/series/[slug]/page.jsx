@@ -30,6 +30,7 @@ const SingleSeries = async ({ params }) => {
         <Suspense fallback={<SinglePageSkeleton />}>
             <SinglePageLayout
                 data={seriesData}
+                type="series"
             >
                 {/*//! Seasons List Section */}
                 <SeasonsSection id={id} seriesTitle={title} />
