@@ -78,8 +78,8 @@ module.exports = {
       transitionDuration: {
         "400": "400ms",
       },
-      borderRadius:{
-        "2.5xl":"1.25rem",
+      borderRadius: {
+        "2.5xl": "1.25rem",
         "4xl": "2rem",
       },
     },

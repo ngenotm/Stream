@@ -48,7 +48,7 @@ const actorModel = mongoose.Schema({
             required: true
         },
     }],
-    deathDate: {
+    death_date: {
         type: Date,
         required: false
     },
