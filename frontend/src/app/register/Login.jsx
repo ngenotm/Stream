@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import Link from "next/link";
 import { useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
 
-import { toast } from "react-toastify";
-
+import useUserStore from "@/stores/useUserStore";
 
 
 const LoginPage = ({ page, setPage }) => {
     const router = useRouter();
     const { register, handleSubmit, formState: { errors }, setError } = useForm();
+    const fetchUser = useUserStore((state) => state.fetchUser);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = async (data) => {
@@ -29,7 +30,7 @@ const LoginPage = ({ page, setPage }) => {
                 const error = await loginResponse.json();
                 throw { status: loginResponse.status, message: error.message };
             }
-
+            await fetchUser();
             router.push("/");
             toast.success('Login successful!');
         } catch (err) {

@@ -30,7 +30,7 @@ const Navbar = () => {
 
                 <div className="flex items-center gap-4">
                     <SearchBox />
-                    {loading || !user ? <div className="3xl:w-[5rem] w-[4.1rem] h-1" ></div> : !loading && user ?
+                    {loading ? <div className="3xl:w-[5rem] w-[4.1rem] h-1 bg-red-400" ></div> : !loading && user ?
                         <>
                             <Link href="/profile" className="relative">
                                 <UserOIcon className="3xl:w-[2.4rem] 3xl:h-[2.4rem]" />
@@ -40,9 +40,11 @@ const Navbar = () => {
                             </Link>
                             <NotificationButton />
                         </> :
-                        <button className="focus:outline-none focus:border-none mx-2.5 md:inline hidden">
-                            <UserPlusOIcon className="3xl:w-[2.4rem] 3xl:h-[2.4rem]" />
-                        </button>
+                        <Link href="/register?page=login">
+                            <button className="focus:outline-none focus:border-none mx-2.5 md:inline hidden">
+                                <UserPlusOIcon className="3xl:w-[2.4rem] 3xl:h-[2.4rem]" />
+                            </button>
+                        </Link>
                     }
 
                     <button

@@ -45,7 +45,7 @@ exports.singleUser = async (req, res) => {
             setRefreshTokenCookie(res, newRefreshToken);
 
             await user.save();
-            console.log(refreshToken)
+            // console.log(refreshToken)
             user.refreshToken = undefined;
             return res.status(200).json({ status: 200, user, message: "User fetch successfully" });
         }

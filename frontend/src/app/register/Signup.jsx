@@ -1,14 +1,16 @@
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+
+import useUserStore from "@/stores/useUserStore";
 
 
 const SignupPage = ({ page, setPage }) => {
 
     const router = useRouter();
     const { register, handleSubmit, formState: { errors }, setError } = useForm();
+    const fetchUser = useUserStore((state) => state.fetchUser);
 
 
     const handleSignup = async (data) => {
@@ -45,7 +47,9 @@ const SignupPage = ({ page, setPage }) => {
             }
 
             const res = await response.json();
-            console.log(res);
+            
+            await fetchUser();
+            
             router.push("/");
             toast.success('Signup successful!');
         } catch (err) {

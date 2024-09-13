@@ -381,7 +381,7 @@ exports.downloadMovie = async (req, res) => {
 
     try {
         const file = path.join(__dirname, "..", `public`, "videos", url);
-        console.log(file)
+        // console.log(file)
         res.download(file)
     } catch (err) {
         res.status(500).json({

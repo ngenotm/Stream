@@ -5,7 +5,6 @@ const Series = require('../model/seriesModel');
 
 //! Get Request
 exports.getSeason = async (req, res) => {
-    console.log("first")
     try {
         const season = await Season.findById(req.params.id).populate('episodes');
         res.status(200).json({

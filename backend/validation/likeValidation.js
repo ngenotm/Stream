@@ -1,7 +1,7 @@
 const joi = require('joi');
 
 exports.likeValidation = (req, res, next) => {
-    console.log("likeValidation")
+    // console.log("likeValidation")
     const schema = joi.object({
         userId: joi.string().required(),
         media: joi.string().required()
