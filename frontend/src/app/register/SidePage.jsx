@@ -31,7 +31,7 @@ const SidePage = ({ page, setPage }) => {
 
     return (
         <div
-            className={`w-[50%] h-full bg-green-500 absolute transition-transform duration-700 bg-[url('/images/header-banner.jpg')] bg-cover bg-center overflow-hidden
+            className={`w-[50%] h-full absolute transition-transform duration-700 bg-[url('/images/header-banner.jpg')] bg-cover bg-center overflow-hidden
          ${page == "login" ? "transform-none" : "translate-x-full"}`}
         >
             <div className="w-full h-full bg-c-black-06/65 px-14 py-8">
