@@ -1,4 +1,5 @@
 import { RightArrowSvg } from "@/assets/Svgs";
+import Image from "next/image";
 import Link from "next/link";
 
 
@@ -13,8 +14,17 @@ const MultipleCard = ({ title, images, baseurl, topRated }) => {
                 <div className="mb-9">
                     <div className="grid grid-cols-2 gap-1">
                         {displayImages?.map((src, index) => (
-                            <img key={index} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${src}`} alt={src}
-                                className="w-full rounded-xl aspect-square object-cover object-top" />
+                            // <img key={index} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${src}`} alt={src}
+                            //     className="w-full rounded-xl aspect-square object-cover object-top" />
+                            <Image
+                                key={index}
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${src}`}
+                                alt={src}
+                                width={288}
+                                height={432}
+                                className="w-full rounded-xl aspect-square object-cover object-top"
+                                quality={55}
+                            />
                         ))}
                         {Array.from({ length: placeholders })?.map((_, index) => (
                             <div key={index + displayImages.length} className="w-full bg-c-black-20 rounded-xl aspect-square"></div>

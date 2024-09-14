@@ -30,7 +30,7 @@ const Navbar = () => {
 
                 <div className="flex items-center gap-4">
                     <SearchBox />
-                    {loading ? <div className="3xl:w-[5rem] w-[4.1rem] h-1 bg-red-400" ></div> : !loading && user ?
+                    {loading ? <div className="3xl:w-[5rem] w-[4.1rem] h-1" ></div> : !loading && user ?
                         <>
                             <Link href="/profile" className="relative">
                                 <UserOIcon className="3xl:w-[2.4rem] 3xl:h-[2.4rem]" />

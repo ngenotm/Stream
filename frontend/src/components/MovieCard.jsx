@@ -1,6 +1,7 @@
 import { ClockIcon, EpisodeIcon, EyeIcon, PlaySvg } from "@/assets/Svgs";
 import Link from "next/link";
 import StarRating from "./common/StarRating";
+import Image from "next/image";
 
 const MovieCard = ({ id, special, series, image, title, view, duration, episodes, rate }) => {
     return (
@@ -9,8 +10,15 @@ const MovieCard = ({ id, special, series, image, title, view, duration, episodes
                  ${special ? "max-md:w-full px-4 py-4" : "3xl:w-72 xl:w-60 md:w-52 w-44 px-2.5 py-2.5"} md:px-4 md:py-4 `}
         >
             <Link href={series ? `/series/${id}` : `/movies/${id}`}>
-                <img
+                {/* <img
                     src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${image}`} alt={title}
+                    className="rounded-xl w-full aspect-thumbnail object-cover object-top"
+                /> */}
+                <Image
+                    width={288}
+                    height={432}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${image}`}
+                    alt={title}
                     className="rounded-xl w-full aspect-thumbnail object-cover object-top"
                 />
             </Link>
