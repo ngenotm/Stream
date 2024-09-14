@@ -102,11 +102,11 @@ exports.trendingMovies = async (req, res) => {
         const skip = (page - 1) * limit;
 
         const recentMovies = await Movie.aggregate([
-            {
-                $match: {
-                    publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 60)) }
-                }
-            },
+            // {
+            //     $match: {
+            //         publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 60)) }
+            //     }
+            // },
             {
                 $lookup: {
                     from: 'reviews',

@@ -158,11 +158,11 @@ exports.trendingSeries = async (req, res) => {
         const skip = (page - 1) * limit;
 
         const recentSeries = await Series.aggregate([
-            {
-                $match: {
-                    publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
-                }
-            },
+            // {
+            //     $match: {
+            //         publish_date: { $gte: new Date(currentDate.setDate(currentDate.getDate() - 30)) }
+            //     }
+            // },
             {
                 $lookup: {
                     from: 'reviews',
